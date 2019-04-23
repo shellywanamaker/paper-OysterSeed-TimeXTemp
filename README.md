@@ -4,9 +4,10 @@
 
 #### Methods:  
 
-1. Supplementary_File1:  DDA proteomics analysis workflow starting from .raw files. 
-2. Supplementary_File2:  COMET 2016.01 'comet.params.high-low' search parameters used in COMET analysis of mass spectrometry data download from http://comet-ms.sourceforge.net/parameters/parameters_201601/comet.params.high-low
-3. Supplementary_File3:  ABACUS parameter file used in ABACUS analysis of mass spectrometry data
+1. Supplementary_File1:  DDA proteomics analysis workflow that converts files from .raw to .mzXML, searches .mzXML files against C. gigas database, calculates statistics associated with peptide and protein IDs using the Trans Proteomic Pipeline, and correlates protein inferences using ABACUS.   
+2. Supplementary_File2: C. gigas protein sequence database ('contigs.fasta.transdecoder.pep.gz') downloaded from http://gigaton.sigenae.org/ngspipelines/#!/NGSpipelines/Crassostrea%20gigas%20-%20GIGATON
+2. Supplementary_File3:  COMET 2016.01 'comet.params.high-low' search parameters used in COMET analysis of mass spectrometry data download from http://comet-ms.sourceforge.net/parameters/parameters_201601/comet.params.high-low
+3. Supplementary_File4:  ABACUS parameter file used in ABACUS analysis of mass spectrometry data
 
 #### Data:  
 
