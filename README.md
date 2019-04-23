@@ -5,13 +5,13 @@
 #### Methods:  
 
 1. Supplementary_File1:  DDA proteomics analysis workflow that converts files from .raw to .mzXML, searches .mzXML files against C. gigas database, calculates statistics associated with peptide and protein IDs using the Trans Proteomic Pipeline, and correlates protein inferences using ABACUS.   
-2. Supplementary_File2: C. gigas protein sequence database ('contigs.fasta.transdecoder.pep.gz') downloaded from http://gigaton.sigenae.org/ngspipelines/#!/NGSpipelines/Crassostrea%20gigas%20-%20GIGATON
+2. Supplementary_File2: FASTA file containing FASTA sequence file of the C. gigas proteome downloaded from http://gigaton.sigenae.org ('contigs.fasta.transdecoder.pep.gz') and common contaminants downloaded from the crapOME (Mellacheruvu et al. Nat Methods 2013).
 2. Supplementary_File3:  COMET 2016.01 'comet.params.high-low' search parameters used in COMET analysis of mass spectrometry data download from http://comet-ms.sourceforge.net/parameters/parameters_201601/comet.params.high-low
 3. Supplementary_File4:  ABACUS parameter file used in ABACUS analysis of mass spectrometry data
 
 #### Data:  
 
-1. Supplementary_Data1:  Cg-Giga_cont_AA.fa.gz FASTA sequence file of the C. gigas proteome downloaded from http://gigaton.sigenae.org (file name: contigs.fasta.transdecoder.pep.gz) and common contaminants downloaded from the crapOME (Mellacheruvu et al. Nat Methods 2013).
+1. Supplementary_Data1:  
 2. Supplementary_Data2:  ABACUS_output.tsv.gz file output from ABACUS analysis
 3. Supplementary_Data3:  Average NSAF values for all proteins (listed in columns) detected in all samples (listed in rows) where NSAF values of 0 have been converted to 0.1.
 4. Supplementary_Data4:  Proteins and their clusters assigned by hierarchical clustering analysis
