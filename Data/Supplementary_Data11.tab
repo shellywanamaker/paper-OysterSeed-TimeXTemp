@@ -1,0 +1,756 @@
+Var1	Var2	semsimValue	type
+cellular protein modification proce...	cellular nitrogen compound metaboli...	0.615976820936905	term-term
+catabolic process	cellular nitrogen compound metaboli...	0.505630679638114	term-term
+cellular protein modification proce...	nucleobase-containing compound cata...	0.504103943564127	term-term
+catabolic process	nucleobase-containing compound cata...	0.915143743263545	term-term
+cellular nitrogen compound metaboli...	nucleobase-containing compound cata...	0.778075774250422	term-term
+cellular protein modification proce...	carbohydrate metabolic process	0.504103943564127	term-term
+nucleobase-containing compound cata...	carbohydrate metabolic process	0.504103943564127	term-term
+cell cycle	mitotic cell cycle	0.915143743263545	term-term
+cellular protein modification proce...	DNA metabolic process	0.687124423315857	term-term
+cellular nitrogen compound metaboli...	DNA metabolic process	0.778075774250422	term-term
+nucleobase-containing compound cata...	DNA metabolic process	0.752051971782063	term-term
+carbohydrate metabolic process	DNA metabolic process	0.504103943564127	term-term
+cellular protein modification proce...	lipid metabolic process	0.504103943564127	term-term
+nucleobase-containing compound cata...	lipid metabolic process	0.504103943564127	term-term
+carbohydrate metabolic process	lipid metabolic process	0.504103943564127	term-term
+DNA metabolic process	lipid metabolic process	0.504103943564127	term-term
+anatomical structure formation invo...	anatomical structure development	0.64615577350585	term-term
+anatomical structure formation invo...	embryo development	0.595614183439992	term-term
+anatomical structure development	embryo development	0.915143743263545	term-term
+signal transduction	homeostatic process	0.843562211657928	term-term
+cellular protein modification proce...	translation	0.843562211657928	term-term
+cellular nitrogen compound metaboli...	translation	0.778075774250422	term-term
+nucleobase-containing compound cata...	translation	0.636762704146501	term-term
+carbohydrate metabolic process	translation	0.504103943564127	term-term
+DNA metabolic process	translation	0.687124423315857	term-term
+lipid metabolic process	translation	0.504103943564127	term-term
+cellular nitrogen compound metaboli...	biosynthetic process	0.505630679638114	term-term
+translation	biosynthetic process	0.915143743263545	term-term
+transport	vesicle-mediated transport	0.718625222146437	term-term
+cytoskeleton organization	cell morphogenesis	0.504103943564127	term-term
+anatomical structure formation invo...	cell morphogenesis	0.595614183439992	term-term
+anatomical structure development	cell morphogenesis	0.64615577350585	term-term
+embryo development	cell morphogenesis	0.687124423315857	term-term
+DNA binding	translation factor activity, RNA bi...	0.687124423315857	term-term
+ion binding	RNA binding	0.52374493000122	term-term
+DNA binding	RNA binding	0.784365343474329	term-term
+lipid binding	RNA binding	0.52374493000122	term-term
+enzyme binding	RNA binding	0.52374493000122	term-term
+translation factor activity, RNA bi...	RNA binding	0.858481350889528	term-term
+DNA binding	rRNA binding	0.687124423315857	term-term
+translation factor activity, RNA bi...	rRNA binding	0.752051971782063	term-term
+RNA binding	rRNA binding	0.858481350889528	term-term
+structural constituent of ribosome	structural molecule activity	0.915143743263545	term-term
+enzyme binding	cytoskeletal protein binding	0.636762704146501	term-term
+RNA binding	cytoskeletal protein binding	0.52374493000122	term-term
+GTPase activity	peptidase activity	0.636762704146501	term-term
+kinase activity	transferase activity, transferring ...	0.752051971782063	term-term
+GTPase activity	nuclease activity	0.636762704146501	term-term
+peptidase activity	nuclease activity	0.636762704146501	term-term
+GTPase activity	hydrolase activity, acting on glyco...	0.636762704146501	term-term
+peptidase activity	hydrolase activity, acting on glyco...	0.636762704146501	term-term
+nuclease activity	hydrolase activity, acting on glyco...	0.636762704146501	term-term
+cellular nitrogen compound metaboli...	small molecule metabolic process	0.505630679638114	term-term
+lipid metabolic process	small molecule metabolic process	0.745431229790636	term-term
+cellular protein modification proce...	generation of precursor metabolites...	0.504103943564127	term-term
+cellular nitrogen compound metaboli...	generation of precursor metabolites...	0.615976820936905	term-term
+nucleobase-containing compound cata...	generation of precursor metabolites...	0.504103943564127	term-term
+DNA metabolic process	generation of precursor metabolites...	0.504103943564127	term-term
+translation	generation of precursor metabolites...	0.504103943564127	term-term
+cellular protein modification proce...	cofactor metabolic process	0.504103943564127	term-term
+cellular nitrogen compound metaboli...	cofactor metabolic process	0.615976820936905	term-term
+nucleobase-containing compound cata...	cofactor metabolic process	0.504103943564127	term-term
+DNA metabolic process	cofactor metabolic process	0.504103943564127	term-term
+translation	cofactor metabolic process	0.504103943564127	term-term
+generation of precursor metabolites...	cofactor metabolic process	0.504103943564127	term-term
+cytoskeleton organization	protein-containing complex assembly	0.504103943564127	term-term
+cell morphogenesis	protein-containing complex assembly	0.504103943564127	term-term
+cytoskeleton organization	cellular component assembly	0.546880317221063	term-term
+cell morphogenesis	cellular component assembly	0.546880317221063	term-term
+protein-containing complex assembly	cellular component assembly	0.915143743263545	term-term
+cellular protein modification proce...	mRNA processing	0.687124423315857	term-term
+cellular nitrogen compound metaboli...	mRNA processing	0.778075774250422	term-term
+nucleobase-containing compound cata...	mRNA processing	0.752051971782063	term-term
+carbohydrate metabolic process	mRNA processing	0.504103943564127	term-term
+DNA metabolic process	mRNA processing	0.843562211657928	term-term
+lipid metabolic process	mRNA processing	0.504103943564127	term-term
+translation	mRNA processing	0.687124423315857	term-term
+generation of precursor metabolites...	mRNA processing	0.504103943564127	term-term
+cofactor metabolic process	mRNA processing	0.504103943564127	term-term
+cellular protein modification proce...	cellular amino acid metabolic proce...	0.504103943564127	term-term
+cellular nitrogen compound metaboli...	cellular amino acid metabolic proce...	0.727795399945379	term-term
+nucleobase-containing compound cata...	cellular amino acid metabolic proce...	0.595614183439992	term-term
+carbohydrate metabolic process	cellular amino acid metabolic proce...	0.504103943564127	term-term
+DNA metabolic process	cellular amino acid metabolic proce...	0.595614183439992	term-term
+lipid metabolic process	cellular amino acid metabolic proce...	0.687124423315857	term-term
+translation	cellular amino acid metabolic proce...	0.843562211657928	term-term
+small molecule metabolic process	cellular amino acid metabolic proce...	0.915143743263545	term-term
+generation of precursor metabolites...	cellular amino acid metabolic proce...	0.504103943564127	term-term
+cofactor metabolic process	cellular amino acid metabolic proce...	0.504103943564127	term-term
+mRNA processing	cellular amino acid metabolic proce...	0.595614183439992	term-term
+cytoskeleton organization	membrane organization	0.546880317221063	term-term
+cell morphogenesis	membrane organization	0.546880317221063	term-term
+protein-containing complex assembly	membrane organization	0.546880317221063	term-term
+cellular component assembly	membrane organization	0.59758952759793	term-term
+transport	protein targeting	0.718625222146437	term-term
+vesicle-mediated transport	protein targeting	0.56082360490208	term-term
+transport	nucleocytoplasmic transport	0.718625222146437	term-term
+vesicle-mediated transport	nucleocytoplasmic transport	0.56082360490208	term-term
+protein targeting	nucleocytoplasmic transport	0.752051971782063	term-term
+cytoskeleton organization	plasma membrane organization	0.504103943564127	term-term
+cell morphogenesis	plasma membrane organization	0.504103943564127	term-term
+protein-containing complex assembly	plasma membrane organization	0.504103943564127	term-term
+cellular component assembly	plasma membrane organization	0.546880317221063	term-term
+membrane organization	plasma membrane organization	0.915143743263545	term-term
+transport	vacuolar transport	0.718625222146437	term-term
+vesicle-mediated transport	vacuolar transport	0.56082360490208	term-term
+protein targeting	vacuolar transport	0.56082360490208	term-term
+nucleocytoplasmic transport	vacuolar transport	0.56082360490208	term-term
+cytoskeleton organization	chromosome organization	0.843562211657928	term-term
+cell morphogenesis	chromosome organization	0.504103943564127	term-term
+protein-containing complex assembly	chromosome organization	0.504103943564127	term-term
+cellular component assembly	chromosome organization	0.546880317221063	term-term
+membrane organization	chromosome organization	0.546880317221063	term-term
+plasma membrane organization	chromosome organization	0.504103943564127	term-term
+anatomical structure formation invo...	developmental maturation	0.595614183439992	term-term
+anatomical structure development	developmental maturation	0.64615577350585	term-term
+embryo development	developmental maturation	0.687124423315857	term-term
+cell morphogenesis	developmental maturation	0.687124423315857	term-term
+embryo development	nervous system process	0.843562211657928	term-term
+enzyme binding	transcription factor binding	0.636762704146501	term-term
+RNA binding	transcription factor binding	0.52374493000122	term-term
+cytoskeletal protein binding	transcription factor binding	0.636762704146501	term-term
+kinase activity	methyltransferase activity	0.752051971782063	term-term
+transferase activity, transferring ...	methyltransferase activity	0.752051971782063	term-term
+GTPase activity	ATPase activity	0.843562211657928	term-term
+peptidase activity	ATPase activity	0.636762704146501	term-term
+nuclease activity	ATPase activity	0.636762704146501	term-term
+hydrolase activity, acting on glyco...	ATPase activity	0.636762704146501	term-term
+transport	transmembrane transport	0.718625222146437	term-term
+vesicle-mediated transport	transmembrane transport	0.56082360490208	term-term
+protein targeting	transmembrane transport	0.56082360490208	term-term
+nucleocytoplasmic transport	transmembrane transport	0.56082360490208	term-term
+vacuolar transport	transmembrane transport	0.56082360490208	term-term
+cell motility	locomotion	0.915143743263545	term-term
+cellular protein modification proce...	protein maturation	0.752051971782063	term-term
+nucleobase-containing compound cata...	protein maturation	0.504103943564127	term-term
+carbohydrate metabolic process	protein maturation	0.504103943564127	term-term
+DNA metabolic process	protein maturation	0.636762704146501	term-term
+lipid metabolic process	protein maturation	0.504103943564127	term-term
+translation	protein maturation	0.752051971782063	term-term
+mRNA processing	protein maturation	0.636762704146501	term-term
+cellular amino acid metabolic proce...	protein maturation	0.504103943564127	term-term
+lipid metabolic process	secondary metabolic process	0.687124423315857	term-term
+small molecule metabolic process	secondary metabolic process	0.745431229790636	term-term
+cellular amino acid metabolic proce...	secondary metabolic process	0.687124423315857	term-term
+anatomical structure formation invo...	cell differentiation	0.595614183439992	term-term
+anatomical structure development	cell differentiation	0.64615577350585	term-term
+embryo development	cell differentiation	0.687124423315857	term-term
+cell morphogenesis	cell differentiation	0.843562211657928	term-term
+developmental maturation	cell differentiation	0.687124423315857	term-term
+cytoskeleton organization	extracellular matrix organization	0.504103943564127	term-term
+cell morphogenesis	extracellular matrix organization	0.504103943564127	term-term
+protein-containing complex assembly	extracellular matrix organization	0.504103943564127	term-term
+cellular component assembly	extracellular matrix organization	0.546880317221063	term-term
+membrane organization	extracellular matrix organization	0.546880317221063	term-term
+plasma membrane organization	extracellular matrix organization	0.504103943564127	term-term
+chromosome organization	extracellular matrix organization	0.504103943564127	term-term
+transport	cytoskeleton-dependent intracellula...	0.718625222146437	term-term
+vesicle-mediated transport	cytoskeleton-dependent intracellula...	0.56082360490208	term-term
+protein targeting	cytoskeleton-dependent intracellula...	0.752051971782063	term-term
+nucleocytoplasmic transport	cytoskeleton-dependent intracellula...	0.752051971782063	term-term
+vacuolar transport	cytoskeleton-dependent intracellula...	0.56082360490208	term-term
+transmembrane transport	cytoskeleton-dependent intracellula...	0.56082360490208	term-term
+cytoskeleton organization	cell junction organization	0.504103943564127	term-term
+cell morphogenesis	cell junction organization	0.504103943564127	term-term
+protein-containing complex assembly	cell junction organization	0.504103943564127	term-term
+cellular component assembly	cell junction organization	0.546880317221063	term-term
+membrane organization	cell junction organization	0.546880317221063	term-term
+plasma membrane organization	cell junction organization	0.504103943564127	term-term
+chromosome organization	cell junction organization	0.504103943564127	term-term
+extracellular matrix organization	cell junction organization	0.504103943564127	term-term
+cellular component assembly	ribosome biogenesis	0.521083490176847	term-term
+membrane organization	ribosome biogenesis	0.521083490176847	term-term
+enzyme binding	ubiquitin-like protein binding	0.636762704146501	term-term
+RNA binding	ubiquitin-like protein binding	0.52374493000122	term-term
+cytoskeletal protein binding	ubiquitin-like protein binding	0.636762704146501	term-term
+transcription factor binding	ubiquitin-like protein binding	0.636762704146501	term-term
+enzyme binding	unfolded protein binding	0.636762704146501	term-term
+RNA binding	unfolded protein binding	0.52374493000122	term-term
+cytoskeletal protein binding	unfolded protein binding	0.636762704146501	term-term
+transcription factor binding	unfolded protein binding	0.636762704146501	term-term
+ubiquitin-like protein binding	unfolded protein binding	0.636762704146501	term-term
+SPTN5	signal transduction	NA	protein-term
+SPTN5	cellular protein modification proce...	NA	protein-term
+RL18A	catabolic process	NA	protein-term
+RL18A	cellular nitrogen compound metaboli...	NA	protein-term
+RL18A	nucleobase-containing compound cata...	NA	protein-term
+TBA3	cytoskeleton organization	NA	protein-term
+TBA1	cytoskeleton organization	NA	protein-term
+MANA	carbohydrate metabolic process	NA	protein-term
+MANA	catabolic process	NA	protein-term
+TBA3	cell cycle	NA	protein-term
+TBA3	mitotic cell cycle	NA	protein-term
+TBA1	cell cycle	NA	protein-term
+TBA1	mitotic cell cycle	NA	protein-term
+FLNA.2.6.m.11845	cell cycle	NA	protein-term
+FLNA.2.6.m.11845	mitotic cell cycle	NA	protein-term
+CENPF	cell cycle	NA	protein-term
+CENPF	mitotic cell cycle	NA	protein-term
+OBG	ion binding	NA	protein-term
+ENO	ion binding	NA	protein-term
+PPIB	cellular protein modification proce...	NA	protein-term
+XRN2	catabolic process	NA	protein-term
+XRN2	cellular nitrogen compound metaboli...	NA	protein-term
+XRN2	nucleobase-containing compound cata...	NA	protein-term
+XRN2	DNA metabolic process	NA	protein-term
+XRN2	DNA binding	NA	protein-term
+PGBM	lipid metabolic process	NA	protein-term
+PGBM	anatomical structure formation invo...	NA	protein-term
+DMBT1	lipid binding	NA	protein-term
+TITIN.8.19.m.35861	anatomical structure development	NA	protein-term
+TITIN.8.19.m.35861	embryo development	NA	protein-term
+TITIN.8.19.m.35861	anatomical structure formation invo...	NA	protein-term
+CENPF	anatomical structure development	NA	protein-term
+FAT4.1.1.m.65727	anatomical structure development	NA	protein-term
+FAT4.1.1.m.34344	anatomical structure development	NA	protein-term
+HSPB1	homeostatic process	NA	protein-term
+TITIN.m.27774	enzyme binding	NA	protein-term
+TITIN.8.19.m.35861	enzyme binding	NA	protein-term
+HYDIN.4.6.m.27594	anatomical structure development	NA	protein-term
+HYDIN.2.6.m.7640	anatomical structure development	NA	protein-term
+RL18A	translation	NA	protein-term
+RL18A	biosynthetic process	NA	protein-term
+FLNA.2.5.m.37450	transport	NA	protein-term
+FLNA.2.5.m.37450	vesicle-mediated transport	NA	protein-term
+TITIN.m.27774	transport	NA	protein-term
+TITIN.m.27774	vesicle-mediated transport	NA	protein-term
+IFT74	anatomical structure development	NA	protein-term
+CO6A3	cell morphogenesis	NA	protein-term
+MATN1	cell morphogenesis	NA	protein-term
+HEXP	DNA binding	NA	protein-term
+H2B7	DNA binding	NA	protein-term
+DMBT1	DNA binding	NA	protein-term
+FAS	DNA binding	NA	protein-term
+RL18A	translation factor activity, RNA bi...	NA	protein-term
+RL18A	RNA binding	NA	protein-term
+RL18A	rRNA binding	NA	protein-term
+FLNA.2.5.m.37450	translation factor activity, RNA bi...	NA	protein-term
+FLNA.2.5.m.37450	RNA binding	NA	protein-term
+FLNA.2.5.m.37450	rRNA binding	NA	protein-term
+HSPB1	translation factor activity, RNA bi...	NA	protein-term
+HSPB1	RNA binding	NA	protein-term
+HSPB1	rRNA binding	NA	protein-term
+RL18A	structural constituent of ribosome	NA	protein-term
+RL18A	structural molecule activity	NA	protein-term
+RLA2	structural constituent of ribosome	NA	protein-term
+RLA2	structural molecule activity	NA	protein-term
+RS3A	structural constituent of ribosome	NA	protein-term
+RS3A	structural molecule activity	NA	protein-term
+EF2.4.5.m.30186	translation factor activity, RNA bi...	NA	protein-term
+EF2.4.5.m.30186	RNA binding	NA	protein-term
+EF2.5.5.m.39855	translation factor activity, RNA bi...	NA	protein-term
+EF2.5.5.m.39855	RNA binding	NA	protein-term
+EF1A.1.3.m.30022	translation factor activity, RNA bi...	NA	protein-term
+EF1A.1.3.m.30022	RNA binding	NA	protein-term
+EF1A.2.4.m.50858	translation factor activity, RNA bi...	NA	protein-term
+EF1A.2.4.m.50858	RNA binding	NA	protein-term
+FKB14	isomerase activity	NA	protein-term
+PPIB	isomerase activity	NA	protein-term
+PPIA	isomerase activity	NA	protein-term
+SPTCA	cytoskeletal protein binding	NA	protein-term
+FLNA.2.6.m.11845	cytoskeletal protein binding	NA	protein-term
+SPTCB	cytoskeletal protein binding	NA	protein-term
+SPTN5	cytoskeletal protein binding	NA	protein-term
+TBB.1.7.m.12262	GTPase activity	NA	protein-term
+TBB.7.7.m.63980	GTPase activity	NA	protein-term
+TBA3	GTPase activity	NA	protein-term
+EF2.5.5.m.39855	GTPase activity	NA	protein-term
+OBG	GTPase activity	NA	protein-term
+EF2.4.5.m.30186	GTPase activity	NA	protein-term
+EF1A.1.3.m.30022	GTPase activity	NA	protein-term
+TBA1	GTPase activity	NA	protein-term
+EF1A.2.4.m.50858	GTPase activity	NA	protein-term
+KARG	kinase activity	NA	protein-term
+ASNS	ligase activity	NA	protein-term
+CATA.1.3.m.11120	oxidoreductase activity	NA	protein-term
+CATA.3.3.m.21642	oxidoreductase activity	NA	protein-term
+KCY	kinase activity	NA	protein-term
+PIDD1	peptidase activity	NA	protein-term
+CNDP2	peptidase activity	NA	protein-term
+FAS	transferase activity, transferring ...	NA	protein-term
+FAS	oxidoreductase activity	NA	protein-term
+FUMA	lyase activity	NA	protein-term
+SNO1	oxidoreductase activity	NA	protein-term
+RAD50.15.22.m.47579	nuclease activity	NA	protein-term
+RAD50.16.22.m.50235	nuclease activity	NA	protein-term
+XRN2	nuclease activity	NA	protein-term
+KAD9.2.3.m.49697	kinase activity	NA	protein-term
+KAD9.3.3.m.63103	kinase activity	NA	protein-term
+AMY1	hydrolase activity, acting on glyco...	NA	protein-term
+PCKG	lyase activity	NA	protein-term
+ENO	lyase activity	NA	protein-term
+UNC22.3.7.m.20773	kinase activity	NA	protein-term
+TITIN.8.19.m.35861	kinase activity	NA	protein-term
+UNC22.5.7.m.43551	kinase activity	NA	protein-term
+TITIN.m.27774	kinase activity	NA	protein-term
+UNC22.2.7.m.2274	kinase activity	NA	protein-term
+UNC22.7.7.m.54053	kinase activity	NA	protein-term
+CDPK3	kinase activity	NA	protein-term
+SPI2	enzyme regulator activity	NA	protein-term
+ITIH4	enzyme regulator activity	NA	protein-term
+CO6A3	enzyme regulator activity	NA	protein-term
+CRB	enzyme binding	NA	protein-term
+HSPB1	enzyme binding	NA	protein-term
+HTS	structural constituent of ribosome	NA	protein-term
+HTS	structural molecule activity	NA	protein-term
+IFEA	structural constituent of ribosome	NA	protein-term
+IFEA	structural molecule activity	NA	protein-term
+TBB.7.7.m.63980	structural molecule activity	NA	protein-term
+TBB.1.7.m.12262	structural molecule activity	NA	protein-term
+ARP3	structural molecule activity	NA	protein-term
+TBA1	structural molecule activity	NA	protein-term
+TITIN.8.19.m.35861	structural molecule activity	NA	protein-term
+SPTCB	structural molecule activity	NA	protein-term
+TBA	structural molecule activity	NA	protein-term
+TBA3	structural molecule activity	NA	protein-term
+MATN1	structural molecule activity	NA	protein-term
+HMCN1	structural molecule activity	NA	protein-term
+PIDD1	transmembrane transporter activity	NA	protein-term
+FAT4.1.1.m.65727	ion binding	NA	protein-term
+AMY1	ion binding	NA	protein-term
+DYH7.2.2.m.46648	ion binding	NA	protein-term
+CDPK3	ion binding	NA	protein-term
+SPTCA	ion binding	NA	protein-term
+PGBM	ion binding	NA	protein-term
+CALR	ion binding	NA	protein-term
+HMCN1	ion binding	NA	protein-term
+TITIN.m.27774	ion binding	NA	protein-term
+SVEP1	ion binding	NA	protein-term
+EFCB5	ion binding	NA	protein-term
+MLE	ion binding	NA	protein-term
+CRB	ion binding	NA	protein-term
+TITIN.8.19.m.35861	ion binding	NA	protein-term
+EFCB6	ion binding	NA	protein-term
+FKB14	ion binding	NA	protein-term
+DYH7.2.3.m.32353	ion binding	NA	protein-term
+FAT4.1.1.m.34344	ion binding	NA	protein-term
+MLRA	ion binding	NA	protein-term
+MATN1	ion binding	NA	protein-term
+SPTCB	lipid binding	NA	protein-term
+PGBM	biosynthetic process	NA	protein-term
+PGBM	catabolic process	NA	protein-term
+FAS	small molecule metabolic process	NA	protein-term
+PCKG	biosynthetic process	NA	protein-term
+PCKG	small molecule metabolic process	NA	protein-term
+PCKG	carbohydrate metabolic process	NA	protein-term
+ENO	carbohydrate metabolic process	NA	protein-term
+ENO	cellular nitrogen compound metaboli...	NA	protein-term
+ENO	small molecule metabolic process	NA	protein-term
+ENO	generation of precursor metabolites...	NA	protein-term
+ENO	cofactor metabolic process	NA	protein-term
+ENO	catabolic process	NA	protein-term
+FUMA	small molecule metabolic process	NA	protein-term
+KCY	small molecule metabolic process	NA	protein-term
+KCY	cellular nitrogen compound metaboli...	NA	protein-term
+KAD9.3.3.m.63103	cellular nitrogen compound metaboli...	NA	protein-term
+KAD9.3.3.m.63103	biosynthetic process	NA	protein-term
+KAD9.3.3.m.63103	small molecule metabolic process	NA	protein-term
+KAD9.2.3.m.49697	cellular nitrogen compound metaboli...	NA	protein-term
+KAD9.2.3.m.49697	biosynthetic process	NA	protein-term
+KAD9.2.3.m.49697	small molecule metabolic process	NA	protein-term
+KCY	biosynthetic process	NA	protein-term
+RAD50.16.22.m.50235	cellular nitrogen compound metaboli...	NA	protein-term
+RAD50.16.22.m.50235	DNA metabolic process	NA	protein-term
+RAD50.16.22.m.50235	response to stress	NA	protein-term
+RAD50.15.22.m.47579	cellular nitrogen compound metaboli...	NA	protein-term
+RAD50.15.22.m.47579	DNA metabolic process	NA	protein-term
+RAD50.15.22.m.47579	response to stress	NA	protein-term
+H2B7	protein-containing complex assembly	NA	protein-term
+H2B7	cellular component assembly	NA	protein-term
+XRN2	biosynthetic process	NA	protein-term
+FAU1	cellular nitrogen compound metaboli...	NA	protein-term
+XRN2	mRNA processing	NA	protein-term
+EF1A.2.4.m.50858	cellular nitrogen compound metaboli...	NA	protein-term
+EF1A.2.4.m.50858	translation	NA	protein-term
+EF1A.2.4.m.50858	biosynthetic process	NA	protein-term
+EF1A.1.3.m.30022	cellular nitrogen compound metaboli...	NA	protein-term
+EF1A.1.3.m.30022	translation	NA	protein-term
+EF1A.1.3.m.30022	biosynthetic process	NA	protein-term
+RS3A	cellular nitrogen compound metaboli...	NA	protein-term
+RS3A	translation	NA	protein-term
+RS3A	biosynthetic process	NA	protein-term
+RLA2	biosynthetic process	NA	protein-term
+EF2.4.5.m.30186	biosynthetic process	NA	protein-term
+EF2.5.5.m.39855	biosynthetic process	NA	protein-term
+H90A1	protein folding	NA	protein-term
+TCPD	protein folding	NA	protein-term
+PPIA	protein folding	NA	protein-term
+CALR	protein folding	NA	protein-term
+CDPK3	cellular protein modification proce...	NA	protein-term
+ANM1	cellular protein modification proce...	NA	protein-term
+ASNS	small molecule metabolic process	NA	protein-term
+ASNS	cellular amino acid metabolic proce...	NA	protein-term
+CRNS1	catabolic process	NA	protein-term
+CRNS1	cellular amino acid metabolic proce...	NA	protein-term
+CRNS1	small molecule metabolic process	NA	protein-term
+RL18A	membrane organization	NA	protein-term
+RL18A	protein targeting	NA	protein-term
+RL18A	transport	NA	protein-term
+FAS	lipid metabolic process	NA	protein-term
+FAS	biosynthetic process	NA	protein-term
+SIDF	biosynthetic process	NA	protein-term
+SIDF	lipid metabolic process	NA	protein-term
+SIDF	small molecule metabolic process	NA	protein-term
+KAD9.2.3.m.49697	generation of precursor metabolites...	NA	protein-term
+KAD9.3.3.m.63103	generation of precursor metabolites...	NA	protein-term
+SPTN5	vesicle-mediated transport	NA	protein-term
+SPTN5	transport	NA	protein-term
+PGBM	vesicle-mediated transport	NA	protein-term
+PGBM	transport	NA	protein-term
+DMBT1	vesicle-mediated transport	NA	protein-term
+DMBT1	transport	NA	protein-term
+AN32A	transport	NA	protein-term
+AN32A	nucleocytoplasmic transport	NA	protein-term
+PIDD1	cell death	NA	protein-term
+ITIH4	response to stress	NA	protein-term
+PGBM	response to stress	NA	protein-term
+PIDD1	response to stress	NA	protein-term
+PIDD1	signal transduction	NA	protein-term
+CATA.1.3.m.11120	response to stress	NA	protein-term
+CATA.3.3.m.21642	response to stress	NA	protein-term
+HSPB1	response to stress	NA	protein-term
+FAT4.1.1.m.34344	membrane organization	NA	protein-term
+FAT4.1.1.m.34344	plasma membrane organization	NA	protein-term
+SPTCA	membrane organization	NA	protein-term
+SPTCA	plasma membrane organization	NA	protein-term
+FAT4.1.1.m.65727	membrane organization	NA	protein-term
+FAT4.1.1.m.65727	plasma membrane organization	NA	protein-term
+SPTCB	membrane organization	NA	protein-term
+SPTCB	plasma membrane organization	NA	protein-term
+PMFBP	cytoskeleton organization	NA	protein-term
+SPTN5	vacuolar transport	NA	protein-term
+HMCN1	cell cycle	NA	protein-term
+HMCN1	mitotic cell cycle	NA	protein-term
+CENPF	chromosome segregation	NA	protein-term
+TITIN.m.27774	chromosome organization	NA	protein-term
+SVEP1	cell adhesion	NA	protein-term
+SSPO.3.8.m.32060	cell adhesion	NA	protein-term
+SSPO.7.8.m.41875	cell adhesion	NA	protein-term
+CO6A3	cell adhesion	NA	protein-term
+SSPO.6.8.m.41866	cell adhesion	NA	protein-term
+FAT4.1.1.m.34344	cell adhesion	NA	protein-term
+FAT4.1.1.m.65727	cell adhesion	NA	protein-term
+HMCN1	cell adhesion	NA	protein-term
+FLNA.2.5.m.37450	signal transduction	NA	protein-term
+FMRA.2.2.m.39076	signal transduction	NA	protein-term
+FMRA.1.2.m.29071	signal transduction	NA	protein-term
+IFT74	signal transduction	NA	protein-term
+FAT4.1.1.m.34344	signal transduction	NA	protein-term
+FAT4.1.1.m.65727	signal transduction	NA	protein-term
+SPTCA	cell-cell signaling	NA	protein-term
+SPTCB	cell-cell signaling	NA	protein-term
+CDPK3	embryo development	NA	protein-term
+CDPK3	anatomical structure development	NA	protein-term
+DMBT1	embryo development	NA	protein-term
+DMBT1	anatomical structure development	NA	protein-term
+HTS	cell division	NA	protein-term
+DYH1	cytoskeleton organization	NA	protein-term
+DYH1	cellular component assembly	NA	protein-term
+FLNA.2.6.m.11845	transport	NA	protein-term
+SPTCA	developmental maturation	NA	protein-term
+SSPO.6.8.m.41866	anatomical structure development	NA	protein-term
+SPTCB	anatomical structure development	NA	protein-term
+SSPO.7.8.m.41875	anatomical structure development	NA	protein-term
+SSPO.3.8.m.32060	anatomical structure development	NA	protein-term
+CRB	anatomical structure development	NA	protein-term
+SPTCA	anatomical structure development	NA	protein-term
+PGBM	anatomical structure development	NA	protein-term
+LAMA	anatomical structure development	NA	protein-term
+DYH5.1.2.m.56799	anatomical structure development	NA	protein-term
+DYH5.2.2.m.61452	anatomical structure development	NA	protein-term
+H90A1	anatomical structure development	NA	protein-term
+HTS	anatomical structure development	NA	protein-term
+ANM1	anatomical structure development	NA	protein-term
+FLNA.2.6.m.11845	nervous system process	NA	protein-term
+DAPLE	cytoskeletal protein binding	NA	protein-term
+COR1B	cytoskeletal protein binding	NA	protein-term
+FLNA.2.5.m.37450	transcription factor binding	NA	protein-term
+CENPF	transcription factor binding	NA	protein-term
+ANM1	methyltransferase activity	NA	protein-term
+RAD50.15.22.m.47579	ion binding	NA	protein-term
+HEXP	ion binding	NA	protein-term
+RAD50.16.22.m.50235	ion binding	NA	protein-term
+CENPF	cell proliferation	NA	protein-term
+UNC22.7.7.m.54053	structural molecule activity	NA	protein-term
+UNC22.2.7.m.2274	structural molecule activity	NA	protein-term
+UNC22.3.7.m.20773	structural molecule activity	NA	protein-term
+UNC22.5.7.m.43551	structural molecule activity	NA	protein-term
+TITIN.m.27774	structural molecule activity	NA	protein-term
+ARP3	cell division	NA	protein-term
+HSPB1	enzyme regulator activity	NA	protein-term
+DYH2.1.2.m.24785	ATPase activity	NA	protein-term
+DYH7.2.2.m.46648	ATPase activity	NA	protein-term
+DYHC2	ATPase activity	NA	protein-term
+DYH1	ATPase activity	NA	protein-term
+DYH5.1.2.m.56799	ATPase activity	NA	protein-term
+DYH6	ATPase activity	NA	protein-term
+DYH5.2.2.m.61452	ATPase activity	NA	protein-term
+DYH10	ATPase activity	NA	protein-term
+DYH7.2.3.m.32353	ATPase activity	NA	protein-term
+DYH2.1.1.m.28905	ATPase activity	NA	protein-term
+FAS	lyase activity	NA	protein-term
+H90A1	response to stress	NA	protein-term
+HSPB1	symbiont process	NA	protein-term
+TITIN.m.27774	signal transduction	NA	protein-term
+TITIN.8.19.m.35861	signal transduction	NA	protein-term
+H90A1	cellular component assembly	NA	protein-term
+H90A1	cytoskeleton organization	NA	protein-term
+H90A1	anatomical structure formation invo...	NA	protein-term
+CENPF	transport	NA	protein-term
+ATPD	transmembrane transporter activity	NA	protein-term
+ATPB	transmembrane transport	NA	protein-term
+ATPB	small molecule metabolic process	NA	protein-term
+ATPB	cellular nitrogen compound metaboli...	NA	protein-term
+ATPB	biosynthetic process	NA	protein-term
+ATPB	transport	NA	protein-term
+ATPD	transmembrane transport	NA	protein-term
+ATPD	small molecule metabolic process	NA	protein-term
+ATPD	cellular nitrogen compound metaboli...	NA	protein-term
+ATPD	biosynthetic process	NA	protein-term
+ATPD	transport	NA	protein-term
+DMBT1	symbiont process	NA	protein-term
+AMY1	carbohydrate metabolic process	NA	protein-term
+AMY1	catabolic process	NA	protein-term
+DAPLE	signal transduction	NA	protein-term
+LAMA	chromosome segregation	NA	protein-term
+SIDF	transferase activity, transferring ...	NA	protein-term
+COR1B	cell motility	NA	protein-term
+COR1B	locomotion	NA	protein-term
+YD541	oxidoreductase activity	NA	protein-term
+TYRO	oxidoreductase activity	NA	protein-term
+PIDD1	protein maturation	NA	protein-term
+RAD50.15.22.m.47579	ATPase activity	NA	protein-term
+H90A1	ATPase activity	NA	protein-term
+CRNS1	ATPase activity	NA	protein-term
+RAD50.16.22.m.50235	ATPase activity	NA	protein-term
+FAU1	nuclease activity	NA	protein-term
+MANA	hydrolase activity, acting on glyco...	NA	protein-term
+FLNA.2.5.m.37450	enzyme binding	NA	protein-term
+FAU1	RNA binding	NA	protein-term
+UNC22.2.7.m.2274	cellular protein modification proce...	NA	protein-term
+UNC22.3.7.m.20773	cellular protein modification proce...	NA	protein-term
+UNC22.7.7.m.54053	cellular protein modification proce...	NA	protein-term
+UNC22.5.7.m.43551	cellular protein modification proce...	NA	protein-term
+SIDF	secondary metabolic process	NA	protein-term
+SIDF	cellular nitrogen compound metaboli...	NA	protein-term
+SIDF	cofactor metabolic process	NA	protein-term
+TBA1	immune system process	NA	protein-term
+UNC22.5.7.m.43551	enzyme binding	NA	protein-term
+UNC22.2.7.m.2274	enzyme binding	NA	protein-term
+UNC22.3.7.m.20773	enzyme binding	NA	protein-term
+UNC22.7.7.m.54053	enzyme binding	NA	protein-term
+PPR32	enzyme binding	NA	protein-term
+FLNA.2.5.m.37450	cell morphogenesis	NA	protein-term
+FLNA.2.5.m.37450	anatomical structure development	NA	protein-term
+FAT4.1.1.m.65727	cell differentiation	NA	protein-term
+FAT4.1.1.m.34344	cell differentiation	NA	protein-term
+ANM1	cell differentiation	NA	protein-term
+PGBM	structural molecule activity	NA	protein-term
+COR1B	cytoskeleton organization	NA	protein-term
+SPTN5	cytoskeleton organization	NA	protein-term
+SSPO.7.8.m.41875	cell differentiation	NA	protein-term
+CENPF	cell differentiation	NA	protein-term
+SSPO.3.8.m.32060	cell differentiation	NA	protein-term
+SSPO.6.8.m.41866	cell differentiation	NA	protein-term
+PGBM	cell differentiation	NA	protein-term
+CDPK3	cell differentiation	NA	protein-term
+PGBM	extracellular matrix organization	NA	protein-term
+MATN1	extracellular matrix organization	NA	protein-term
+H90A1	enzyme regulator activity	NA	protein-term
+TITIN.m.27774	protein-containing complex assembly	NA	protein-term
+TITIN.m.27774	cytoskeleton organization	NA	protein-term
+TITIN.m.27774	anatomical structure formation invo...	NA	protein-term
+TITIN.m.27774	cellular component assembly	NA	protein-term
+TITIN.8.19.m.35861	protein-containing complex assembly	NA	protein-term
+TITIN.8.19.m.35861	cytoskeleton organization	NA	protein-term
+TITIN.8.19.m.35861	cellular component assembly	NA	protein-term
+H90A1	protein-containing complex assembly	NA	protein-term
+DYH5.2.2.m.61452	locomotion	NA	protein-term
+DYH5.2.2.m.61452	cell motility	NA	protein-term
+DYH5.1.2.m.56799	locomotion	NA	protein-term
+DYH5.1.2.m.56799	cell motility	NA	protein-term
+DYH1	locomotion	NA	protein-term
+DYH1	cell motility	NA	protein-term
+TEKT1	locomotion	NA	protein-term
+TEKT1	cell motility	NA	protein-term
+TLP	anatomical structure formation invo...	NA	protein-term
+TLP	cell differentiation	NA	protein-term
+TLP	reproduction	NA	protein-term
+TITIN.8.19.m.35861	cytoskeletal protein binding	NA	protein-term
+HTS	cytoskeletal protein binding	NA	protein-term
+CRB	cytoskeletal protein binding	NA	protein-term
+DAPLE	cytoskeleton-dependent intracellula...	NA	protein-term
+DAPLE	transport	NA	protein-term
+FLNA.2.6.m.11845	anatomical structure development	NA	protein-term
+SPTCA	cell proliferation	NA	protein-term
+DMBT1	cell differentiation	NA	protein-term
+DAPLE	response to stress	NA	protein-term
+DAPLE	cytoskeleton organization	NA	protein-term
+TITIN.m.27774	cytoskeletal protein binding	NA	protein-term
+FLNA.2.5.m.37450	cytoskeleton organization	NA	protein-term
+LAMA	cell adhesion	NA	protein-term
+FLNA.2.5.m.37450	cell junction organization	NA	protein-term
+FLNA.2.5.m.37450	cellular component assembly	NA	protein-term
+CRB	cell junction organization	NA	protein-term
+LAMA	cell morphogenesis	NA	protein-term
+LAMA	growth	NA	protein-term
+CRB	transport	NA	protein-term
+LAMA	immune system process	NA	protein-term
+LAMA	response to stress	NA	protein-term
+LAMA	secondary metabolic process	NA	protein-term
+DMBT1	enzyme binding	NA	protein-term
+CRNS1	biosynthetic process	NA	protein-term
+CRNS1	cellular nitrogen compound metaboli...	NA	protein-term
+HSPB1	signal transduction	NA	protein-term
+CDPK3	signal transduction	NA	protein-term
+IFT74	cytoskeleton-dependent intracellula...	NA	protein-term
+IFT74	transport	NA	protein-term
+DYH5.2.2.m.61452	cellular component assembly	NA	protein-term
+DYH5.2.2.m.61452	protein-containing complex assembly	NA	protein-term
+DYH5.1.2.m.56799	cellular component assembly	NA	protein-term
+DYH5.1.2.m.56799	protein-containing complex assembly	NA	protein-term
+DYH7.2.3.m.32353	cellular component assembly	NA	protein-term
+DYH7.2.3.m.32353	protein-containing complex assembly	NA	protein-term
+DYH1	protein-containing complex assembly	NA	protein-term
+DYH7.2.2.m.46648	cellular component assembly	NA	protein-term
+DYH7.2.2.m.46648	protein-containing complex assembly	NA	protein-term
+PPIB	protein folding	NA	protein-term
+COR1B	response to stress	NA	protein-term
+ASNS	response to stress	NA	protein-term
+OBG	ribosome biogenesis	NA	protein-term
+CATA.3.3.m.21642	catabolic process	NA	protein-term
+CATA.1.3.m.11120	catabolic process	NA	protein-term
+FLNA.2.5.m.37450	cellular nitrogen compound metaboli...	NA	protein-term
+FLNA.2.5.m.37450	biosynthetic process	NA	protein-term
+TITIN.8.19.m.35861	locomotion	NA	protein-term
+FLNA.2.5.m.37450	membrane organization	NA	protein-term
+HSPB1	ubiquitin-like protein binding	NA	protein-term
+DMBT1	response to stress	NA	protein-term
+DMBT1	immune system process	NA	protein-term
+DMBT1	cellular protein modification proce...	NA	protein-term
+DMBT1	translation	NA	protein-term
+PGBM	cellular protein modification proce...	NA	protein-term
+PGBM	translation	NA	protein-term
+FLNA.2.5.m.37450	locomotion	NA	protein-term
+FLNA.2.5.m.37450	cell motility	NA	protein-term
+CRB	cellular component assembly	NA	protein-term
+HTS	cytoskeleton organization	NA	protein-term
+UNC22.7.7.m.54053	cytoskeleton organization	NA	protein-term
+UNC22.3.7.m.20773	cytoskeleton organization	NA	protein-term
+UNC22.2.7.m.2274	cytoskeleton organization	NA	protein-term
+UNC22.5.7.m.43551	cytoskeleton organization	NA	protein-term
+FLNA.2.6.m.11845	cytoskeleton organization	NA	protein-term
+CRB	homeostatic process	NA	protein-term
+CATA.1.3.m.11120	ion binding	NA	protein-term
+TYRO	ion binding	NA	protein-term
+CNDP2	ion binding	NA	protein-term
+UNC22.3.7.m.20773	ion binding	NA	protein-term
+UNC22.5.7.m.43551	ion binding	NA	protein-term
+UNC22.2.7.m.2274	ion binding	NA	protein-term
+CATA.3.3.m.21642	ion binding	NA	protein-term
+PCKG	ion binding	NA	protein-term
+CRNS1	ion binding	NA	protein-term
+FUMA	ion binding	NA	protein-term
+UNC22.7.7.m.54053	ion binding	NA	protein-term
+XRN2	ion binding	NA	protein-term
+ATPB	transmembrane transporter activity	NA	protein-term
+ATPB	ATPase activity	NA	protein-term
+ATPD	ATPase activity	NA	protein-term
+CRNS1	ligase activity	NA	protein-term
+HTS	cell proliferation	NA	protein-term
+IFT74	cytoskeletal protein binding	NA	protein-term
+TITIN.m.27774	anatomical structure development	NA	protein-term
+EF2.4.5.m.30186	response to stress	NA	protein-term
+EF2.5.5.m.39855	response to stress	NA	protein-term
+H90A1	cell motility	NA	protein-term
+H90A1	locomotion	NA	protein-term
+H90A1	immune system process	NA	protein-term
+UNC22.5.7.m.43551	cytoskeletal protein binding	NA	protein-term
+ARP3	cytoskeletal protein binding	NA	protein-term
+GELS2	cytoskeletal protein binding	NA	protein-term
+UNC22.2.7.m.2274	cytoskeletal protein binding	NA	protein-term
+FLNA.2.5.m.37450	cytoskeletal protein binding	NA	protein-term
+MYS.4.7.m.18188	cytoskeletal protein binding	NA	protein-term
+UNC22.3.7.m.20773	cytoskeletal protein binding	NA	protein-term
+MYS.7.7.m.44342	cytoskeletal protein binding	NA	protein-term
+UNC22.7.7.m.54053	cytoskeletal protein binding	NA	protein-term
+HTS	cellular component assembly	NA	protein-term
+COR1B	cellular component assembly	NA	protein-term
+H90A1	unfolded protein binding	NA	protein-term
+CALR	unfolded protein binding	NA	protein-term
+PPIB	unfolded protein binding	NA	protein-term
+TCPD	unfolded protein binding	NA	protein-term
+ANM1	cellular component assembly	NA	protein-term
+ANM1	protein-containing complex assembly	NA	protein-term
+SPTN5	cellular component assembly	NA	protein-term
+SPTN5	protein-containing complex assembly	NA	protein-term
+DAPLE	cellular component assembly	NA	protein-term
+DAPLE	protein-containing complex assembly	NA	protein-term
+SNO1	cellular component assembly	NA	protein-term
+SNO1	protein-containing complex assembly	NA	protein-term
+CRB	cell division	NA	protein-term
+CENPF	cell division	NA	protein-term
+HMCN1	cell division	NA	protein-term
+CENPF	cellular component assembly	NA	protein-term
+CENPF	protein-containing complex assembly	NA	protein-term
+CENPF	chromosome organization	NA	protein-term
+FLNA.2.5.m.37450	immune system process	NA	protein-term
+FLNA.2.5.m.37450	response to stress	NA	protein-term
+FLNA.2.5.m.37450	symbiont process	NA	protein-term
+IFT74	cellular component assembly	NA	protein-term
+TEKT1	cellular component assembly	NA	protein-term
+ARP3	cellular component assembly	NA	protein-term
+CFA57	cell motility	NA	protein-term
+CFA57	locomotion	NA	protein-term
+DYH6	cell motility	NA	protein-term
+DYH6	locomotion	NA	protein-term
+DYH7.2.2.m.46648	cell motility	NA	protein-term
+DYH7.2.2.m.46648	locomotion	NA	protein-term
+TITIN.8.19.m.35861	growth	NA	protein-term
+CRB	membrane organization	NA	protein-term
+HSPB1	protein folding	NA	protein-term
+CRB	cell morphogenesis	NA	protein-term
+MATN1	protein-containing complex assembly	NA	protein-term
+MATN1	cellular component assembly	NA	protein-term
+HSPB1	cell adhesion	NA	protein-term
+FLNA.2.5.m.37450	cell adhesion	NA	protein-term
+COR1B	signal transduction	NA	protein-term
+ASNS	biosynthetic process	NA	protein-term
+UNC22.2.7.m.2274	protein-containing complex assembly	NA	protein-term
+UNC22.2.7.m.2274	anatomical structure formation invo...	NA	protein-term
+UNC22.2.7.m.2274	cellular component assembly	NA	protein-term
+UNC22.7.7.m.54053	protein-containing complex assembly	NA	protein-term
+UNC22.7.7.m.54053	anatomical structure formation invo...	NA	protein-term
+UNC22.7.7.m.54053	cellular component assembly	NA	protein-term
+UNC22.3.7.m.20773	protein-containing complex assembly	NA	protein-term
+UNC22.3.7.m.20773	anatomical structure formation invo...	NA	protein-term
+UNC22.3.7.m.20773	cellular component assembly	NA	protein-term
+UNC22.5.7.m.43551	protein-containing complex assembly	NA	protein-term
+UNC22.5.7.m.43551	anatomical structure formation invo...	NA	protein-term
+UNC22.5.7.m.43551	cellular component assembly	NA	protein-term
+CENPF	DNA metabolic process	NA	protein-term
+CENPF	biosynthetic process	NA	protein-term
+CENPF	cellular nitrogen compound metaboli...	NA	protein-term
+FAT4.1.1.m.65727	cell proliferation	NA	protein-term
+FAT4.1.1.m.34344	cell proliferation	NA	protein-term
+FLNA.2.5.m.37450	plasma membrane organization	NA	protein-term
+ZAN	cell adhesion	NA	protein-term
+PIDD1	transmembrane transport	NA	protein-term
+PIDD1	transport	NA	protein-term
+CRB	chromosome segregation	NA	protein-term
+HSPB1	transport	NA	protein-term
+HSPB1	cytoskeleton-dependent intracellula...	NA	protein-term
+HYDIN.2.6.m.7640	cellular component assembly	NA	protein-term
+HYDIN.4.6.m.27594	cellular component assembly	NA	protein-term
