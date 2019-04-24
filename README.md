@@ -46,12 +46,12 @@ The Pacific oyster has major ecological and economic importance serving as a bio
 	3. [Abacus_parameters.txt](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Scripts/Abacus_parameters.txt):  ABACUS parameter file used in ABACUS analysis of mass spectrometry data
 	4. [Cg\_Giga\_cont\_AA.fa\_BLASTP\_uniprot\_swprot2019.ipynb](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Scripts/Cg_Giga_cont_AA.fa_BLASTP_uniprot_swprot2019.ipynb):  Jupyter notebook used to align protein sequences to the Uniprot-KB Swiss-Prot database using BLASTp 
 - **[Figures](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/tree/master/Figures)**:
-	- [MainText](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/tree/master/Figures/MainText): 
+	1. [MainText](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/tree/master/Figures/MainText): 
 		1. [Figure 1](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Figures/MainText/Figure1.png): Oyster seed performance at the time of settlement
 		2. [Figure 2](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Figures/MainText/Figure2.png): Proteins detected across treatment groups and time points
 		3. [Figure 3](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Figures/MainText/Figure3.png): Temperature-affected proteins identified across three statistical methods
 		4. [Figure 4](): Biological processes associated with temperature affected proteins
-	- [Supplementary](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/tree/master/Figures/Supplementary):
+	2. [Supplementary](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/tree/master/Figures/Supplementary):
 		1. [Supplementary Figure 1](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Figures/Supplementary/SupplementaryFigure1.jpg): PCA of all technical replicate samples
 		2. [Supplementary Figure 2](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Figures/Supplementary/SupplementaryFigure2.png): Hierarchical clustering analysis of protein abundances over time for both temperature treatments
 		3. [Supplementary Figure 3](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Figures/Supplementary/SupplementaryFigure3.png): ANOVA-simultaneous component analysis of protein abundances over time
