@@ -1,0 +1,436 @@
+---
+title: "General_proteome_characterization"
+author: "Shelly Trigg"
+date: "4/3/2019"
+output: rmarkdown::github_document
+---
+
+Load libraries
+```{r}
+library(tidyr)
+library(GSEABase)
+library(plyr)
+library(RColorBrewer)
+library(ggplot2)
+```
+
+read in data
+```{r}
+NSAF <- read.csv("~/Documents/GitHub/OysterSeedProject/analysis/nmds_R/silo3and9_nozerovals_AVGs.csv", stringsAsFactors = FALSE)
+sr_lab_goslim <- read.csv("~/Documents/GitHub/OysterSeedProject/raw_data/background/GOSlim_terms.csv", stringsAsFactors = FALSE)
+colnames(sr_lab_goslim)[1] <- "GO"
+#For reading in uniprot, gannet must be mounted on the computer
+uniprot <- read.csv("/Volumes/web/metacarcinus/Cgigas/all_giga-uniprot-blastP-out.nopipe.annotations.tab", sep ="\t", header = FALSE, stringsAsFactors = FALSE)
+#rename uniprot columns
+colnames(uniprot) <- c("protein_ID","Entry", "Entry_name", "perc_ident_match", "align_len", "num_mismatch", "num_gaps","querStart", "querEnd", "subjStart", "subjEnd", "evalue", "bitscore","Entry.1","Entry_name.1", "Protein_names", "Gene_names", "Organism", "Protein_length","Pathway", "GO_bp", "GO","GO_IDs", "Protein_fams")
+```
+
+I had already changed the zeros to 0.1, so I will sub that back with zero for this analysis
+```{r}
+#I had already changed the zeros to 0.1, so I will sub that back with zero for this analysis
+NSAF[NSAF == 0.1] <- 0
+```
+
+separate 3 and 9
+```{r}
+#separate 3 and 9
+
+silo3 <- NSAF[grep("23", NSAF$temp),]
+silo9 <- NSAF[grep("29", NSAF$temp),]
+```
+
+reformat to long list
+```{r}
+silo3_t <- data.frame(t(silo3[,-c(1,2)]))
+colnames(silo3_t) <- paste0("D",silo3$day)
+
+silo9_t <- data.frame(t(silo9[,-c(1,2)]))
+colnames(silo9_t) <- paste0("D",silo9$day)
+
+```
+
+remove proteins that were only in silo9
+```{r}
+no_val_proteins <- rownames(silo3_t[which(apply(silo3_t, 1, var) == 0),])
+silo3_t_nozero <- silo3_t[-c(which(rownames(silo3_t) %in% no_val_proteins)),]
+#confirm it worked
+nrow(silo3_t)
+nrow(silo3_t_nozero)
+nrow(silo3_t)-nrow(silo3_t_nozero)
+length(no_val_proteins)
+
+no_val_proteins <- rownames(silo9_t[which(apply(silo9_t, 1, var) == 0),])
+silo9_t_nozero <- silo9_t[-c(which(rownames(silo9_t) %in% no_val_proteins)),]
+#confirm it worked
+nrow(silo9_t)
+nrow(silo9_t_nozero)
+nrow(silo9_t)-nrow(silo9_t_nozero)
+length(no_val_proteins)
+
+```
+
+add protein column
+```{r}
+silo3_t_nozero$protein_ID <- rownames(silo3_t_nozero)
+silo3_t_nozero <- silo3_t_nozero[grep("CHOYP", silo3_t_nozero$protein_ID),]
+
+silo9_t_nozero$protein_ID <- rownames(silo9_t_nozero)
+silo9_t_nozero <- silo9_t_nozero[grep("CHOYP", silo9_t_nozero$protein_ID),]
+
+```
+
+merge with uniprot
+```{r}
+#combine uniprot and NSAF data
+silo3_t_nozero_unip<- merge(silo3_t_nozero, uniprot, by = "protein_ID", all.x = TRUE)
+
+silo9_t_nozero_unip<- merge(silo9_t_nozero, uniprot, by = "protein_ID", all.x = TRUE)
+```
+
+exclude proteins that didn't map to uniprot DB
+```{r}
+silo3_t_nozero_unip_mapped <- silo3_t_nozero_unip[-grep("unmapped", silo3_t_nozero_unip$Entry),]
+nrow(silo3_t_nozero_unip_mapped)
+silo3_t_nozero_unip_mapped <- silo3_t_nozero_unip_mapped[which(silo3_t_nozero_unip_mapped$evalue <= 10^-10),]
+nrow(silo3_t_nozero_unip_mapped)
+
+silo9_t_nozero_unip_mapped <- silo9_t_nozero_unip[-grep("unmapped", silo9_t_nozero_unip$Entry),]
+nrow(silo9_t_nozero_unip_mapped)
+silo9_t_nozero_unip_mapped <- silo9_t_nozero_unip_mapped[which(silo9_t_nozero_unip_mapped$evalue <= 10^-10),]
+nrow(silo9_t_nozero_unip_mapped)
+
+```
+
+get go terms for each day for silo 3 (23C)
+```{r}
+#create empty data frames to fill in with loop
+silo3_all_srlab_terms_per_day <- data.frame()
+silo3_all_srlab_BPterms_per_day <- data.frame()
+
+#create list of days
+days <- colnames(silo3_t_nozero_unip_mapped[,2:7])
+
+#loop through days and pull out GO IDs associated with proteins from specific day
+for(i in days){
+  silo3_pro_GO <- silo3_t_nozero_unip_mapped[which(silo3_t_nozero_unip_mapped[,i] != 0),c("protein_ID","GO_IDs")] # create day specific list of proteins and their associated GO IDs 
+
+  silo3_pro_GOid_term <- data.frame() #create another empty data frame
+#loop through each line of data frame containing one column with "protein_ID" and one column with list of "GO_IDs" separated by ";"
+  for (j in 1:nrow(silo3_pro_GO)){
+    #create a row that lists all GO IDs associated with one protein listed across rows, where each different GO ID gets put in it's own column
+    silo3_pro_GOid_term_row <- data.frame(t(data.frame(strsplit(as.character(silo3_pro_GO$GO_IDs[j]),'; ', fixed = TRUE))), stringsAsFactors = FALSE)
+    #add each row created in the line above to the empty data frame
+    #this will add NAs in columns where less terms exist; e.g. if a protein only has two terms and another has 10, there will be 8 NAs added to the row for the protein with 2 terms
+    silo3_pro_GOid_term <- rbind.fill(silo3_pro_GOid_term,silo3_pro_GOid_term_row)
+  }
+
+  #add protein IDs back to GO IDs
+  silo3_pro_GOid_term <- cbind(silo3_pro_GO[,"protein_ID"], silo3_pro_GOid_term)
+  #this results in a table with protein ID listed in one column and each next column contains a GO ID that was listed with the protein in Uniprot DB.
+  
+  #reshape data so that all GO ID columns are gathered in one column called "GO" 
+  STACKED_silo3_pro_GOid_term <- tidyr::gather(silo3_pro_GOid_term,"protein_ID","GO", 2:ncol(silo3_pro_GOid_term))
+  #exlude middle column which just contains the string "protein_ID" in each row
+  STACKED_silo3_pro_GOid_term <- STACKED_silo3_pro_GOid_term[,c(1,3)]
+  #remove duplicate rows
+  STACKED_silo3_pro_GOid_term <- unique(STACKED_silo3_pro_GOid_term)
+  colnames(STACKED_silo3_pro_GOid_term)[1] <- "protein_ID"
+  #remove any rows where GO column has NA value. 
+  STACKED_silo3_pro_GOid_term <- STACKED_silo3_pro_GOid_term[which(!is.na(STACKED_silo3_pro_GOid_term$GO)),]
+  #this resulting data frame has two columns "protein_ID" and "GO"
+  
+  ##get go slim terms for each day
+  STACKED_silo3_pro_GOid_term_sr_labGOslim <- merge(STACKED_silo3_pro_GOid_term, sr_lab_goslim, by = "GO", all.x = TRUE)
+  
+  STACKED_silo3_pro_GOid_term_sr_labGOslim$GOSlim_bin <- ifelse(is.na(STACKED_silo3_pro_GOid_term_sr_labGOslim$GOSlim_bin),"unmapped",STACKED_silo3_pro_GOid_term_sr_labGOslim$GOSlim_bin)
+  
+  silo3_all_srlab_terms <- data.frame(table(STACKED_silo3_pro_GOid_term_sr_labGOslim$GOSlim_bin))
+  silo3_all_srlab_terms$day <- i
+  #View(silo3_all_srlab_terms)
+  
+  silo3_all_srlab_BPterms <- data.frame(table(STACKED_silo3_pro_GOid_term_sr_labGOslim[which(STACKED_silo3_pro_GOid_term_sr_labGOslim$aspect=="P"),"GOSlim_bin"]))
+  silo3_all_srlab_BPterms$day <- i
+    
+  silo3_all_srlab_terms_per_day <- rbind(silo3_all_srlab_terms_per_day,silo3_all_srlab_terms)
+  silo3_all_srlab_BPterms_per_day <- rbind(silo3_all_srlab_BPterms_per_day,silo3_all_srlab_BPterms)
+}
+
+```
+
+get go terms for each day for silo 9 (29C)
+```{r}
+silo9_all_srlab_terms_per_day <- data.frame()
+silo9_all_srlab_BPterms_per_day <- data.frame()
+
+days <- colnames(silo9_t_nozero_unip_mapped[,2:7])
+for(i in days){
+  silo9_pro_GO <- silo9_t_nozero_unip_mapped[which(silo9_t_nozero_unip_mapped[,i] != 0),c("protein_ID","GO_IDs")]
+  
+  silo9_pro_GOid_term <- data.frame()
+  #loop through each line of data frame containing one column with "protein_ID" and one column with list of "GO_IDs" separated by ";"
+  for (j in 1:nrow(silo9_pro_GO)){
+    #create a row that lists all GO IDs associated with one protein listed across rows, where each different GO ID gets put in it's own column
+    silo9_pro_GOid_term_row <- data.frame(t(data.frame(strsplit(as.character(silo9_pro_GO$GO_IDs[j]),'; ', fixed = TRUE))), stringsAsFactors = FALSE)
+    #add each row created in the line above to the empty data frame
+    #this will add NAs in columns where less terms exist; e.g. if a protein only has two terms and another has 10, there will be 8 NAs added to the row for the protein with 2 terms
+    silo9_pro_GOid_term <- rbind.fill(silo9_pro_GOid_term,silo9_pro_GOid_term_row)
+  }
+  
+  #add protein IDs back to GO IDs
+  silo9_pro_GOid_term <- cbind(silo9_pro_GO[,"protein_ID"], silo9_pro_GOid_term)
+  #this results in a table with protein ID listed in one column and each next column contains a GO ID that was listed with the protein in Uniprot DB.
+  
+  #reshape data so that all GO ID columns are gathered in one column called "GO" 
+  STACKED_silo9_pro_GOid_term <- tidyr::gather(silo9_pro_GOid_term,"protein_ID","GO", 2:ncol(silo9_pro_GOid_term))
+  #exlude middle column which just contains the string "protein_ID" in each row
+  STACKED_silo9_pro_GOid_term <- STACKED_silo9_pro_GOid_term[,c(1,3)]
+  #remove duplicate rows
+  STACKED_silo9_pro_GOid_term <- unique(STACKED_silo9_pro_GOid_term)
+  colnames(STACKED_silo9_pro_GOid_term)[1] <- "protein_ID"
+  #remove any rows where GO column has NA value. 
+  STACKED_silo9_pro_GOid_term <- STACKED_silo9_pro_GOid_term[which(!is.na(STACKED_silo9_pro_GOid_term$GO)),]
+  #this resulting data frame has two columns "protein_ID" and "GO"
+  
+  ##get go slim terms for each day
+  STACKED_silo9_pro_GOid_term_sr_labGOslim <- merge(STACKED_silo9_pro_GOid_term, sr_lab_goslim, by = "GO", all.x = TRUE)
+  
+  STACKED_silo9_pro_GOid_term_sr_labGOslim$GOSlim_bin <- ifelse(is.na(STACKED_silo9_pro_GOid_term_sr_labGOslim$GOSlim_bin),"unmapped",STACKED_silo9_pro_GOid_term_sr_labGOslim$GOSlim_bin)
+  
+  silo9_all_srlab_terms <- data.frame(table(STACKED_silo9_pro_GOid_term_sr_labGOslim$GOSlim_bin))
+  silo9_all_srlab_terms$day <- i
+  #View(silo9_all_srlab_terms)
+  
+  silo9_all_srlab_BPterms <- data.frame(table(STACKED_silo9_pro_GOid_term_sr_labGOslim[which(STACKED_silo9_pro_GOid_term_sr_labGOslim$aspect=="P"),"GOSlim_bin"]))
+  silo9_all_srlab_BPterms$day <- i
+  
+  silo9_all_srlab_terms_per_day <- rbind(silo9_all_srlab_terms_per_day,silo9_all_srlab_terms)
+  silo9_all_srlab_BPterms_per_day <- rbind(silo9_all_srlab_BPterms_per_day,silo9_all_srlab_BPterms)
+}
+```
+
+make pie chart for each day of sr lab GO slim terms for all mapped proteins from silo 3(23C)
+```{r, 23C_pie_charts}
+#for color palette expansion: https://www.r-bloggers.com/how-to-expand-color-palette-with-ggplot-and-rcolorbrewer/
+#for pie chart: http://www.sthda.com/english/wiki/ggplot2-pie-chart-quick-start-guide-r-software-and-data-visualization
+
+
+getPalette = colorRampPalette(brewer.pal(11, "Spectral"))
+blank_theme <- theme_minimal()+
+  theme(
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank(),
+    panel.border = element_blank(),
+    panel.grid=element_blank(),
+    axis.ticks = element_blank(),
+    plot.title=element_text(size=14, face="bold")
+  )
+
+#loop through days and create plot for each day
+for(i in days){
+  p <- ggplot(silo3_all_srlab_BPterms_per_day[which(silo3_all_srlab_BPterms_per_day$day== i),], aes(x = "", y = Freq, fill = Var1)) + geom_bar(stat = "identity") + coord_polar("y", start = 0) + scale_fill_manual(values = getPalette(nrow(silo3_all_srlab_BPterms_per_day[which(silo3_all_srlab_BPterms_per_day$day== i),]))) + blank_theme + theme(axis.text.x = element_blank()) + ggtitle(paste0("functional characterization of 23C ",i," proteome"))
+  print(p)
+}
+
+```
+
+```{r, 29C_pie_charts}
+for(i in days){
+  p <- ggplot(silo9_all_srlab_BPterms_per_day[which(silo9_all_srlab_BPterms_per_day$day== i),], aes(x = "", y = Freq, fill = Var1)) + geom_bar(stat = "identity") + coord_polar("y", start = 0) + scale_fill_manual(values = getPalette(nrow(silo9_all_srlab_BPterms_per_day[which(silo9_all_srlab_BPterms_per_day$day== i),]))) + blank_theme + theme(axis.text.x = element_blank()) + ggtitle(paste0("functional characterization of 29C ",i," proteome"))
+  print(p)
+}
+
+```
+    
+    
+compare GO slim frequencies between temperatures
+```{r}
+compare_terms <- merge(silo3_all_srlab_BPterms_per_day, silo9_all_srlab_BPterms_per_day, by = c("Var1", "day"))
+colnames(compare_terms) <- c("GOslim", "day", "23C", "29C")
+print(compare_terms)
+```
+
+## analysis of comprehensive proteomes (all days) for each temperature
+
+get GO terms for comprehensive proteome from 23C exposured seed
+```{r}
+#Subset "protein_ID" column and "GO IDs" column containing list of GO_IDs separated by ";" from all_sig0.1_pro_logFC_pval 
+silo3_pro_GO <- silo3_t_nozero_unip_mapped[,c("protein_ID","GO_IDs")]
+
+silo3_pro_GOid_term <- data.frame()
+#loop through each line of data frame containing one column with "protein_ID" and one column with list of "GO_IDs" separated by ";"
+for (i in 1:nrow(silo3_pro_GO)){
+  #create a row that lists all GO IDs associated with one protein listed across rows, where each different GO ID gets put in it's own column
+  silo3_pro_GOid_term_row <- data.frame(t(data.frame(strsplit(as.character(silo3_pro_GO$GO_IDs[i]),'; ', fixed = TRUE))), stringsAsFactors = FALSE)
+  #add each row created in the line above to the empty data frame
+  #this will add NAs in columns where less terms exist; e.g. if a protein only has two terms and another has 10, there will be 8 NAs added to the row for the protein with 2 terms
+  silo3_pro_GOid_term <- rbind.fill(silo3_pro_GOid_term,silo3_pro_GOid_term_row)
+}
+
+#add protein IDs back to GO IDs
+silo3_pro_GOid_term <- cbind(silo3_pro_GO[,"protein_ID"], silo3_pro_GOid_term)
+#this results in a table with protein ID listed in one column and each next column contains a GO ID that was listed with the protein in Uniprot DB.
+
+
+#reshape data so that all GO ID columns are gathered in one column called "GO" 
+STACKED_silo3_pro_GOid_term <- tidyr::gather(silo3_pro_GOid_term,"protein_ID","GO", 2:ncol(silo3_pro_GOid_term))
+#exlude middle column which just contains the string "protein_ID" in each row
+STACKED_silo3_pro_GOid_term <- STACKED_silo3_pro_GOid_term[,c(1,3)]
+#remove duplicate rows
+STACKED_silo3_pro_GOid_term <- unique(STACKED_silo3_pro_GOid_term)
+colnames(STACKED_silo3_pro_GOid_term)[1] <- "protein_ID"
+#remove any rows where GO column has NA value. 
+STACKED_silo3_pro_GOid_term <- STACKED_silo3_pro_GOid_term[which(!is.na(STACKED_silo3_pro_GOid_term$GO)),]
+#this resulting data frame has two columns "protein_ID" and "GO"
+```
+
+get GO slim terms for comprehensive proteome from 23C exposured seed
+```{r}
+ ##get go slim terms for each day
+STACKED_silo3_pro_GOid_term_sr_labGOslim <- merge(STACKED_silo3_pro_GOid_term, sr_lab_goslim, by = "GO", all.x = TRUE)
+  
+STACKED_silo3_pro_GOid_term_sr_labGOslim$GOSlim_bin <- ifelse(is.na(STACKED_silo3_pro_GOid_term_sr_labGOslim$GOSlim_bin),"unmapped",STACKED_silo3_pro_GOid_term_sr_labGOslim$GOSlim_bin)
+  
+silo3_all_srlab_terms <- data.frame(table(STACKED_silo3_pro_GOid_term_sr_labGOslim$GOSlim_bin))
+
+silo3_all_srlab_BPterms <- data.frame(table(STACKED_silo3_pro_GOid_term_sr_labGOslim[which(STACKED_silo3_pro_GOid_term_sr_labGOslim$aspect=="P"),"GOSlim_bin"]))
+
+```
+
+get GO terms for comprehensive proteome from 29C exposured seed
+```{r}
+#Subset "protein_ID" column and "GO IDs" column containing list of GO_IDs separated by ";" from all_sig0.1_pro_logFC_pval 
+silo9_pro_GO <- silo9_t_nozero_unip_mapped[,c("protein_ID","GO_IDs")]
+
+silo9_pro_GOid_term <- data.frame()
+#loop through each line of data frame containing one column with "protein_ID" and one column with list of "GO_IDs" separated by ";"
+for (i in 1:nrow(silo9_pro_GO)){
+  #create a row that lists all GO IDs associated with one protein listed across rows, where each different GO ID gets put in it's own column
+  silo9_pro_GOid_term_row <- data.frame(t(data.frame(strsplit(as.character(silo9_pro_GO$GO_IDs[i]),'; ', fixed = TRUE))), stringsAsFactors = FALSE)
+  #add each row created in the line above to the empty data frame
+  #this will add NAs in columns where less terms exist; e.g. if a protein only has two terms and another has 10, there will be 8 NAs added to the row for the protein with 2 terms
+  silo9_pro_GOid_term <- rbind.fill(silo9_pro_GOid_term,silo9_pro_GOid_term_row)
+}
+
+#add protein IDs back to GO IDs
+silo9_pro_GOid_term <- cbind(silo9_pro_GO[,"protein_ID"], silo9_pro_GOid_term)
+#this results in a table with protein ID listed in one column and each next column contains a GO ID that was listed with the protein in Uniprot DB.
+
+
+#reshape data so that all GO ID columns are gathered in one column called "GO" 
+STACKED_silo9_pro_GOid_term <- tidyr::gather(silo9_pro_GOid_term,"protein_ID","GO", 2:ncol(silo9_pro_GOid_term))
+#exlude middle column which just contains the string "protein_ID" in each row
+STACKED_silo9_pro_GOid_term <- STACKED_silo9_pro_GOid_term[,c(1,3)]
+#remove duplicate rows
+STACKED_silo9_pro_GOid_term <- unique(STACKED_silo9_pro_GOid_term)
+colnames(STACKED_silo9_pro_GOid_term)[1] <- "protein_ID"
+#remove any rows where GO column has NA value. 
+STACKED_silo9_pro_GOid_term <- STACKED_silo9_pro_GOid_term[which(!is.na(STACKED_silo9_pro_GOid_term$GO)),]
+#this resulting data frame has two columns "protein_ID" and "GO"
+```
+
+get GO slim terms for comprehensive proteome from 29C exposured seed
+```{r}
+ ##get go slim terms for each day
+STACKED_silo9_pro_GOid_term_sr_labGOslim <- merge(STACKED_silo9_pro_GOid_term, sr_lab_goslim, by = "GO", all.x = TRUE)
+  
+STACKED_silo9_pro_GOid_term_sr_labGOslim$GOSlim_bin <- ifelse(is.na(STACKED_silo9_pro_GOid_term_sr_labGOslim$GOSlim_bin),"unmapped",STACKED_silo9_pro_GOid_term_sr_labGOslim$GOSlim_bin)
+  
+silo9_all_srlab_terms <- data.frame(table(STACKED_silo9_pro_GOid_term_sr_labGOslim$GOSlim_bin))
+
+silo9_all_srlab_BPterms <- data.frame(table(STACKED_silo9_pro_GOid_term_sr_labGOslim[which(STACKED_silo9_pro_GOid_term_sr_labGOslim$aspect=="P"),"GOSlim_bin"]))
+
+```
+
+compare GO slim frequencies between temperatures
+```{r}
+compare_terms <- merge(silo3_all_srlab_BPterms, silo9_all_srlab_BPterms, by = c("Var1"))
+colnames(compare_terms) <- c("GOslim", "23C", "29C")
+print(compare_terms)
+```
+
+pie charts of 23C and 29C comprehensive proteomes
+```{r, pie_charts_Temp_comprehensive_proteome}
+ggplot(silo3_all_srlab_BPterms, aes(x = "", y = Freq, fill = Var1)) + geom_bar(stat = "identity") + coord_polar("y", start = 0) + scale_fill_manual(values = getPalette(nrow(silo3_all_srlab_BPterms))) + blank_theme + theme(axis.text.x = element_blank()) + ggtitle("functional characterization of 23C comprehensive proteome")
+
+ggplot(silo9_all_srlab_BPterms, aes(x = "", y = Freq, fill = Var1)) + geom_bar(stat = "identity") + coord_polar("y", start = 0) + scale_fill_manual(values = getPalette(nrow(silo9_all_srlab_BPterms))) + blank_theme + theme(axis.text.x = element_blank()) + ggtitle("functional characterization of 29C comprehensive proteome")
+```
+
+##  NSAF
+
+
+reformat to long list
+```{r}
+NSAF_t <- data.frame(t(NSAF[,-c(1,2)]))
+colnames(NSAF_t) <- paste0("D",NSAF$day,NSAF$temp)
+```
+
+add protein column
+```{r}
+NSAF_t$protein_ID <- rownames(NSAF_t)
+NSAF_t <- NSAF_t[grep("CHOYP", NSAF_t$protein_ID),]
+```
+
+merge with uniprot
+```{r}
+#combine uniprot and NSAF data
+NSAF_t_unip<- merge(NSAF_t, uniprot, by = "protein_ID", all.x = TRUE)
+```
+
+exclude proteins that didn't map to uniprot DB
+```{r}
+NSAF_t_unip_mapped <- NSAF_t_unip[-grep("unmapped", NSAF_t_unip$Entry),]
+nrow(NSAF_t_unip_mapped)
+NSAF_t_unip_mapped <- NSAF_t_unip_mapped[which(NSAF_t_unip_mapped$evalue <= 10^-10),]
+nrow(NSAF_t_unip_mapped)
+```
+
+get GO terms for comprehensive proteome from 23C exposured seed
+```{r}
+#Subset "protein_ID" column and "GO IDs" column containing list of GO_IDs separated by ";"  
+NSAF_pro_GO <- NSAF_t_unip_mapped[,c("protein_ID","GO_IDs")]
+head(NSAF_pro_GO)
+NSAF_pro_GOid_term <- data.frame()
+#loop through each line of data frame containing one column with "protein_ID" and one column with list of "GO_IDs" separated by ";"
+for (i in 1:nrow(NSAF_pro_GO)){
+  #create a row that lists all GO IDs associated with one protein listed across rows, where each different GO ID gets put in it's own column
+  NSAF_pro_GOid_term_row <- data.frame(t(data.frame(strsplit(as.character(NSAF_pro_GO$GO_IDs[i]),'; ', fixed = TRUE))), stringsAsFactors = FALSE)
+  #add each row created in the line above to the empty data frame
+  #this will add NAs in columns where less terms exist; e.g. if a protein only has two terms and another has 10, there will be 8 NAs added to the row for the protein with 2 terms
+  NSAF_pro_GOid_term <- rbind.fill(NSAF_pro_GOid_term,NSAF_pro_GOid_term_row)
+}
+
+#add protein IDs back to GO IDs
+NSAF_pro_GOid_term <- cbind(NSAF_pro_GO[,"protein_ID"], NSAF_pro_GOid_term)
+#this results in a table with protein ID listed in one column and each next column contains a GO ID that was listed with the protein in Uniprot DB.
+head(NSAF_pro_GOid_term)
+
+#reshape data so that all GO ID columns are gathered in one column called "GO" 
+STACKED_NSAF_pro_GOid_term <- tidyr::gather(NSAF_pro_GOid_term,"protein_ID","GO", 2:ncol(NSAF_pro_GOid_term))
+#exlude middle column which just contains the string "protein_ID" in each row
+STACKED_NSAF_pro_GOid_term <- STACKED_NSAF_pro_GOid_term[,c(1,3)]
+#remove duplicate rows
+STACKED_NSAF_pro_GOid_term <- unique(STACKED_NSAF_pro_GOid_term)
+colnames(STACKED_NSAF_pro_GOid_term)[1] <- "protein_ID"
+#remove any rows where GO column has NA value. 
+STACKED_NSAF_pro_GOid_term <- STACKED_NSAF_pro_GOid_term[which(!is.na(STACKED_NSAF_pro_GOid_term$GO)),]
+#this resulting data frame has two columns "protein_ID" and "GO"
+head(STACKED_NSAF_pro_GOid_term)
+```
+
+get GO slim terms for comprehensive proteome from 23C exposured seed
+```{r}
+ ##get go slim terms for each day
+STACKED_NSAF_pro_GOid_term_sr_labGOslim <- merge(STACKED_NSAF_pro_GOid_term, sr_lab_goslim, by = "GO", all.x = TRUE)
+  
+STACKED_NSAF_pro_GOid_term_sr_labGOslim$GOSlim_bin <- ifelse(is.na(STACKED_NSAF_pro_GOid_term_sr_labGOslim$GOSlim_bin),"unmapped",STACKED_NSAF_pro_GOid_term_sr_labGOslim$GOSlim_bin)
+  
+NSAF_all_srlab_terms <- data.frame(table(STACKED_NSAF_pro_GOid_term_sr_labGOslim$GOSlim_bin))
+
+NSAF_all_srlab_BPterms <- data.frame(table(STACKED_NSAF_pro_GOid_term_sr_labGOslim[which(STACKED_NSAF_pro_GOid_term_sr_labGOslim$aspect=="P"),"GOSlim_bin"]))
+
+```
+
+pie charts of comprehensive proteome of all time points and temps
+```{r, pie_chart_comprehensive_proteome}
+ggplot(NSAF_all_srlab_BPterms, aes(x = "", y = Freq, fill = Var1)) + geom_bar(stat = "identity") + coord_polar("y", start = 0) + scale_fill_manual(values = getPalette(nrow(NSAF_all_srlab_BPterms))) + blank_theme + theme(axis.text.x = element_blank()) + ggtitle("functional characterization comprehensive proteome all time points and temps")
+```

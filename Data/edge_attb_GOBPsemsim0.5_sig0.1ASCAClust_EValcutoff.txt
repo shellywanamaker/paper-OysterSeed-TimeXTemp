@@ -1,0 +1,122 @@
+Var1	Var2	semsimValue	type
+cellular component assembly	protein-containing complex assembly	0.944417470618166	term-term
+cellular component assembly	ribonucleoprotein complex assembly	0.862466773411271	term-term
+protein-containing complex assembly	ribonucleoprotein complex assembly	0.917418009339898	term-term
+cellular protein modification proce...	cellular nitrogen compound metaboli...	0.588197252421378	term-term
+catabolic process	cellular nitrogen compound metaboli...	0.500758078119822	term-term
+catabolic process	nucleobase-containing compound cata...	0.917418009339898	term-term
+cellular nitrogen compound metaboli...	nucleobase-containing compound cata...	0.754379547457927	term-term
+cellular component assembly	cytoskeleton organization	0.537157138879682	term-term
+protein-containing complex assembly	cytoskeleton organization	0.511208491420969	term-term
+cell cycle	mitotic cell cycle	0.917418009339898	term-term
+cellular protein modification proce...	DNA metabolic process	0.645755340658313	term-term
+cellular nitrogen compound metaboli...	DNA metabolic process	0.754379547457927	term-term
+nucleobase-containing compound cata...	DNA metabolic process	0.694870258797681	term-term
+cellular component assembly	cell morphogenesis	0.537157138879682	term-term
+protein-containing complex assembly	cell morphogenesis	0.511208491420969	term-term
+cellular nitrogen compound metaboli...	biosynthetic process	0.500758078119822	term-term
+cellular nitrogen compound metaboli...	small molecule metabolic process	0.500758078119822	term-term
+lipid metabolic process	small molecule metabolic process	0.752254028019694	term-term
+cell morphogenesis	anatomical structure formation invo...	0.571696259584754	term-term
+cell morphogenesis	embryo development	0.645755340658313	term-term
+anatomical structure formation invo...	embryo development	0.571696259584754	term-term
+cell morphogenesis	anatomical structure development	0.618908074754197	term-term
+anatomical structure formation invo...	anatomical structure development	0.618908074754197	term-term
+embryo development	anatomical structure development	0.917418009339898	term-term
+cell morphogenesis	cell differentiation	0.847435129398841	term-term
+anatomical structure formation invo...	cell differentiation	0.571696259584754	term-term
+embryo development	cell differentiation	0.645755340658313	term-term
+anatomical structure development	cell differentiation	0.618908074754197	term-term
+cellular protein modification proce...	translation	0.847435129398841	term-term
+cellular nitrogen compound metaboli...	translation	0.754379547457927	term-term
+nucleobase-containing compound cata...	translation	0.605625530568628	term-term
+DNA metabolic process	translation	0.645755340658313	term-term
+biosynthetic process	translation	0.917418009339898	term-term
+transport	vesicle-mediated transport	0.727489495630406	term-term
+cellular nitrogen compound metaboli...	generation of precursor metabolites...	0.588197252421378	term-term
+cellular nitrogen compound metaboli...	cofactor metabolic process	0.588197252421378	term-term
+cellular protein modification proce...	tRNA metabolic process	0.645755340658313	term-term
+cellular nitrogen compound metaboli...	tRNA metabolic process	0.754379547457927	term-term
+nucleobase-containing compound cata...	tRNA metabolic process	0.694870258797681	term-term
+DNA metabolic process	tRNA metabolic process	0.758190401169787	term-term
+translation	tRNA metabolic process	0.645755340658313	term-term
+cellular protein modification proce...	mRNA processing	0.645755340658313	term-term
+cellular nitrogen compound metaboli...	mRNA processing	0.754379547457927	term-term
+nucleobase-containing compound cata...	mRNA processing	0.694870258797681	term-term
+DNA metabolic process	mRNA processing	0.758190401169787	term-term
+translation	mRNA processing	0.645755340658313	term-term
+tRNA metabolic process	mRNA processing	0.847435129398841	term-term
+cellular nitrogen compound metaboli...	cellular amino acid metabolic proce...	0.712116553580572	term-term
+nucleobase-containing compound cata...	cellular amino acid metabolic proce...	0.571696259584754	term-term
+DNA metabolic process	cellular amino acid metabolic proce...	0.571696259584754	term-term
+lipid metabolic process	cellular amino acid metabolic proce...	0.694870258797681	term-term
+small molecule metabolic process	cellular amino acid metabolic proce...	0.917418009339898	term-term
+translation	cellular amino acid metabolic proce...	0.847435129398841	term-term
+tRNA metabolic process	cellular amino acid metabolic proce...	0.571696259584754	term-term
+mRNA processing	cellular amino acid metabolic proce...	0.571696259584754	term-term
+transport	protein targeting	0.727489495630406	term-term
+vesicle-mediated transport	protein targeting	0.571696259584754	term-term
+cellular component assembly	membrane organization	0.588197252421378	term-term
+protein-containing complex assembly	membrane organization	0.55722526287531	term-term
+ribonucleoprotein complex assembly	membrane organization	0.511208491420969	term-term
+cytoskeleton organization	membrane organization	0.511208491420969	term-term
+cell morphogenesis	membrane organization	0.511208491420969	term-term
+signal transduction	homeostatic process	0.847435129398841	term-term
+transport	nucleocytoplasmic transport	0.727489495630406	term-term
+vesicle-mediated transport	nucleocytoplasmic transport	0.571696259584754	term-term
+protein targeting	nucleocytoplasmic transport	0.758190401169787	term-term
+cellular component assembly	plasma membrane organization	0.537157138879682	term-term
+protein-containing complex assembly	plasma membrane organization	0.511208491420969	term-term
+membrane organization	plasma membrane organization	0.917418009339898	term-term
+transport	vacuolar transport	0.727489495630406	term-term
+vesicle-mediated transport	vacuolar transport	0.571696259584754	term-term
+protein targeting	vacuolar transport	0.571696259584754	term-term
+nucleocytoplasmic transport	vacuolar transport	0.571696259584754	term-term
+cellular component assembly	chromosome organization	0.537157138879682	term-term
+protein-containing complex assembly	chromosome organization	0.511208491420969	term-term
+cytoskeleton organization	chromosome organization	0.758190401169787	term-term
+membrane organization	chromosome organization	0.511208491420969	term-term
+cell morphogenesis	developmental maturation	0.645755340658313	term-term
+anatomical structure formation invo...	developmental maturation	0.571696259584754	term-term
+embryo development	developmental maturation	0.645755340658313	term-term
+anatomical structure development	developmental maturation	0.618908074754197	term-term
+cell differentiation	developmental maturation	0.645755340658313	term-term
+cell morphogenesis	aging	0.645755340658313	term-term
+anatomical structure formation invo...	aging	0.571696259584754	term-term
+embryo development	aging	0.645755340658313	term-term
+anatomical structure development	aging	0.618908074754197	term-term
+cell differentiation	aging	0.645755340658313	term-term
+developmental maturation	aging	0.645755340658313	term-term
+embryo development	nervous system process	0.847435129398841	term-term
+cellular component assembly	mitochondrion organization	0.537157138879682	term-term
+protein-containing complex assembly	mitochondrion organization	0.511208491420969	term-term
+cytoskeleton organization	mitochondrion organization	0.758190401169787	term-term
+membrane organization	mitochondrion organization	0.511208491420969	term-term
+chromosome organization	mitochondrion organization	0.758190401169787	term-term
+cell motility	locomotion	0.917418009339898	term-term
+transport	transmembrane transport	0.727489495630406	term-term
+vesicle-mediated transport	transmembrane transport	0.571696259584754	term-term
+protein targeting	transmembrane transport	0.571696259584754	term-term
+nucleocytoplasmic transport	transmembrane transport	0.571696259584754	term-term
+vacuolar transport	transmembrane transport	0.571696259584754	term-term
+cellular protein modification proce...	protein maturation	0.758190401169787	term-term
+DNA metabolic process	protein maturation	0.605625530568628	term-term
+translation	protein maturation	0.758190401169787	term-term
+tRNA metabolic process	protein maturation	0.605625530568628	term-term
+mRNA processing	protein maturation	0.605625530568628	term-term
+cellular nitrogen compound metaboli...	sulfur compound metabolic process	0.588197252421378	term-term
+cellular component assembly	extracellular matrix organization	0.537157138879682	term-term
+protein-containing complex assembly	extracellular matrix organization	0.511208491420969	term-term
+membrane organization	extracellular matrix organization	0.511208491420969	term-term
+cellular component assembly	cell junction organization	0.537157138879682	term-term
+protein-containing complex assembly	cell junction organization	0.511208491420969	term-term
+membrane organization	cell junction organization	0.511208491420969	term-term
+lipid metabolic process	secondary metabolic process	0.694870258797681	term-term
+small molecule metabolic process	secondary metabolic process	0.752254028019694	term-term
+cellular amino acid metabolic proce...	secondary metabolic process	0.694870258797681	term-term
+transport	cytoskeleton-dependent intracellula...	0.727489495630406	term-term
+vesicle-mediated transport	cytoskeleton-dependent intracellula...	0.571696259584754	term-term
+protein targeting	cytoskeleton-dependent intracellula...	0.758190401169787	term-term
+nucleocytoplasmic transport	cytoskeleton-dependent intracellula...	0.758190401169787	term-term
+vacuolar transport	cytoskeleton-dependent intracellula...	0.571696259584754	term-term
+transmembrane transport	cytoskeleton-dependent intracellula...	0.571696259584754	term-term

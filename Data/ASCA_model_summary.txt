@@ -1,19 +1,17 @@
-#load libraries
-library(dplyr)
-library(tidyr)
-library(MetStaT)
-
+#library(dplyr)
+#library(tidyr)
+#library(MetStaT)
 
 #Read in NSAF data (this is Supplementary Data 3)
-data <- read.csv("~/Documents/GitHub/OysterSeedProject/analysis/nmds_R/silo3and9_nozerovals_AVGs.csv", stringsAsFactors = FALSE)
+#data <- read.csv("~/Documents/GitHub/OysterSeedProject/analysis/nmds_R/silo3and9_nozerovals_AVGs.csv", stringsAsFactors = FALSE)
 #create matrix to pass to ASCA command, excluding the silo and time info
-ASCA_X <- as.matrix(choyp_data[,-c(1:2)])
+#ASCA_X <- as.matrix(choyp_data[,-c(1:2)])
 #create matrix to pass to ASCA command with only the silo and time info
-ASCA_F <- as.matrix(choyp_data[,c(1:2)])
+#ASCA_F <- as.matrix(choyp_data[,c(1:2)])
 #perform ASCA
-ASCA <- ASCA.Calculate(ASCA_X, ASCA_F, equation.elements = "1,2,12", scaling = FALSE)
+#ASCA <- ASCA.Calculate(ASCA_X, ASCA_F, equation.elements = "1,2,12", scaling = FALSE)
 
-ASCA.GetSummary(ASCA)
+#ASCA.GetSummary(ASCA)
 
 
 ## Variance explained per principal component (if >1%):
