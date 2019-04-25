@@ -53,13 +53,13 @@ The Pacific oyster has major ecological and economic importance serving as a bio
 		4. [Figure 4](): Biological processes associated with temperature affected proteins
 	2. [Supplementary](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/tree/master/Figures/Supplementary):
 		1. [Supplementary Figure 1](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Figures/Supplementary/SupplementaryFigure1.jpg): PCA of all technical replicate samples
-		2. [Supplementary Figure 2](): Pie charts showing proportions of GO slim biological processes represented by proteins detected among all a) 23°C proteomes and b) 29°C proteomes
+		2. [Supplementary Figure 2](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Figures/Supplementary/SupplementaryFigure2.jpg): Pie charts showing proportions of GO slim biological processes represented by proteins detected among all a) 23°C proteomes and b) 29°C proteomes
 		3.[Supplementary Figure 3](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Figures/Supplementary/SupplementaryFigure2.png): Hierarchical clustering analysis of protein abundances over time for both temperature treatments
 		4. [Supplementary Figure 4](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Figures/Supplementary/SupplementaryFigure3.png): ANOVA-simultaneous component analysis of protein abundances over time
 		5. [Supplementary Figure 5](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Figures/Supplementary/SupplementaryFigure4.jpg): Proteins selected by cluster analysis
 		6. [Supplementary Figure 6](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Figures/Supplementary/SupplementaryFigure5.jpg): Abundance of proteins selected by ANOVA-simultaneous component analysis
 		7. [Supplementary Figure 7](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Figures/Supplementary/SupplementaryFigure6.jpg): Abundances of proteins selected by Chi-squared proportions test
-		8. [Supplementary Figure 8]():
+		8. [Supplementary Figure 8](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Figures/Supplementary/SupplementaryFigure8.jpg): Biological processes likely affected by temperature-altered protein abundances at each ay post-fertilization (dpf) timepoint 
 
 
 
