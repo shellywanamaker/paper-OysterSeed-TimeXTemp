@@ -154,6 +154,8 @@ write.csv(new_data_all, "silo3and9_nozerovals_NSAF_AVGs.csv", row.names = FALSE,
 new_data_all_log <- log(new_data_all[,-c(1:2)],2)
 #create PCA object
 pca_log <- prcomp(new_data_all_log, center = T, scale = T)
+summary_pca_log <- summary(pca_log)
+
 #add meta data to PCA data
 pca_log_meta <- cbind(new_data_all$dpf, new_data_all$temp, data.frame(paste(new_data_all$dpf,new_data_all$temp, sep = "_")),pca_log$x)
 #rename columns
@@ -161,6 +163,58 @@ colnames(pca_log_meta)[1:3] <- c("dpf","temp","SampleName")
 
 #plot PCA of averaged NSAF values with days ordered from earliest to latest
 jpeg("../../Figures/MainText/Figure2b.jpg", height = 5, width = 7, units = "in", res = 300 )
-ggplot(pca_log_meta, aes(PC1, PC2)) + geom_point(aes(col = dpf, shape = temp, size = 1)) + theme_bw()
+ggplot(pca_log_meta, aes(PC1, PC2,label = dpf, color = temp, size = 2)) + geom_text(fontface = "bold") + scale_colour_manual(values = c("brown4","cyan3", "magenta3")) + theme_bw() + ylab(paste("PC2"," (",formatC(summary_pca_log$importance[5] * 100,digits=2,format="f"),"%)", sep = "")) + xlab(paste("PC1"," (",formatC(summary_pca_log$importance[2] * 100,digits=2,format="f"),"%)", sep = ""))
 dev.off()
+
+#extract loadings for PC1 and PC2
+PC1_great <- data.frame(pca_log$rotation)
+PC1_great <- PC1_great[which(PC1_great$PC1 > 0),1:2]
+
+#export plot
+jpeg("../../Figures/AdditionalFile1/FigureS2a.jpg", height = 5, width = 5, units = "in", res = 300 )
+plot(head(PC1_great[order(PC1_great, decreasing = TRUE),1],100), xlab = "protein", ylab = "PC1 Loadings")
+abline(h=0.0236, col = "red")
+dev.off()
+
+
+PC1_great_prots <- rownames(PC1_great[which(PC1_great$PC1 > 0.0236),])
+
+PC1_less <- data.frame(pca_log$rotation)
+PC1_less <- PC1_less[which(PC1_less$PC1 < 0),1:2]
+
+jpeg("../../Figures/AdditionalFile1/FigureS2b.jpg", height = 5, width = 5, units = "in", res = 300 )
+plot(tail(PC1_less[order(PC1_less$PC1, decreasing = TRUE),1],100), xlab = "protein", ylab = "PC1 Loadings")
+abline(h=-0.02355, col = "red")
+dev.off()
+
+PC1_less_prots <- rownames(PC1_less[which(PC1_less$PC1 < -0.02355),])
+
+#now PC2
+PC2_great <- data.frame(pca_log$rotation)
+PC2_great <- PC2_great[which(PC2_great$PC2 > 0),1:2]
+
+jpeg("../../Figures/AdditionalFile1/FigureS2c.jpg", height = 5, width = 5, units = "in", res = 300 )
+plot(head(PC2_great[order(PC2_great$PC2, decreasing = TRUE),2],100), xlab = "protein", ylab = "PC2 Loadings")
+abline(h=0.0245, col = "red")
+dev.off()
+
+PC2_great_prots <- rownames(PC2_great[which(PC2_great$PC2 > 0.0245),])
+
+PC2_less <- data.frame(pca_log$rotation)
+PC2_less <- PC2_less[which(PC2_less$PC2 < 0),1:2]
+
+jpeg("../../Figures/AdditionalFile1/FigureS2d.jpg", height = 5, width = 5, units = "in", res = 300 )
+plot(tail(PC2_less[order(PC2_less$PC2, decreasing = TRUE),2],100), xlab = "protein", ylab = "PC2 Loadings")
+abline(h=-0.0262, col = "red")
+dev.off()
+
+PC2_less_prots <- rownames(PC2_less[which(PC2_less$PC2 < -0.0262),])
+
+
+global_PC12 <- c(PC1_great_prots,PC1_less_prots, PC2_great_prots, PC2_less_prots)
+write.table(global_PC12, "../../Data/global_PC12_proteins.txt", quote = FALSE, row.names = FALSE)
+
+
+
+
 

@@ -1,0 +1,49 @@
+Term,clade1,clade2,clade3,clade4,clade5
+anatomical structure development,10,3,11,2,7
+anatomical structure formation invo...,2,1,2,0,0
+autophagy,0,0,1,0,0
+biosynthetic process,2,1,0,0,4
+carbohydrate metabolic process,4,0,0,0,1
+catabolic process,3,1,1,4,1
+cell adhesion,0,0,0,0,1
+cell death,0,1,1,2,0
+cell differentiation,6,2,5,0,4
+cell junction organization,1,0,1,1,1
+cell morphogenesis,2,0,0,0,0
+cell motility,1,1,2,0,0
+cell proliferation,1,0,0,0,2
+cell-cell signaling,0,0,2,0,0
+cellular amino acid metabolic proce...,0,0,0,0,1
+cellular component assembly,3,1,0,4,1
+cellular nitrogen compound metaboli...,4,2,0,7,4
+cellular protein modification proce...,0,3,0,1,2
+chromosome organization,0,0,0,1,0
+circulatory system process,0,0,0,1,0
+cofactor metabolic process,1,1,0,0,0
+cytoskeleton organization,1,1,0,0,1
+cytoskeleton-dependent intracellula...,0,0,2,2,0
+embryo development,1,0,1,0,0
+extracellular matrix organization,0,0,0,1,1
+generation of precursor metabolites...,1,0,0,0,0
+growth,2,2,0,0,2
+immune system process,0,0,1,0,2
+lipid metabolic process,1,1,0,0,0
+locomotion,1,1,2,0,0
+membrane organization,1,0,1,0,1
+mitochondrion organization,0,0,0,1,1
+nervous system process,2,0,0,0,0
+nucleobase-containing compound cata...,1,0,0,4,0
+nucleocytoplasmic transport,0,0,0,0,1
+pigmentation,0,0,1,0,0
+plasma membrane organization,1,0,0,0,0
+protein folding,0,0,1,0,0
+protein-containing complex assembly,2,1,0,1,0
+reproduction,0,0,1,0,0
+response to stress,0,2,2,0,7
+ribosome biogenesis,0,0,0,1,0
+secondary metabolic process,0,0,1,0,0
+signal transduction,1,4,1,1,4
+small molecule metabolic process,5,1,0,0,5
+transport,0,1,4,2,3
+tRNA metabolic process,0,0,0,1,0
+vesicle-mediated transport,0,0,3,0,0

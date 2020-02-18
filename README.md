@@ -13,8 +13,50 @@
 The Pacific oyster has major ecological and economic importance serving as a biofilter and habitat in coastal ecosystems, and contributing over $190M to annual marine aquaculture revenue. However, little is known about the landscape of protein expression during early development, a time when mass mortality is common which can negatively impact industry and ecosystems. To better characterize physiological pathways and associated networks active during oyster development we performed a developmental time series proteomics analysis of larval cultures reared at 23°C and 29°C. These temperatures were selected based on the reports from the aquaculture industry that differential performance is observed in oysters at these temperatures. In addition to observing larger sized animals at 29°C, we found differentially abundant proteins that point to upregulated systemic structural remodeling during early development at 23°C and upregulated growth during late development at 29°C. The differential proteomes suggest that at 23°C more cellular energy is being diverted to maintenances processes where at 29°C more cellular energy is being used for growth. This proteomics analysis combined with development observations offers greater clarity on environmental conditions that can improve aquaculture production.
 
 # Repo Contents
+- **Manuscript files:**
+	- Additional files:
+		1. Additional file 1:
+		2. Additional file 2:
+		3. Additional file 3:
+		4. Additional file 4:
+		5. Additional file 5: 
+		6. Additional file 6:
+		7. Additional file 7:
+		8. Additional file 8:
+
+- **[Analyses]()**:
+	1. [Proteomics\_Data\_Processing:](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/tree/master/Analyses/Proteomics_Data_Processing)
+		- [Abacus_parameters.txt](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Scripts/Abacus_parameters.txt):  ABACUS parameter file used in ABACUS analysis of mass spectrometry data
+		- [DDA-data-Analyses.md](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Scripts/DDA-data-Analyses.md):  DDA proteomics analysis workflow that converts files from .raw to .mzXML, searches .mzXML files against C. gigas database, calculates statistics associated with peptide and protein IDs using the Trans Proteomic Pipeline, and correlates protein inferences using ABACUS.  
+		- [Pcomet.params.high-low.txt](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Scripts/Pcomet.params.high-low.txt):  COMET 2016.01 'comet.params.high-low' search parameters used in COMET analysis of mass spectrometry data download from http://comet-ms.sourceforge.net/parameters/parameters_201601/comet.params.high-low
+		
+	2. [Technical\_Replicates\_PCA:](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/tree/master/Analyses/Technical_Replicates_PCA)
+		- [Technical\_Replicates\_PCA.Rproj](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Analyses/Technical_Replicates_PCA/Technical_Replicates_PCA.Rproj): R project used to run PCA to cluster technical replicates and calculate average NSAF values
+		- [ClusteringTechnicalReplicates\_and_CalculateAvgNSAFs.R](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Analyses/Technical_Replicates_PCA/ClusteringTechnicalReplicates_and_CalculateAvgNSAFs.R): R code used to cluster technical replicates by PCA and calulate average NSAF values
+		- [silo3and9\_nozerovals\_NSAF\_AVGs.csv](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Analyses/Technical_Replicates_PCA/silo3and9_nozerovals_NSAF_AVGs.csv): Average technical replicate NSAF values for each protein 
+	
+	3. [ASCA](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/tree/master/Analyses/ASCA):
+		- [ASCA.Rproj](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Analyses/ASCA/ASCA.Rproj):
+		- [ASCA\_silo3\_9\_log2avgNSAF.Rmd](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Analyses/ASCA/ASCA_silo3_9_log2avgNSAF.Rmd):
+		- [ASCA\_model\_summary.txt](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Analyses/ASCA/ASCA_model_summary.txt):
+		- [ASCA\_permTest\_summary.txt](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Analyses/ASCA/ASCA_permTest_summary.txt):
+		- [ASCA\_time\_PC1andPC2\_loadings.csv](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Analyses/ASCA/ASCA_time_PC1andPC2_loadings.csv):
+		- [ASCA\_TimeProts\_avgNSAF.csv](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Analyses/ASCA/ASCA_TimeProts_avgNSAF.csv):
+		- [ASCA\_TimeProts\_autoscaled\_avgNSAF.csv](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Analyses/ASCA/ASCA_TimeProts_autoscaled_avgNSAF.csv):
+		- [ASCA\_temperature\_PC1\_loadings.csv](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Analyses/ASCA/ASCA_temperature_PC1_loadings.csv):
+		- [ASCA\_TempProts\_avgNSAF.csv](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Analyses/ASCA/ASCA_TempProts_avgNSAF.csv):
+		- [ASCA\_TempProts\_autoscaled\_avgNSAF.csv](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Analyses/ASCA/ASCA_TempProts_autoscaled_avgNSAF.csv):
+
+	4. [Functional_Analysis]():
+		- []():
+	
+	
+	
+	
+	
+	 
 - **[R](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/tree/master/R)**: R code
-	1. 	[ClusteringTechnicalReplicates\_and\_CalculateAvgNSAFs.R](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/R/ClusteringTechnicalReplicates_and_CalculateAvgNSAFs.R):   R code used to cluster technical replicates and calulate average NSAF values
+	1. 	[ClusteringTechnicalReplicates\_and\_CalculateAvgNSAFs.R](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/R/ClusteringTechnicalReplicates_and_CalculateAvgNSAFs.R):   
 
 	2. [General\_proteome\_characterization.Rmd](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/R/General_proteome_characterization.Rmd):  R code used to  convert the GO identifiers associated with each protein to GO slim terms using the MGI GO Slim database (http://www.informatics.jax.org/gotools/MGI_GO_Slim.html), and plot pie chart of biological processes.  
 	3. [clustering-dendrogram\_s3\_9.R](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/R/clustering-dendrogram_s3_9.R):  R code used for hierarchical clustering do identify differentially abundant proteins
@@ -41,10 +83,7 @@ The Pacific oyster has major ecological and economic importance serving as a bio
 	14. [BPGOnode\_attb\_semsim0.5\_sig0.1ASCAClust\_EValcutoff.txt](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Data/BPGOnode_attb_semsim0.5_sig0.1ASCAClust_EValcutoff.txt): Node attribute file for GO slim terms containing total number spectra magnitude foldchange ('TNSmagFC') for each timepoint, total NSAF magnitude foldchange ('NSAFmagFC') for each timepoint, and number of proteins per term.
 	15. [edge\_attb\_GOBPsemsim0.5\_sig0.1ASCAClust\_EValcutoff.txt](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Data/edge_attb_GOBPsemsim0.5_sig0.1ASCAClust_EValcutoff.txt): Edge attribute file for GO terms containing term-term relationships and their semantic similarity scores.
 - **[Scripts](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/tree/master/Scripts)**: 
-	1. [DDA-data-Analyses.md](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Scripts/DDA-data-Analyses.md):  DDA proteomics analysis workflow that converts files from .raw to .mzXML, searches .mzXML files against C. gigas database, calculates statistics associated with peptide and protein IDs using the Trans Proteomic Pipeline, and correlates protein inferences using ABACUS.  
-	2. [Pcomet.params.high-low.txt](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Scripts/Pcomet.params.high-low.txt):  COMET 2016.01 'comet.params.high-low' search parameters used in COMET analysis of mass spectrometry data download from http://comet-ms.sourceforge.net/parameters/parameters_201601/comet.params.high-low
-	3. [Abacus_parameters.txt](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Scripts/Abacus_parameters.txt):  ABACUS parameter file used in ABACUS analysis of mass spectrometry data
-	4. [Cg\_Giga\_cont\_AA.fa\_BLASTP\_uniprot\_swprot2019.ipynb](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Scripts/Cg_Giga_cont_AA.fa_BLASTP_uniprot_swprot2019.ipynb):  Jupyter notebook used to align protein sequences to the Uniprot-KB Swiss-Prot database using BLASTp 
+	[Cg\_Giga\_cont\_AA.fa\_BLASTP\_uniprot\_swprot2019.ipynb](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Scripts/Cg_Giga_cont_AA.fa_BLASTP_uniprot_swprot2019.ipynb):  Jupyter notebook used to align protein sequences to the Uniprot-KB Swiss-Prot database using BLASTp 
 - **[Figures](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/tree/master/Figures)**:
 	1. [MainText](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/tree/master/Figures/MainText): 
 		1. [Figure 1](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Figures/MainText/Figure1.png): Oyster seed performance at the time of settlement

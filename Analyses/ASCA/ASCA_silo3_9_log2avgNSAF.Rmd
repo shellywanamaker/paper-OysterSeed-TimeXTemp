@@ -24,12 +24,87 @@ data <- read.csv("../Technical_Replicates_PCA/silo3and9_nozerovals_NSAF_AVGs.csv
 
 ```
 
+Plot heatmap for global PCA (Fig2b) PC1 and PC2 biggest contributors
+```{r}
+global_PC12 <- read.table("../../Data/global_PC12_proteins.txt", stringsAsFactors = FALSE, header = TRUE)
+#rename column 1
+colnames(global_PC12)[1] <- "protein"
+#replace pipe in protein names with decimal
+global_PC12$protein <- gsub("\\|", "\\.", global_PC12$protein)
+#subset NSAF data for global PCA PC1 and PC2 biggest contributors
+global_cut_data <- data[,c(1:2,which(colnames(data) %in% global_PC12$protein))]
+
+#order the data by day then temp
+global_cut_data <- global_cut_data[order(global_cut_data$dpf,global_cut_data$temp),]
+#add temp and day info to column names
+rownames(global_cut_data) <- paste(global_cut_data$dpf, global_cut_data$temp, sep="_")
+#remove day and temp columns
+global_cut_data <- global_cut_data[,-c(1:2)]
+
+#save a color object for temperature labels
+ColSideColors<-cbind(Temp=c("brown",rep(c("cyan3","magenta2"),6)), Day=c("white",rep(c("#D9D9D9","#BDBDBD","#969696","#737373","#525252","#252525"),2)))
+
+#plot the heat map
+
+heatmap3(as.matrix(t(global_cut_data)), Colv = NA, cexRow = 0.5,labCol = c(19,21,21,23,23,25,25,27,27,29,29,31,31), ColSideColors = ColSideColors, ColAxisColors = 1)
+
+
+
+#what are the proteins that distinguish day 21 and day 27?
+hm <- as.dist(1-cor(global_cut_data, use="pa"))
+hm2 <- hclust(hm, method = 'complete')
+plot(hm2)
+
+#Identify clades in heatmap
+# define some clusters
+
+#make a list of proteins with cluster IDs based on where the tree is cut
+mycl <- cutree(hm2, h=1)
+
+#assign colors to cluster IDs
+clusterCols <- colorRamps::matlab.like2(length(unique(mycl)))
+myClusterSideBar <- clusterCols[mycl]
+
+
+
+#get color name
+clusterColor <- lapply(myClusterSideBar, color.id)
+clusterColor <- lapply(clusterColor, `[[`,1)
+clusterColor <- data.frame(unlist(clusterColor), stringsAsFactors = FALSE)
+
+foo <- cbind(data.frame(mycl), clusterColor)
+#add protein column to data frame for merging
+foo$protein_ID <- rownames(foo)
+
+#add protein column back to NSAF data frame for merging
+global_cut_data_proteinID <- data.frame(t(global_cut_data))
+global_cut_data_proteinID$protein_ID <- rownames(global_cut_data_proteinID)
+
+clade.prot <- merge(foo,global_cut_data_proteinID,  by = "protein_ID")
+
+colnames(clade.prot)[3] <- "ClusterColor"
+colnames(clade.prot)[2] <- "ClusterID"
+
+#plot heatmap with colored row side bars
+heatmap3(as.matrix(t(global_cut_data)), Colv = NA, cexRow = 0.5,labCol = c(19,21,21,23,23,25,25,27,27,29,29,31,31), ColSideColors = ColSideColors,RowSideColors=myClusterSideBar, ColAxisColors = 1,RowAxisColors=1,distfun = function(x) as.dist(1 - cor(t(x), use = "pa")), method = "complete")
+
+#Red clade does not show much difference between temperatures
+#exclude "red" cluster that does not show much change between temperatures 
+
+jpeg(file="../../Figures/AdditionalFile1/FigureS2e.jpg", width=7, height=5, units = "in", res = 300)
+heatmap3(as.matrix(t(global_cut_data)[which(rownames(t(global_cut_data)) %in% clade.prot[which(clade.prot$ClusterColor !="red"),"protein_ID"]),]), Colv = NA, cexRow = 0.5,labCol = c(19,21,21,23,23,25,25,27,27,29,29,31,31), ColSideColors = ColSideColors,RowSideColors=myClusterSideBar[myClusterSideBar != "#FF0000"], ColAxisColors = 1,RowAxisColors=1,distfun = function(x) as.dist(1 - cor(t(x), use = "pa")), method = "complete")
+dev.off()
+
+
+write.csv(clade.prot,"PCA_d21d27.csv", quote = FALSE, row.names = FALSE)
+
+```
+
 
 ```{r subset_data_for_CHOYP_only_rm0, echo = FALSE}
 #make a dataframe with just CHOYP proteins and exclude day 0 for data going into ASCA
 choyp_data <- data[which(data$dpf !=19),c(1:2,grep("CHOYP", colnames(data)))]
 ```
-
 
 **Perform ASCA on log2 data**
 ```{r}
@@ -38,6 +113,7 @@ ASCA_X <- as.matrix(log(choyp_data[,-c(1:2)],2))
 #create matrix to pass to ASCA command with only the silo and time info
 ASCA_F <- as.matrix(choyp_data[,c(1:2)])
 #perform ASCA
+set.seed(101)
 ASCA <- ASCA.Calculate(ASCA_X, ASCA_F, equation.elements = "1,2,12", scaling = FALSE)
 ```
 
@@ -52,7 +128,7 @@ capture.output(ASCA.GetSummary(ASCA), file = "ASCA_model_summary.txt")
 Perform a permutation test on ASCA results to see if experimental effects are significant beyond randomly permuted data
 ```{r}
 set.seed(101)
-perm.test <- ASCA.DoPermutationTest(ASCA,perm = 1000)
+perm.test <- ASCA.DoPermutationTest(ASCA,perm = 10000)
 capture.output(perm.test, file = "ASCA_permTest_summary.txt")
 ```
 
@@ -70,7 +146,7 @@ time_PC12$PC1_j <- jitter(time_PC12$PC1)
 time_PC12$PC2_j <- jitter(time_PC12$PC2)
 
 jpeg(file="../../Figures/MainText/Figure3a.jpg", width=7, height=5, units = "in", res = 300)
-ggplot(time_PC12, aes(PC1_j, PC2_j)) + geom_point(aes(color = dpf, shape = temp,size = 3, stroke = 1)) + scale_color_manual(values = c("#E6E6E6","#BDBDBD","#969696","#737373","#525252","#252525"))  + scale_shape_manual(values=c(1,2)) + theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),panel.background = element_blank(),axis.line = element_line(colour = "black"),panel.border = element_rect(colour = "black", fill=NA, size=1), text = element_text(size=15)) + xlab(paste("PC1"," (",formatC(ASCA$`1`$svd$var.explained[1] * 100,digits=2,format="f"),"%)", sep = "")) + ylab(paste("PC2"," (",formatC(ASCA$`1`$svd$var.explained[2] * 100,digits=2,format="f"),"%)", sep = ""))
+ggplot(time_PC12, aes(PC1_j, PC2_j, label = dpf, color = temp)) + geom_text(size = 6, fontface = "bold") + scale_color_manual(values = c("cyan3", "magenta3"))+ theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),panel.background = element_blank(),axis.line = element_line(colour = "black"),panel.border = element_rect(colour = "black", fill=NA, size=1), text = element_text(size=15)) + xlab(paste("PC1"," (",formatC(ASCA$`1`$svd$var.explained[1] * 100,digits=2,format="f"),"%)", sep = "")) + ylab(paste("PC2"," (",formatC(ASCA$`1`$svd$var.explained[2] * 100,digits=2,format="f"),"%)", sep = ""))
 dev.off()
 ```
 
@@ -87,7 +163,7 @@ temp_PC12$PC1_j <- jitter(temp_PC12$PC1)
 temp_PC12$PC2_j <- jitter(temp_PC12$PC2)
 
 jpeg(file="../../Figures/MainText/Figure5a.jpg", width=7, height=5, units = "in", res = 300)
-ggplot(temp_PC12, aes(PC1_j, PC2_j)) + geom_point(aes(color = dpf, shape = temp, size = 6, stroke = 2)) + scale_color_manual(values = c("#E6E6E6","#BDBDBD","#969696","#737373","#525252","#252525")) + scale_shape_manual(values=c(1,2)) + theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),panel.background = element_blank(),axis.line = element_line(colour = "black"),panel.border = element_rect(colour = "black", fill=NA, size=1), text = element_text(size=15)) + xlab(paste("PC1"," (",formatC(ASCA$`2`$svd$var.explained[1] * 100,digits=2,format="f"),"%)", sep = "")) + ylab(paste("PC2"," (",formatC(ASCA$`2`$svd$var.explained[2] * 100,digits=2,format="f"),"%)", sep = ""))
+ggplot(temp_PC12, aes(PC1_j, PC2_j, label = dpf, color = temp)) + geom_text(size = 3, fontface = "bold") + scale_color_manual(values = c("cyan3", "magenta3")) + theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),panel.background = element_blank(),axis.line = element_line(colour = "black"),panel.border = element_rect(colour = "black", fill=NA, size=1), text = element_text(size=10)) + xlab(paste("PC1"," (",formatC(ASCA$`2`$svd$var.explained[1] * 100,digits=2,format="f"),"%)", sep = "")) + ylab(paste("PC2"," (",formatC(ASCA$`2`$svd$var.explained[2] * 100,digits=2,format="f"),"%)", sep = ""))
 dev.off()
 ```
 
@@ -408,10 +484,10 @@ STACKED_NSAF_mean <- STACKED_NSAF %>%
       CI_lower = mean + qt((1-0.95)/2, n - 1) * sem,
       CI_upper = mean - qt((1-0.95)/2, n - 1) * sem)
 
-jpeg(file="../../Figures/MainText/Figure3c.jpg", width=10, height=5, units = "in", res = 300)
+jpeg(file="../../Figures/MainText/Figure3c.jpg", width=25, height=5, units = "in", res = 300)
 ggplot(STACKED_NSAF_mean, aes(x=dpf, y=mean, color = temp)) +
   geom_line(aes(x=dpf, y=mean, color=temp)) + xlab("dpf") + ylab(" autoscaled NSAF values") +
-  geom_ribbon(aes(ymin=CI_lower,ymax=CI_upper,fill=temp),color="grey70",alpha=0.4)  + facet_wrap(~ClusterID, ncol = 3) + scale_color_manual(values=c("cyan3", "magenta2")) + scale_fill_manual(values=c("cyan3", "magenta2")) + scale_x_continuous(breaks = c(21,23,25,27,29,31), labels = c(21,23,25,27,29,31)) + theme_bw() + theme(text = element_text(size=20))
+  geom_ribbon(aes(ymin=CI_lower,ymax=CI_upper,fill=temp),color="grey70",alpha=0.4)  + facet_wrap(~ClusterID, ncol = 5) + scale_color_manual(values=c("cyan3", "magenta2")) + scale_fill_manual(values=c("cyan3", "magenta2")) + scale_x_continuous(breaks = c(21,23,25,27,29,31), labels = c(21,23,25,27,29,31)) + theme_bw() + theme(text = element_text(size=30))
 dev.off()
 
 #create a simple plot for common trend over time 
@@ -428,4 +504,14 @@ dev.off()
 ```
 
 
+time x temperature interaction
+```{r}
+tempxtime_PC12 <- data.frame(ASCA$`12`$svd$t[,1])
+tempxtime_PC12 <- cbind(data.frame(ASCA$`12`$level.combinations$row.patterns), tempxtime_PC12)
+tempxtime_PC12 <- cbind(tempxtime_PC12, data.frame(ASCA$`12`$svd$t[,2]))
+colnames(tempxtime_PC12) <- c("dpf", "temp","PC1","PC2")
 
+ggplot(tempxtime_PC12, aes(x = PC1, y = PC2, color = as.factor(temp), label = as.factor(dpf))) + geom_text(fontface = "bold", size = 5) + stat_ellipse(type = "t", linetype = 1) + theme_bw() 
+
+
+```
