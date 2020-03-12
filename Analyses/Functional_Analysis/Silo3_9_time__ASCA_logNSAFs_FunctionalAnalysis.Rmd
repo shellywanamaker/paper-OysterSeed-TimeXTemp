@@ -560,7 +560,7 @@ silo39_global_PCA <- read.csv("../ASCA/PCA_d21d27.csv", stringsAsFactors = FALSE
 colnames(silo39_temp_ASCA)[1] <- "protein_ID"
 
 #select only black and khaki clades
-silo39_global_PCA <- silo39_global_PCA[which(silo39_global_PCA$ClusterID == 1 | silo39_global_PCA$ClusterID==3),]
+silo39_global_PCA <- silo39_global_PCA[which(silo39_global_PCA$ClusterColor != "red"),]
 
 
 #Get GO IDs for silo 3 and 9 sig. proteins
@@ -616,7 +616,9 @@ topgo_sig$GO_IDs <- gsub(";",",",topgo_sig$GO_IDs)
 
 topgo_sig_1 <- topgo_sig[which(topgo_sig$ClusterID == 1),c("protein_ID", "GO_IDs")]
 
-topgo_sig_2 <- topgo_sig[which(topgo_sig$ClusterID == 3),c("protein_ID", "GO_IDs")]
+topgo_sig_2 <- topgo_sig[which(topgo_sig$ClusterID == 2),c("protein_ID", "GO_IDs")]
+
+topgo_sig_3 <- topgo_sig[which(topgo_sig$ClusterID == 3),c("protein_ID", "GO_IDs")]
 
 geneUniverse <- names(geneID2GO_bkgd) 
 
@@ -646,12 +648,27 @@ resultFisher_2 <- runTest(myGOdata_2, algorithm="weight01", statistic="fisher")
 
 allRes_2 <- GenTable(myGOdata_2, weight = resultFisher_2,orderBy = "weight", ranksOf = "classic", topNodes = 50)
 
+#clade 3
+
+genesOfInterest_3 <- topgo_sig_3
+genesOfInterest_3 <- as.character(genesOfInterest_3$protein_ID)
+
+geneList_3 <- factor(as.integer(geneUniverse %in% genesOfInterest_3))
+names(geneList_3) <- geneUniverse
+
+myGOdata_3 <- new("topGOdata", description="glob_clade3", ontology="BP", allGenes=geneList_3,  annot = annFUN.gene2GO, gene2GO = geneID2GO_bkgd)
+
+resultFisher_3 <- runTest(myGOdata_3, algorithm="weight01", statistic="fisher") 
+
+allRes_3 <- GenTable(myGOdata_3, weight = resultFisher_3,orderBy = "weight", ranksOf = "classic", topNodes = 50)
+
 
 sub_allRes1 <- allRes_1[which(allRes_1$Annotated >=5 & allRes_1$weight <= 0.05),]
 sub_allRes2 <- allRes_2[which(allRes_2$Annotated >=5 & allRes_2$weight <= 0.05),]
+sub_allRes3 <- allRes_3[which(allRes_3$Annotated >=5 & allRes_3$weight <= 0.05),]
 
 #bind all result subsets into one data frame
-sub_allRes <- rbind(sub_allRes1,sub_allRes2)
+sub_allRes <- rbind(sub_allRes1,sub_allRes2, sub_allRes3)
 
 sub_allRes <- sub_allRes[,1:2]
 sub_allRes <- unique(sub_allRes)
@@ -662,6 +679,8 @@ colnames(sub_allRes)[3] <- "clade1"
 sub_allRes <- merge(sub_allRes, sub_allRes2[,c(1,6)], by = "GO.ID", all = TRUE)
 colnames(sub_allRes)[4] <- "clade2"
 
+sub_allRes <- merge(sub_allRes, sub_allRes3[,c(1,6)], by = "GO.ID", all = TRUE)
+colnames(sub_allRes)[5] <- "clade3"
 ```
 
 #get GO slims for clade terms
@@ -669,6 +688,7 @@ colnames(sub_allRes)[4] <- "clade2"
 
 GO_clade1 <- sub_allRes[which(!is.na(sub_allRes$clade1)),"GO.ID"]
 GO_clade2 <- sub_allRes[which(!is.na(sub_allRes$clade2)),"GO.ID"]
+GO_clade3 <- sub_allRes[which(!is.na(sub_allRes$clade3)),"GO.ID"]
 
 #Use GSEA to generate list of GO Slim BP terms for each clade
 #DF will have "term", "GOid", "GOcategory"
@@ -676,6 +696,7 @@ GO_clade2 <- sub_allRes[which(!is.na(sub_allRes$clade2)),"GO.ID"]
 #goslims with GSEA
 collection_clade1 <- GOCollection(GO_clade1)
 collection_clade2 <- GOCollection(GO_clade2)
+collection_clade3 <- GOCollection(GO_clade3)
 
 #make list of unique GO terms without a protein ID column
 #moved it to the R library for GSEABase in the extdata folder
@@ -683,9 +704,10 @@ fl <- system.file("extdata", "goslim_generic.obo", package="GSEABase")
 slim <- getOBOCollection(fl)
 slims_clade1 <- data.frame(goSlim(collection_clade1, slim, "BP"))
 slims_clade2 <- data.frame(goSlim(collection_clade2, slim, "BP"))
+slims_clade3 <- data.frame(goSlim(collection_clade3, slim, "BP"))
 
 #bind all clade slim terms together
-slims <- rbind(slims_clade1, slims_clade2)
+slims <- rbind(slims_clade1, slims_clade2, slims_clade3)
 
 slims <- data.frame(unique(slims$Term))
 colnames(slims)[1] <- "Term"
@@ -695,6 +717,9 @@ colnames(slims)[2] <- "clade1"
 
 slims <- merge(slims, slims_clade2[,c("Term", "Count")], by = "Term", all = TRUE)
 colnames(slims)[3] <- "clade2"
+
+slims <- merge(slims, slims_clade3[,c("Term", "Count")], by = "Term", all = TRUE)
+colnames(slims)[4] <- "clade3"
 
 #remove rows without any counts, and biological_process row
 
@@ -724,4 +749,6 @@ rownames(slims_m) <- gsub("cellular amino acid metabolic proce...","cellular ami
 rownames(slims_m) <- gsub("anatomical structure formation invo...","anatomical structure formation involved in morphogenesis", rownames(slims_m))
 
 breaks <- c(seq(-1,0, length = 2),1,seq(2,8, length = 5))
+pdf(file="../../Figures/AdditionalFile1/FigureS2f.pdf", width=8, height=8)
 heatmap.2(slims_m,margins = c(5,27),cexRow = 1.2, Colv=NA,revC = TRUE,density.info = "none", trace = "none",col = c("white", viridis(8)), scale = "none")
+dev.off()
