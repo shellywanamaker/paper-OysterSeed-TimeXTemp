@@ -42,15 +42,15 @@ The Pacific oyster has major ecological and economic importance serving as a bio
 
 
 - ### [Figures:](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/tree/master/Figures)
-	1. [Figure 1](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Figures/MainText/Figure1.jpg): Size distribution based on sorting screen size of oysters at 24 days post fertilization when settlement rate was assessed
-	2. [Figure 2](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Figures/MainText/Figure2.jpg): Global protein abundance in juvenile oyster over time under heat stress
-	3. [Figure 3](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Figures/MainText/Figure3.jpg): Time influence on proteomes
-	4. [Figure 4](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Figures/MainText/Figure4.jpg): Summary of biological processes represented by enriched GO terms within each clade for time-influenced proteins
-	5. [Figure 5](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Figures/MainText/Figure5.jpg): Temperature influence on proteomes
-	6. [Figure 6](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Figures/MainText/Figure6.jpg): Summary of biological processes represented by enriched GO terms within each clade for temperature-influenced proteins
+	1. [Figure 1](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Figures/Figure1.jpg): Size distribution based on sorting screen size of oysters at 24 days post fertilization when settlement rate was assessed
+	2. [Figure 2](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Figures/Figure2.jpg): Global protein abundance in juvenile oyster over time under heat stress
+	3. [Figure 3](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Figures/Figure3.jpg): Time influence on proteomes
+	4. [Figure 4](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Figures/Figure4.jpg): Summary of biological processes represented by enriched GO terms within each clade for time-influenced proteins
+	5. [Figure 5](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Figures/Figure5.jpg): Temperature influence on proteomes
+	6. [Figure 6](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Figures/Figure6.jpg): Summary of biological processes represented by enriched GO terms within each clade for temperature-influenced proteins
 
-- ### [Tables]()
-	1. [Table 1: ASCA\_permTest\_summary.txt](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Data/ASCA_permTest_summary.txt):  Summarized results from ASCA permutation test
+- ### [Tables](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/tree/master/Tables)
+	1. [Table 1: ASCA\_permTest\_summary.txt](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Tables/ASCA_permTest_summary.txt):  Summarized results from ASCA permutation test
 	2. [Table 2](): Proteins that commonly show increased abundance in response to high temperature.
 
 
