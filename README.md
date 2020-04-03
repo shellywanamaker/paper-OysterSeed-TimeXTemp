@@ -52,8 +52,6 @@ The Pacific oyster has major ecological and economic importance serving as a bio
 - ### [Tables](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/tree/master/Tables)
 	1. [Table 1: ASCA\_permTest\_summary.txt](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Tables/ASCA_permTest_summary.txt):  Summarized results from ASCA permutation test
 	2. [Table 2](): Proteins that commonly show increased abundance in response to high temperature.
-
-
 	
 - ### [Additional Files:](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/tree/master/AdditionalFiles)
 	1. [Additional File 1: BiovolumeAfterSettlement.xlsx](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/AdditionalFiles/BiovolumeAfterSettlement.xlsx):  Biovolume of oyster seed (mL) settled after 6 days of exposure to high temperatures.
