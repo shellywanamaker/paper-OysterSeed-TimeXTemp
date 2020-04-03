@@ -1,0 +1,60 @@
+Ensembl Gene ID,Protein ID,UniprotID,Name,Cell. Loc.,Group
+CGI_10014580,EKC18206,K1Q9U4,Hypothetical protein CGI_10014580,Mit 0.58,Hypothetical protein
+CGI_10010208,EKC18972,K1P5T7,Hypothetical protein CGI_10010208,Ext 1,Hypothetical protein
+CGI_10004853,EKC21005,K1PX96,Hypothetical protein CGI_10004853,Ext 0.42,Hypothetical protein
+CGI_10002578,EKC22248,K1PKN3,Hypothetical protein CGI_10002578,Ext 0.89,Hypothetical protein
+CGI_10001746,EKC22673,K1PLS6,Hypothetical protein CGI_10001746,Ext 0.90,Hypothetical protein
+CGI_10013335,EKC23310,K1Q362,Hypothetical protein CGI_10013335,Nuc 0.50,Hypothetical protein
+CGI_10013386,EKC24388,K1PRT6,Hypothetical protein CGI_10013386,Ext 0.41,Hypothetical protein
+CGI_10005578,EKC25384,K1Q200,Hypothetical protein CGI_10005578,Ext 0.43,Hypothetical protein
+CGI_10013385,EKC24387,K1PK38,Hypothetical protein CGI_10013385,Ext 0.60,Hypothetical protein
+CGI_10003237,EKC27225,K1QEJ5,Hypothetical protein CGI_10003237,Ext 0.99,Hypothetical protein
+CGI_10025142,EKC28625,K1QID8,Hypothetical protein CGI_10025142,Ext 0.91,Hypothetical protein
+CGI_10009961,EKC31321,K1RB63,Hypothetical protein CGI_10009961,Ext 0.99,Hypothetical protein
+CGI_10025191,EKC32101,K1RDD9,Hypothetical protein CGI_10025191,Cyt 0.38,Hypothetical protein
+CGI_10012470,EKC33059,K1QPQ4,Hypothetical protein CGI_10012470,Ext 0.99,Hypothetical protein
+CGI_10016093,EKC35263,K1QMZ7,Hypothetical protein CGI_10016093,Ext 0.52,Hypothetical protein
+CGI_10016094,EKC35264,K1QVI4,Hypothetical protein CGI_10016094,Ext 0.52,Hypothetical protein
+CGI_10027526,EKC35968,K1QQ51,Hypothetical protein CGI_10027526,ER 0.40,Hypothetical protein
+CGI_10026725,EKC38958,K1QZ56,Hypothetical protein CGI_10026725,Ext 0.62,Hypothetical protein
+CGI_10022908,EKC41146,K1S1L0,Hypothetical protein CGI_10022908,ER 0.25,Hypothetical protein
+CGI_10008429,EKC41249,K1RC74,Hypothetical protein CGI_10008429,Ext 0.90,Hypothetical protein
+CGI_10013282,EKC42653,K1RAA5,Hypothetical protein CGI_10013282,Nuc 0.59,Hypothetical protein
+CGI_10009044,EKC19270,K1PK51,Putative tyrosinase-like protein tyr 1,Mem 0.82,Enzyme
+CGI_10014286,EKC25254,K1Q1M0,Putative tyrosinase-like protein tyr-3,Mem 0.99,Enzyme
+CGI_10006802,EKC29117,K1PY25,Tyrosinase-like protein 1,Ext 0.64,Enzyme
+CGI_10016593,EKC32997,K1Q8A1,Peroxidase-like protein,Ext 0.49,Enzyme
+CGI_10010889,EKC32754,K1QNU1,Carbonic anhydrase 2,Cyt 0.41,Enzyme
+CGI_10011324,EKC18733,K1PBA5,Carbonic anhydrase 7,Ext 0.65,Enzyme
+CGI_10003099,EKC28981,K1R4X2,Cell surface hyaluronidase-like,Plast 0.39,Enzyme
+CGI_10003100,EKC28982,K1PXJ3,Cell migration-inducing and hyaluronan-binding protein-like,Cyt 0.29,Enzyme
+CGI_10007190,EKC19955,K1PUF6,Metalloendopeptidase,Ext 0.39,Enzyme
+CGI_10007191,EKC19956,K1QEL9,Metalloendopeptidase,Ext 0.51,Enzyme
+CGI_10020760,EKC31184,K1QJ16,Zinc metalloproteinase nas-15,Ext 0.70,Enzyme
+CGI_10010154,EKC18991,K1QBX9,Serine protease inhibitor dipetalogastin-like,Ext 0.55,Protease inhibitor
+CGI_10010155,EKC18992,K1P5W4,Serine protease inhibitor dipetalogastin-like,Ext 1,Protease inhibitor
+CGI_10005627,EKC20685,K1PWH9,Hemicentin-1,Ext 0.72,Structural protein
+CGI_10010553,EKC18864,K1PIX3,IgGFc-binding protein (zonadhesin-like),Ext 0.64,Structural protein
+CGI_10010554,EKC18865,K1PR13,IgGFc-binding protein (zonadhesin-like),Ext 0.72,Structural protein
+CGI_10010555,EKC18866,K1QBE7,IgGFc-binding protein (zonadhesin-like),Ext 0.93,Structural protein
+CGI_10010556,EKC18867,K1P5E6,IgGFc-binding protein (zonadhesin-like),Ext 0.60,Structural protein
+CGI_10010557,EKC18868,K1PBK4,IgGFc-binding protein (zonadhesin-like),Ext 0.91,Structural protein
+CGI_10023170,EKC34632,K1QCP8,IgGFc-binding protein,Ext 0.52,Structural protein
+CGI_10010465,EKC34579,K1QTQ4,Tenascin-X,Ext 0.80,Structural protein
+CGI_10000981,EKC39076,K1RW80,Tenascin-R,Ext 0.84,Structural protein
+CGI_10025295,EKC40994,K1RBF4,Multiple EGF-like domains 10,Ext 0.42,Structural protein
+CGI_10013281,EKC42652,K1R013,Tenascin-R,Ext 0.99,Structural protein
+CGI_10010827,EKC18813,K1PBG2,Collagen-like protein 7,Ext 0.89,Structural protein
+CGI_10010374,EKC27350,K1QET1,Collagen-like protein 7,Mem 0.56,Structural protein
+CGI_10010375,EKC27351,K1R0T7,Collagen-like protein 7,Mem 0.72,Structural protein
+CGI_10011175,EKC27706,K1R1U2,Collagen alpha-5(VI) chain,Ext 0.55,Structural protein
+CGI_10010615,EKC18891,K1QBI0,Aggrecan core protein,Ext 0.79,Calcification-related protein and calcium-binding protein
+CGI_10006917,EKC42164,K1REI9,Asialoglycoprotein receptor 2,Ext 0.99,Calcification-related protein and calcium-binding protein
+CGI_10006919,EKC42165,K1RKM7,Perlucin-like protein,Ext 0.95,Calcification-related protein and calcium-binding protein
+CGI_10006920,EKC42166,K1S437,C-type mannose receptor 2,Ext 0.90,Calcification-related protein and calcium-binding protein
+CGI_10006921,EKC42167,K1QYU0,Perlucin-like protein,Ext 0.99,Calcification-related protein and calcium-binding protein
+CGI_10006922,EKC42168,K1R8S4,Perlucin-like protein,Ext 0.99,Calcification-related protein and calcium-binding protein
+CGI_10008331,EKC19532,K1P7D2,Protocadherin Fat 4-like,Lys 0.36,Calcification-related protein and calcium-binding protein
+CGI_10018326,EKC34251,K1RJ19,Protocadherin Fat 4,Cyt 0.72,Calcification-related protein and calcium-binding protein
+CGI_10022907,EKC41145,K1RHZ3,Protocadherin Fat 4-like,Cyt 0.44,Calcification-related protein and calcium-binding protein
+CGI_10006247,EKC20329,K1PN67,Putative calmodulin,Cyt 0.48,Calcification-related protein and calcium-binding protein

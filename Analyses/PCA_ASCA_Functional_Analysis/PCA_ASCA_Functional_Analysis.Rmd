@@ -1,0 +1,1449 @@
+---
+title: "PCA_ASCA_Functional_Analysis"
+author: "Shelly Trigg"
+date: "9/13/2019"
+output: rmarkdown::github_document
+---
+
+**load libraries**
+```{r, echo = FALSE}
+library(dplyr)
+library(tidyr)
+library(MetStaT)
+library(ggplot2)
+library(heatmap3)
+library(colorRamps)
+library(plotrix)
+library(plyr)
+library(GSEABase)
+library(reshape2)
+library(gplots)
+library(viridis)
+library(topGO)
+```
+
+**load NSAF data**
+```{r}
+#Read in NSAF data 
+
+data <- read.csv("../../Data/Average_adjNSAF_nozerovals.csv", stringsAsFactors = FALSE)
+
+```
+
+
+## PCA Analysis
+
+**Run PCA**
+```{r}
+#log transform NSAF values
+data_log <-  log(data[,-c(1:2)],2)
+
+#create PCA object
+set.seed(101)
+pca_log <- prcomp(data_log, center = T, scale = T)
+summary_pca_log <- summary(pca_log)
+summary_pca_log
+capture.output(summary(pca_log), file = "../../Data/PCA_model_summary.txt")
+
+#add meta data to PCA data
+pca_log_meta <- cbind(data$dpf, data$temp, data.frame(paste(data$dpf,data$temp, sep = "_")),pca_log$x)
+#rename columns
+colnames(pca_log_meta)[1:3] <- c("dpf","temp","SampleName")
+```
+
+Plot PC1 x PC2 of PCA on averaged NSAF values with days ordered from earliest to latest
+```{r}
+jpeg("../../Figures/MainText/Figure2b.jpg", height = 5, width = 7, units = "in", res = 300 )
+ggplot(pca_log_meta, aes(PC1, PC2,label = dpf, color = as.factor(temp), size = 2)) + geom_text(fontface = "bold") + scale_colour_manual(values = c("brown4","cyan3", "magenta3")) + theme_bw() + ylab(paste("PC2"," (",formatC(summary_pca_log$importance[5] * 100,digits=2,format="f"),"%)", sep = "")) + xlab(paste("PC1"," (",formatC(summary_pca_log$importance[2] * 100,digits=2,format="f"),"%)", sep = ""))
+dev.off()
+```
+
+Apply threshold to proteins based on PC1 and PC2 loadings
+```{r}
+#extract loadings for PC1 and PC2
+PC1_great <- data.frame(pca_log$rotation)
+PC1_great <- PC1_great[which(PC1_great$PC1 > 0),1:2]
+
+#export plot
+jpeg("../../Figures/AdditionalFile1/FigureS2a.jpg", height = 5, width = 5, units = "in", res = 300 )
+plot(head(PC1_great[order(PC1_great, decreasing = TRUE),1],100), xlab = "protein", ylab = "PC1 Loadings")
+abline(h=0.0236, col = "red")
+dev.off()
+
+
+PC1_great_prots <- rownames(PC1_great[which(PC1_great$PC1 > 0.0236),])
+
+PC1_less <- data.frame(pca_log$rotation)
+PC1_less <- PC1_less[which(PC1_less$PC1 < 0),1:2]
+
+jpeg("../../Figures/AdditionalFile1/FigureS2b.jpg", height = 5, width = 5, units = "in", res = 300 )
+plot(tail(PC1_less[order(PC1_less$PC1, decreasing = TRUE),1],100), xlab = "protein", ylab = "PC1 Loadings")
+abline(h=-0.02355, col = "red")
+dev.off()
+
+PC1_less_prots <- rownames(PC1_less[which(PC1_less$PC1 < -0.02355),])
+
+#now PC2
+PC2_great <- data.frame(pca_log$rotation)
+PC2_great <- PC2_great[which(PC2_great$PC2 > 0),1:2]
+
+jpeg("../../Figures/AdditionalFile1/FigureS2c.jpg", height = 5, width = 5, units = "in", res = 300 )
+plot(head(PC2_great[order(PC2_great$PC2, decreasing = TRUE),2],100), xlab = "protein", ylab = "PC2 Loadings")
+abline(h=0.0245, col = "red")
+dev.off()
+
+PC2_great_prots <- rownames(PC2_great[which(PC2_great$PC2 > 0.0245),])
+
+PC2_less <- data.frame(pca_log$rotation)
+PC2_less <- PC2_less[which(PC2_less$PC2 < 0),1:2]
+
+jpeg("../../Figures/AdditionalFile1/FigureS2d.jpg", height = 5, width = 5, units = "in", res = 300 )
+plot(tail(PC2_less[order(PC2_less$PC2, decreasing = TRUE),2],100), xlab = "protein", ylab = "PC2 Loadings")
+abline(h=-0.0262, col = "red")
+dev.off()
+
+PC2_less_prots <- rownames(PC2_less[which(PC2_less$PC2 < -0.0262),])
+
+
+global_PC12 <- data.frame(c(PC1_great_prots,PC1_less_prots, PC2_great_prots, PC2_less_prots))
+
+colnames(global_PC12)[1] <- "protein" 
+
+```
+
+Format table with all proteins and their loadings values for PC1 and PC2
+```{r}
+PC_loadings <- data.frame(cbind(rownames(pca_log$rotation), pca_log$rotation[,1],pca_log$rotation[,2]))
+
+#add column names
+colnames(PC_loadings) <- c("protein_ID", "PC1_loadings", "PC2_loadings")
+
+#remove rownames
+rownames(PC_loadings) <- NULL
+
+PC_loadings$PC_threshold_pass <- "No"
+
+for(i in 1:nrow(PC_loadings)){
+  if(PC_loadings[i,"protein_ID"] %in% global_PC12$protein){
+    PC_loadings$PC_threshold_pass[i] <- "Yes"
+    }
+  else(PC_loadings$PC_threshold_pass[i] <- "No")
+}
+
+```
+
+Plot heatmap for global PCA (Fig2b) PC1 and PC2 biggest contributors
+```{r}
+#rename column 1
+colnames(global_PC12)[1] <- "protein"
+#replace pipe in protein names with decimal
+global_PC12$protein <- gsub("\\|", "\\.", global_PC12$protein)
+#subset NSAF data for global PCA PC1 and PC2 biggest contributors
+global_cut_data <- data[,c(1:2,which(colnames(data) %in% global_PC12$protein))]
+
+#order the data by day then temp
+global_cut_data <- global_cut_data[order(global_cut_data$dpf,global_cut_data$temp),]
+#add temp and day info to column names
+rownames(global_cut_data) <- paste(global_cut_data$dpf, global_cut_data$temp, sep="_")
+#remove day and temp columns
+global_cut_data <- global_cut_data[,-c(1:2)]
+
+#save a color object for temperature labels
+ColSideColors<-cbind(Temp=c("brown",rep(c("cyan3","magenta2"),6)))
+
+#plot the heat map
+
+heatmap3(as.matrix(t(global_cut_data)), Colv = NA, cexRow = 0.5,labCol = c(19,21,21,23,23,25,25,27,27,29,29,31,31), ColSideColors = ColSideColors, ColAxisColors = 1, distfun = function(x) as.dist(1 - cor(t(x), use = "pa")), method = "complete")
+
+#what are the proteins that distinguish day 21 and day 27?
+hm <- as.dist(1-cor(as.matrix(global_cut_data), use="pa"))
+hm2 <- hclust(hm, method = 'complete')
+plot(hm2, cex=0.3)
+abline(h=1, col = "red")
+
+#Identify clades in heatmap
+# define some clusters
+
+#make a list of proteins with cluster IDs based on where the tree is cut
+mycl <- cutree(hm2, h=1)
+
+#assign colors to cluster IDs
+clusterCols <- colorRamps::matlab.like2(length(unique(mycl)))
+myClusterSideBar <- clusterCols[mycl]
+
+
+
+#get color name
+clusterColor <- lapply(myClusterSideBar, color.id)
+clusterColor <- lapply(clusterColor, `[[`,1)
+clusterColor <- data.frame(unlist(clusterColor), stringsAsFactors = FALSE)
+
+foo <- cbind(data.frame(mycl), clusterColor)
+#add protein column to data frame for merging
+foo$protein_ID <- rownames(foo)
+
+#add protein column back to NSAF data frame for merging
+global_cut_data_proteinID <- data.frame(t(global_cut_data))
+global_cut_data_proteinID$protein_ID <- rownames(global_cut_data_proteinID)
+
+clade.prot <- merge(foo,global_cut_data_proteinID,  by = "protein_ID")
+
+colnames(clade.prot)[3] <- "ClusterColor"
+colnames(clade.prot)[2] <- "ClusterID"
+
+#plot heatmap with colored row side bars
+heatmap3(as.matrix(t(global_cut_data)), Colv = NA, cexRow = 0.5,labCol = c(19,21,21,23,23,25,25,27,27,29,29,31,31), ColSideColors = ColSideColors,RowSideColors=myClusterSideBar, ColAxisColors = 1,RowAxisColors=1,distfun = function(x) as.dist(1 - cor(t(x), use = "pa")), method = "complete")
+
+#red clade does not show much difference between temperatures
+#exclude "red" cluster that does not show much change between temperatures 
+
+jpeg(file="../../Figures/AdditionalFile1/FigureS2e.jpg", width=7, height=5, units = "in", res = 300)
+heatmap3(as.matrix(t(global_cut_data)[which(!(rownames(t(global_cut_data)) %in% clade.prot[which(clade.prot$ClusterColor =="red"),"protein_ID"])),]), Colv = NA, cexRow = 0.5,labCol = c(19,21,21,23,23,25,25,27,27,29,29,31,31), ColSideColors = ColSideColors,RowSideColors=myClusterSideBar[myClusterSideBar != "#FF0000"], ColAxisColors = 1,RowAxisColors=1,distfun = function(x) as.dist(1 - cor(t(x), use = "pa")), method = "complete")
+dev.off()
+
+```
+
+Merge cluster color and id with PC loadings data
+```{r}
+PC_loadings <- merge(PC_loadings, clade.prot[,1:3], by = "protein_ID", all.x = TRUE)
+
+```
+
+
+## ASCA ANALYSIS
+
+make a dataframe with just CHOYP proteins and exclude day 0 for data going into ASCA
+```{r subset_data_for_CHOYP_only_rm0, echo = FALSE}
+choyp_data <- data[which(data$dpf !=19),c(1:2,grep("CHOYP", colnames(data)))]
+```
+
+**Perform ASCA on log2 data**
+```{r}
+#create matrix to pass to ASCA command, excluding the silo and time info
+ASCA_X <- as.matrix(log(choyp_data[,-c(1:2)],2))
+#create matrix to pass to ASCA command with only the silo and time info
+ASCA_F <- as.matrix(choyp_data[,c(1:2)])
+#perform ASCA
+set.seed(101)
+ASCA <- ASCA.Calculate(ASCA_X, ASCA_F, equation.elements = "1,2,12", scaling = FALSE)
+```
+
+Here is a summary of the ASCA results (e.g. variance explained by different factors; factor 1= time (dpf), factor 2 = temperature, interaction = interaction of time and temperature)
+```{r}
+#print the ASCA summary
+ASCA.GetSummary(ASCA)
+#write results out to a file
+capture.output(ASCA.GetSummary(ASCA), file = "../../Data/ASCA_model_summary.txt")
+```
+
+Perform a permutation test on ASCA results to see if experimental effects are significant beyond randomly permuted data
+```{r}
+set.seed(101)
+perm.test <- ASCA.DoPermutationTest(ASCA,perm = 10000)
+capture.output(perm.test, file = "../../Data/ASCA_permTest_summary.txt")
+```
+
+
+### Plot PCAs from ASCA  
+
+**This first plot is the time (dpf) effect PCA**
+```{r avgNSAF_PCA_timeEffect_plot}
+#plot PCA for factor 1, which is time in this case
+time_PC12 <- data.frame(ASCA$`1`$svd$t[,c(1,2)])
+time_PC12 <- cbind(data.frame(sort(rep(ASCA$`1`$level.combinations$row.patterns,2))),data.frame(rep(c("23","29"),6)) , time_PC12)
+colnames(time_PC12)<- c("dpf","temp","PC1","PC2")
+time_PC12$dpf <- factor(time_PC12$dpf)
+time_PC12$PC1_j <- jitter(time_PC12$PC1)
+time_PC12$PC2_j <- jitter(time_PC12$PC2)
+
+jpeg(file="../../Figures/MainText/Figure3a.jpg", width=7, height=5, units = "in", res = 300)
+ggplot(time_PC12, aes(PC1_j, PC2_j, label = dpf, color = temp)) + geom_text(size = 6, fontface = "bold") + scale_color_manual(values = c("cyan3", "magenta3"))+ theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),panel.background = element_blank(),axis.line = element_line(colour = "black"),panel.border = element_rect(colour = "black", fill=NA, size=1), text = element_text(size=15)) + xlab(paste("PC1"," (",formatC(ASCA$`1`$svd$var.explained[1] * 100,digits=2,format="f"),"%)", sep = "")) + ylab(paste("PC2"," (",formatC(ASCA$`1`$svd$var.explained[2] * 100,digits=2,format="f"),"%)", sep = ""))
+dev.off()
+```
+
+**This next plot is the temperature effect PCA**
+```{r avgNSAF_PCA_tempEffect_plot}
+#plot PCA for factor 2, which is temperature in this case
+temp_PC12 <- data.frame(ASCA$`2`$svd$t[,c(1,2)])
+temp_PC12 <- cbind(data.frame(sort(rep(ASCA$`1`$level.combinations$row.patterns,2))),data.frame(rep(c("23","29"),6)) , temp_PC12)
+colnames(temp_PC12)<- c("dpf","temp","PC1","PC2")
+temp_PC12$dpf <- as.factor(temp_PC12$dpf)
+
+
+temp_PC12$PC1_j <- jitter(temp_PC12$PC1)
+temp_PC12$PC2_j <- jitter(temp_PC12$PC2)
+
+jpeg(file="../../Figures/MainText/Figure5a.jpg", width=7, height=5, units = "in", res = 300)
+ggplot(temp_PC12, aes(PC1_j, PC2_j, label = dpf, color = temp)) + geom_text(size = 3, fontface = "bold") + scale_color_manual(values = c("cyan3", "magenta3")) + theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),panel.background = element_blank(),axis.line = element_line(colour = "black"),panel.border = element_rect(colour = "black", fill=NA, size=1), text = element_text(size=10)) + xlab(paste("PC1"," (",formatC(ASCA$`2`$svd$var.explained[1] * 100,digits=2,format="f"),"%)", sep = "")) + ylab(paste("PC2"," (",formatC(ASCA$`2`$svd$var.explained[2] * 100,digits=2,format="f"),"%)", sep = ""))
+dev.off()
+```
+
+
+### Analysis of proteins affected by temperature
+
+Because the temperature effect PCA show the most separation between 23C and 29C in PC2, we will look at those loadings.
+
+**PC1 loadings for temperature effect**
+```{r avgNSAF_PCA_tempEffect_PC2loadings, echo = FALSE}
+#extract protein names from ASCA data; these will be combined with loadings values; the order is maintained
+protnames <- data.frame(colnames(ASCA$data))
+#combine protein names with ASCA loadings for PC2 for temperature, since this component showed the greatest separation between temperatures
+d <- cbind(protnames, ASCA$`2`$svd$v[,1])
+#rename the columns
+colnames(d) <- c("protein", "PC1loadings")
+#make a dataframe of proteins with PC loadings greater than zero for the loadings plot
+d_great <- d[which(d$PC1loadings > 0),]
+#make a dataframe of proteins with PC loadings less than zero for the loadings plot
+d_less <- d[which(d$PC1loadings < 0),]
+
+
+#plot PC1 loadings
+jpeg(file="../../Figures/AdditionalFile1/FigureS2e.jpg", width=10, height=8, units = "in", res = 300)
+plot(d_great[order(d_great$PC1loadings, decreasing = TRUE),2], xlab = "protein", ylab = "PC1 Loadings")
+abline(h=0.03, col = "red")
+dev.off()
+
+jpeg(file="../../Figures/AdditionalFile1/FigureS2f.jpg", width=10, height=8, units = "in", res = 300)
+plot(d_less[order(d_less$PC1loadings, decreasing = TRUE),2],xlab = "protein", ylab = "PC1 Loadings")
+abline(h=-0.025, col = "red")
+dev.off()
+
+```
+
+To pull out proteins affected by temperature based on their influence in seperating treatment groups on PC1 of the temperature PCA, I picked an absolute value loadings threshold of 0.025. This means any protein that had a loadings value > 0.03 or < -0.025 was selected.
+```{r, echo = FALSE}
+#make list of proteins with temperature PC1 loadings values >= 0.025
+cutd <- d[which(d$PC1loadings >= 0.03 | d$PC1loadings <= -0.025),]
+#make a list of cutoff proteins with normalized abundance
+cut_data <-data[,which(colnames(data) %in% cutd$protein)]
+rownames(cut_data) <- paste(data$dpf, data$temp, sep="_")
+```
+
+
+Number of proteins affected by temperature at loadings value > 0.03 or < -0.025
+```{r, echo = FALSE}
+nrow(cutd)
+```
+
+
+
+**Format matrix for heatmap of proteins affected by temperature based on temperature effect PC1 loadings value cutoff**
+```{r avgNSAF_tempEffectPC1_cutoff0.03&-0.025_heatmap_OrderedByTemp_ShortNames,fig.height=10, fig.width=10, eval = FALSE, echo = FALSE}
+#reorder the cut data so that samples are grouped by temperature
+cut_data_ord <- data[,c(1:3,which(colnames(data) %in% cutd$protein))]
+cut_data_ord <- cut_data_ord[order(cut_data_ord$temp,cut_data_ord$dpf),]
+rownames(cut_data_ord) <- paste(cut_data_ord$dpf, cut_data_ord$temp, sep="_")
+cut_data_ord <- cut_data_ord[,-c(1:3)]
+#transposed to eventually get row names as columns to match entry names to. 
+#t.data.frame returns a matrix so I had convert back to data frame for all downstream rearranging because data frames are much easier to work with
+cut_data_ord_t <- data.frame(t.data.frame(cut_data_ord))
+#make row names which contain the protein IDs a column
+cut_data_ord_t <- cbind(rownames(cut_data_ord_t), cut_data_ord_t)
+#add the column name
+colnames(cut_data_ord_t)[1] <- "Protein.ID"
+#convert the Protein ID column to character
+cut_data_ord_t[,1] <- as.character(cut_data_ord_t[,1])
+#remove the protein ID column since the row names contain that info
+cut_data_ord_t_m <- cut_data_ord_t[,-1]
+#this step removes the x from the column names while preserving the order of colnames
+colnames(cut_data_ord_t_m) <- rownames(cut_data_ord)
+
+```
+
+**Perform clustering and determine cluster number for heatmap**
+```{r}
+hm <- as.dist(1-cor(t.data.frame(cut_data_ord_t_m), use="pa"))
+hm2 <- hclust(hm, method = 'complete')
+plot(hm2, cex=0.3)
+abline(h=1.85, col = "red")
+
+#Identify clades in heatmap
+# define some clusters
+
+#make a list of proteins with cluster IDs based on where the tree is cut
+#1.8 gives 2 clusters
+mycl <- cutree(hm2, h=1.85)
+
+#assign colors to cluster IDs
+clusterCols <- rev(colorRamps::primary.colors(length(unique(mycl))))
+myClusterSideBar <- clusterCols[mycl]
+
+
+#make data frames to store heatmap color values
+#columns are time/temp; color 23C blue, 29C red, each dpf a different shade of gray
+ColSideColors<- cbind(temp = c("brown",rep("cyan3",6),rep("magenta2",6)))
+
+
+#plot heat map 
+jpeg(file="../../Figures/MainText/Figure5b.jpg", width=8, height=8, units = "in", res = 300)
+heatmap3(as.matrix(cut_data_ord_t_m),cexRow = 0.5, cexCol = 0.5, RowSideColors=clusterCols[mycl],ColSideColors = ColSideColors,RowAxisColors=1,ColAxisColors=1,hclustfun=hclust, distfun = function(x) as.dist(1 - cor(t(x), use = "pa")), method = "complete", scale = "row", Colv=NA,labRow = NA, labCol = NA, RowSideLabs = NA, ColSideLabs = NA)
+dev.off()
+
+#get color name
+clusterColor <- lapply(myClusterSideBar, color.id)
+clusterColor <- lapply(clusterColor, `[[`,1)
+clusterColor <- data.frame(unlist(clusterColor), stringsAsFactors = FALSE)
+
+foo <- cbind(data.frame(mycl), clusterColor)
+#add protein column to data frame for merging
+foo$protein_ID <- rownames(foo)
+
+#add protein column back to NSAF data frame for merging
+cut_data_ord_t_m_proteinID <- cut_data_ord_t_m
+cut_data_ord_t_m_proteinID$protein_ID <- rownames(cut_data_ord_t_m)
+
+clade.prot <- merge(foo, cut_data_ord_t_m_proteinID, by = "protein_ID")
+
+colnames(clade.prot)[3] <- "ClusterColor"
+colnames(clade.prot)[2] <- "ClusterID"
+
+
+#remove day 0 from clade prot
+clade.prot_noD0 <- clade.prot[,-4]
+
+#normalize within terms (autoscale by row)
+#calculate row means and SD
+clade.prot_noD0$mean <- apply(clade.prot_noD0[,4:15], 1, mean)
+clade.prot_noD0$sd <- apply(clade.prot_noD0[,4:15],1, sd)
+
+#sweep second argument is margin which corresponds to 1 (rows) or 2 (columns); this is for autoscaling by row to make colors relative to one another like the heatmap does
+#subtract the row mean from each value
+clade.prot_no_D0_norm <- sweep(clade.prot_noD0[,4:15],1,clade.prot_noD0$mean)
+#divide each value by the row standard deviation
+clade.prot_no_D0_norm <- sweep(clade.prot_no_D0_norm[,1:12],1,clade.prot_noD0$sd, FUN = "/")
+
+clade.prot_no_D0_norm <- cbind(clade.prot_noD0[,c("protein_ID","ClusterID", "ClusterColor")], clade.prot_no_D0_norm)
+
+STACKED_NSAF <- tidyr::gather(clade.prot_no_D0_norm, dpftemp, NSAF, 4:15)
+STACKED_NSAF$dpf <- gsub("X|_.*","",STACKED_NSAF$dpftemp)
+STACKED_NSAF$temp <- as.factor(gsub(".*_","",STACKED_NSAF$dpftemp))
+str(STACKED_NSAF)
+STACKED_NSAF$dpf <- as.integer(STACKED_NSAF$dpf)
+
+#make mean summary table for plotting summary lines of protein abundances/clade
+STACKED_NSAF_mean <- STACKED_NSAF %>%
+    dplyr::group_by(dpf, temp, ClusterID) %>%
+    dplyr::summarise(n = n(), mean=mean(NSAF), median=median(NSAF), sd=sd(NSAF)) %>%
+    dplyr::mutate(sem = sd / sqrt(n - 1),
+      CI_lower = mean + qt((1-0.95)/2, n - 1) * sem,
+      CI_upper = mean - qt((1-0.95)/2, n - 1) * sem)
+
+
+jpeg("../../Figures/MainText/Figure5c.jpg", width=10, height=5, units = "in", res = 300)
+ggplot(STACKED_NSAF_mean, aes(x=dpf, y=mean, color = temp)) + geom_line(aes(x=dpf, y=mean, color=temp)) + ylab("mean autoscaled NSAF") + geom_ribbon(aes(ymin=CI_lower,ymax=CI_upper,fill=temp),color="grey70",alpha=0.4)  + facet_wrap(~ClusterID) + scale_color_manual(values=c("cyan3", "magenta2")) + scale_fill_manual(values=c("cyan3", "magenta2")) + scale_x_continuous(breaks = c(21,23,25,27,29,31), labels = c(21,23,25,27,29,31)) + theme_bw() + theme(text = element_text(size=20))
+dev.off()
+
+#create simple line plots for showing main trends over time for temp clades
+jpeg(file="../../Figures/MainText/Figure6_colLabs.jpg", width=5, height=2, units = "in", res = 300)
+ggplot(STACKED_NSAF_mean, aes(x=dpf, y=mean, color = temp)) + geom_line(aes(x=dpf, y=mean, color=temp, size = 1)) + facet_wrap(~ClusterID, ncol = 3) + scale_color_manual(values=c("cyan3", "magenta2")) + scale_x_continuous(breaks = c(21,23,25,27,29,31), labels = c(21,23,25,27,29,31)) + theme_bw() + theme(panel.grid.major = element_blank(),panel.grid.minor = element_blank(),axis.title.x=element_blank(),axis.text.x=element_blank(),axis.ticks.x=element_blank(),axis.title.y=element_blank(),axis.text.y=element_blank(),axis.ticks.y=element_blank(),strip.text = element_text(face = "bold",size = 32),strip.background = element_rect(fill="white"))
+dev.off()
+
+```
+
+Get ASCA temperature PC1 loadings and cluster info into a table
+Format table with all proteins and their loadings values for PC1 and PC2
+```{r}
+temp_ASCA_PC1_loadings <- d
+
+#add column names
+colnames(temp_ASCA_PC1_loadings) <- c("protein_ID", "ASCA_PC1_loadings")
+
+temp_ASCA_PC1_loadings$ASCA_PC_threshold_pass <- "No"
+
+for(i in 1:nrow(temp_ASCA_PC1_loadings)){
+  if(temp_ASCA_PC1_loadings[i,"protein_ID"] %in% cutd$protein){
+    temp_ASCA_PC1_loadings$ASCA_PC_threshold_pass[i] <- "Yes"
+    }
+  else(temp_ASCA_PC1_loadings$ASCA_PC_threshold_pass[i] <- "No")
+}
+
+#Merge cluster color and id with PC loadings data
+temp_ASCA_PC1_loadings <- merge(temp_ASCA_PC1_loadings, clade.prot[,1:3], by = "protein_ID", all.x = TRUE)
+
+
+```
+
+## PART 2
+### Analysis of proteins affected by time 
+
+**PC1 loadings for the time effect PCA**
+```{r avgNSAF_PCA_timeEffect_PC1loadings, echo = FALSE}
+#make dataframes of factor 1 (time) PC1 loadings
+d1 <- cbind(protnames, ASCA$`1`$svd$v[,1])
+colnames(d1) <- c("protein", "PC1loadings")
+d1_great <- d1[which(d1$PC1loadings > 0),]
+d1_less <- d1[which(d1$PC1loadings < 0),]
+
+jpeg(file="../../Figures/AdditionalFile1/FigureS2a.jpg", width=10, height=8, units = "in", res = 300)
+plot(d1_great[order(d1_great$PC1loadings, decreasing = TRUE),2], ylab = "PC1 Loadings")
+abline(h=0.035, col = "red")
+dev.off()
+
+jpeg(file="../../Figures/AdditionalFile1/FigureS2b.jpg", width=10, height=8, units = "in", res = 300)
+plot(d1_less[order(d1_less$PC1loadings, decreasing = TRUE),2],ylab = "PC1 Loadings")
+abline(h=-0.035, col = "red")
+dev.off()
+```
+
+**PC2 loadings for the time effect PCA**
+```{r avgNSAF_PCA_timeEffect_PC2loadings, echo = FALSE}
+d2 <- cbind(protnames, ASCA$`1`$svd$v[,2])
+colnames(d2) <- c("protein", "PC2loadings")
+d2_great <- d2[which(d2$PC2loadings > 0),]
+d2_less <- d2[which(d2$PC2loadings < 0),]
+
+jpeg(file="../../Figures/AdditionalFile1/FigureS2c.jpg", width=10, height=8, units = "in", res = 300)
+plot(d2_great[order(d2_great$PC2loadings, decreasing = TRUE),2], ylab = "PC2 Loadings")
+abline(h=0.035, col = "red")
+dev.off()
+
+jpeg(file="../../Figures/AdditionalFile1/FigureS2d.jpg", width=10, height=8, units = "in", res = 300)
+plot(d2_less[order(d2_less$PC2loadings, decreasing = TRUE),2], ylab = "PC2 Loadings")
+abline(h=-0.035, col = "red")
+dev.off()
+
+
+#make list of proteins with temperature PC1 loadings values >= 0.025
+cutd1 <- data.frame(d1[which(abs(d1$PC1loadings) >= 0.035),1])
+colnames(cutd1) <- "protein"
+cutd2 <- data.frame(d2[which(abs(d2$PC2loadings) >= 0.035),1])
+colnames(cutd2) <- "protein"
+cutd12 <- unique(rbind(cutd1,cutd2))
+```
+
+number of proteins affected by time at loadings value > 0.025 or < -0.025
+```{r, echo = FALSE}
+nrow(cutd12)
+```
+
+
+**heatmap of proteins affected by time based on time effect PC1 and PC2 loadings value cutoffs**
+```{r avgNSAF_timeEffectPC1and2_cutoff0.025_heatmap_OrderedByTime, echo = FALSE, fig.height=10, fig.width=10, echo = FALSE}
+#make a list of cutoff proteins with normalized abundance
+cut12_data <-data[,which(colnames(data) %in% cutd12$protein)]
+rownames(cut12_data) <- paste(data$dpf, data$temp, sep="_")
+
+#make data frames to store heatmap color values
+#columns are dpf/temp; color 23C blue, 29C red, each dpf a different shade of gray
+ColSideColors<- cbind(Temp=c("brown",rep(c("cyan3","magenta2"),6)))
+
+hm <- as.dist(1-cor(cut12_data, use="pa"))
+hm2 <- hclust(hm, method = 'complete')
+plot(hm2, cex = 0.3)
+abline(h=1.5, col = "red")
+
+#Identify clades in heatmap
+# define some clusters
+
+#make a list of proteins with cluster IDs based on where the tree is cut
+mycl <- cutree(hm2, h=1.5)
+
+#assign colors to cluster IDs
+clusterCols <- colorRamps::primary.colors(length(unique(mycl)))
+myClusterSideBar <- clusterCols[mycl]
+
+
+#plot heat map 
+jpeg(file="../../Figures/MainText/Figure3b.jpg", width=8, height=8, units = "in", res = 300)
+
+heatmap3(t.data.frame(cut12_data),cexRow = 0.5, cexCol = 0.5,RowSideColors=myClusterSideBar,ColSideColors = ColSideColors,RowAxisColors=1,ColAxisColors=1,hclustfun=hclust, distfun = function(x) as.dist(1 - cor(t(x), use = "pa")), method = "complete", scale = "row", Colv=NA,labRow = NA, labCol = NA, RowSideLabs = NA, ColSideLabs = NA)
+dev.off()
+
+#get color name
+clusterColor <- lapply(myClusterSideBar, color.id)
+clusterColor <- lapply(clusterColor, `[[`,1)
+clusterColor <- data.frame(unlist(clusterColor), stringsAsFactors = FALSE)
+
+foo <- cbind(data.frame(mycl), clusterColor)
+#add protein column to data frame for merging
+foo$protein_ID <- rownames(foo)
+
+#add protein column back to NSAF data frame for merging
+cut12_data_proteinID <- data.frame(t(cut12_data))
+cut12_data_proteinID$protein_ID <- rownames(cut12_data_proteinID)
+
+clade.prot <- merge(foo,cut12_data_proteinID,  by = "protein_ID")
+
+colnames(clade.prot)[3] <- "ClusterColor"
+colnames(clade.prot)[2] <- "ClusterID"
+
+
+#remove day 0 from clade prot
+clade.prot_noD0 <- clade.prot[,-4]
+
+#normalize within terms (autoscale by row)
+#calculate row means and SD
+clade.prot_noD0$mean <- apply(clade.prot_noD0[,4:15], 1, mean)
+clade.prot_noD0$sd <- apply(clade.prot_noD0[,4:15],1, sd)
+
+#sweep second argument is margin which corresponds to 1 (rows) or 2 (columns); this is for autoscaling by row to make colors relative to one another like the heatmap does
+#subtract the row mean from each value
+clade.prot_no_D0_norm <- sweep(clade.prot_noD0[,4:15],1,clade.prot_noD0$mean)
+#divide each value by the row standard deviation
+clade.prot_no_D0_norm <- sweep(clade.prot_no_D0_norm[,1:12],1,clade.prot_noD0$sd, FUN = "/")
+
+clade.prot_no_D0_norm <- cbind(clade.prot_noD0[,c("protein_ID", "ClusterID", "ClusterColor")], clade.prot_no_D0_norm)
+
+STACKED_NSAF <- tidyr::gather(clade.prot_no_D0_norm, dpftemp, NSAF, 4:15)
+STACKED_NSAF$dpf <- gsub("X|_.*","",STACKED_NSAF$dpftemp)
+STACKED_NSAF$temp <- as.factor(gsub(".*_","",STACKED_NSAF$dpftemp))
+str(STACKED_NSAF)
+STACKED_NSAF$dpf <- as.integer(STACKED_NSAF$dpf)
+
+#make mean summary table for plotting summary lines of protein abundances/clade
+STACKED_NSAF_mean <- STACKED_NSAF %>%
+    dplyr::group_by(dpf, temp, ClusterID) %>%
+    dplyr::summarise(n = n(), mean=mean(NSAF), median=median(NSAF), sd=sd(NSAF)) %>%
+    dplyr::mutate(sem = sd / sqrt(n - 1),
+      CI_lower = mean + qt((1-0.95)/2, n - 1) * sem,
+      CI_upper = mean - qt((1-0.95)/2, n - 1) * sem)
+
+jpeg(file="../../Figures/MainText/Figure3c.jpg", width=25, height=5, units = "in", res = 300)
+ggplot(STACKED_NSAF_mean, aes(x=dpf, y=mean, color = temp)) + geom_line(aes(x=dpf, y=mean, color=temp)) + xlab("dpf") + ylab(" autoscaled NSAF values") + geom_ribbon(aes(ymin=CI_lower,ymax=CI_upper,fill=temp),color="grey70",alpha=0.4)  + facet_wrap(~ClusterID, ncol = 5) + scale_color_manual(values=c("cyan3", "magenta2")) + scale_fill_manual(values=c("cyan3", "magenta2")) + scale_x_continuous(breaks = c(21,23,25,27,29,31), labels = c(21,23,25,27,29,31)) + theme_bw() + theme(text = element_text(size=30))
+dev.off()
+
+#create a simple plot for common trend over time 
+STACKED_NSAF_mean_dpf <- STACKED_NSAF %>%
+    dplyr::group_by(dpf, ClusterID) %>%
+    dplyr::summarise(n = n(), mean=mean(NSAF), median=median(NSAF), sd=sd(NSAF)) %>%
+    dplyr::mutate(sem = sd / sqrt(n - 1),
+      CI_lower = mean + qt((1-0.95)/2, n - 1) * sem,
+      CI_upper = mean - qt((1-0.95)/2, n - 1) * sem)
+
+jpeg("../../Figures/MainText/Figure4_colLabs.jpg", width = 5, height = 1, units = "in", res =300)
+ggplot(STACKED_NSAF_mean_dpf, aes(x=dpf, y=mean)) + geom_line(aes(x=dpf, y=mean), size = 1) +ylab("mean autoscaled NSAF") + facet_wrap(~ClusterID, ncol = 5)  + scale_x_continuous(breaks = c(21,23,25,27,29,31), labels = c(21,23,25,27,29,31)) + theme_bw()+ theme(panel.grid.major = element_blank(),panel.grid.minor = element_blank(),axis.title.x=element_blank(),axis.text.x=element_blank(),axis.ticks.x=element_blank(),axis.title.y=element_blank(),axis.text.y=element_blank(),axis.ticks.y=element_blank(),strip.text = element_text(face = "bold",size = 15),strip.background = element_rect(fill="white"))
+dev.off()
+```
+
+Format table with all proteins and their loadings values for PC1 and PC2
+```{r}
+#PC1 and PC2 loadings for ASCA$1$svd$[,1:2]
+time_ASCA_PC1_2_loadings <- cbind(protnames, ASCA$`1`$svd$v[,1:2])
+colnames(time_ASCA_PC1_2_loadings) <- c("protein_ID", "ASCA_PC1_loadings", "ASCA_PC2_loadings")
+
+time_ASCA_PC1_2_loadings$ASCA_PC_threshold_pass <- "No"
+
+for(i in 1:nrow(time_ASCA_PC1_2_loadings)){
+  if(time_ASCA_PC1_2_loadings[i,"protein_ID"] %in% cutd12$protein){
+    time_ASCA_PC1_2_loadings$ASCA_PC_threshold_pass[i] <- "Yes"
+    }
+  else(time_ASCA_PC1_2_loadings$ASCA_PC_threshold_pass[i] <- "No")
+}
+
+#Merge cluster color and id with PC loadings data
+time_ASCA_PC1_2_loadings <- merge(time_ASCA_PC1_2_loadings, clade.prot[,1:3], by = "protein_ID", all.x = TRUE)
+```
+
+
+## FUNCTIONAL ANALYSIS
+
+
+**read in and format uniprot data**
+```{r}
+#read in uniprot mapping
+uniprot <- read.csv("../../Data/all_giga-uniprot-blastP-out.nopipe.annotations.tab", sep ="\t", header = FALSE, stringsAsFactors = FALSE)
+#rename uniprot columns
+colnames(uniprot) <- c("protein_ID","Entry", "Entry_name", "perc_ident_match", "align_len", "num_mismatch", "num_gaps","querStart", "querEnd", "subjStart", "subjEnd", "evalue", "bitscore","Entry.1","Entry_name.1", "Protein_names", "Gene_names", "Organism", "Protein_length","Pathway", "GO_bp", "GO","GO_IDs", "Protein_fams")
+#convert columns that should be numeric to numeric
+str(uniprot)
+uniprot[,4:13] <- lapply(uniprot[,4:13], as.numeric)
+#NAs introduced by coercion
+#this is because the entries that are unmappaed have NA values
+str(uniprot)
+
+#filter for choyp proteins and for evalue <= 10x10^-10 (unmapped proteins get removed here)
+uniprot_filtered <- uniprot[grep("CHOYP",uniprot$protein_ID),]
+uniprot_filtered <- uniprot[which(uniprot$evalue <= 1*10^-10),]
+
+
+```
+
+**Match GO terms to sig protein lists**
+
+```{r}
+#Get GO IDs for silo 3 and 9 sig. proteins
+sig_pro_GO <- merge(time_ASCA_PC1_2_loadings[which(time_ASCA_PC1_2_loadings$ASCA_PC_threshold_pass == "Yes"),c("protein_ID", "ClusterID", "ClusterColor")], uniprot_filtered[,c("protein_ID","GO_IDs")], by ="protein_ID")
+
+#count number of proteins with GO terms
+nrow(sig_pro_GO)
+
+split_terms <- strsplit(as.character(sig_pro_GO$GO_IDs), ";") #split into multiple GO ids
+STACKED_sig_pro_GO <- data.frame(protein_ID = rep.int(sig_pro_GO$protein_ID, sapply(split_terms, length)), GO = unlist(split_terms)) #list all genes with each of their GO terms in a single row 
+```
+
+**MATCH GO TERMS TO BACKGROUND LIST**
+```{r}
+#Get GO IDs for silo 3 and 9 ALL. proteins
+ALL_pro_GO <-uniprot_filtered[which(uniprot_filtered$protein_ID %in% colnames(data)),c("protein_ID","GO_IDs")]
+
+#count number of proteins with GO terms
+nrow(ALL_pro_GO)
+
+split_terms <- strsplit(as.character(ALL_pro_GO$GO_IDs), ";") #split into multiple GO ids
+STACKED_ALL_pro_GO <- data.frame(protein_ID = rep.int(ALL_pro_GO$protein_ID, sapply(split_terms, length)), GO = unlist(split_terms)) #list all genes with each of their GO terms in a single row 
+```
+
+### TopGO 
+```{r}
+
+###this chunk generates p-values for weight01 fisher test like Liew paper (https://advances.sciencemag.org/content/4/6/eaar8028/tab-figures-data#ref-43)
+
+#background list ALL_pro_GO
+#sig pro list sig_pro_GO
+
+topgo_bkgd <- ALL_pro_GO
+topgo_bkgd$GO_IDs <- gsub(";",",",topgo_bkgd$GO_IDs)
+write.table(topgo_bkgd, "TopGO_bkgd.txt", sep = "\t",quote = FALSE, row.names = FALSE, col.names = FALSE)
+
+geneID2GO_bkgd <- readMappings(file = "TopGO_bkgd.txt")
+
+geneID2GO_bkgd <- readMappings(file = "TopGO_bkgd.txt")
+
+
+#to switch between time and temp run line 66 in time and temp functional analysis scripts
+topgo_sig <- sig_pro_GO
+topgo_sig$GO_IDs <- gsub(";",",",topgo_sig$GO_IDs)
+
+topgo_sig_1 <- topgo_sig[which(topgo_sig$ClusterID == 1),c("protein_ID", "GO_IDs")]
+
+topgo_sig_2 <- topgo_sig[which(topgo_sig$ClusterID == 2),c("protein_ID", "GO_IDs")]
+
+topgo_sig_3 <- topgo_sig[which(topgo_sig$ClusterID == 3),c("protein_ID", "GO_IDs")]
+
+topgo_sig_4 <- topgo_sig[which(topgo_sig$ClusterID == 4),c("protein_ID", "GO_IDs")]
+
+topgo_sig_5 <- topgo_sig[which(topgo_sig$ClusterID == 5),c("protein_ID", "GO_IDs")]
+
+geneUniverse <- names(geneID2GO_bkgd) 
+
+genesOfInterest_1 <- topgo_sig_1
+genesOfInterest_1 <- as.character(genesOfInterest_1$protein_ID)
+
+geneList_1 <- factor(as.integer(geneUniverse %in% genesOfInterest_1))
+names(geneList_1) <- geneUniverse
+
+myGOdata_1 <- new("topGOdata", description="time_clade1", ontology="BP", allGenes=geneList_1  ,annot = annFUN.gene2GO, gene2GO = geneID2GO_bkgd)
+
+resultFisher_1 <- runTest(myGOdata_1, algorithm="weight01", statistic="fisher") 
+
+allRes_1 <- GenTable(myGOdata_1, weight = resultFisher_1,orderBy = "weight", ranksOf = "classic", topNodes = 50)
+
+#clade 2
+
+genesOfInterest_2 <- topgo_sig_2
+genesOfInterest_2 <- as.character(genesOfInterest_2$protein_ID)
+
+geneList_2 <- factor(as.integer(geneUniverse %in% genesOfInterest_2))
+names(geneList_2) <- geneUniverse
+
+myGOdata_2 <- new("topGOdata", description="time_clade2", ontology="BP", allGenes=geneList_2,  annot = annFUN.gene2GO, gene2GO = geneID2GO_bkgd)
+
+resultFisher_2 <- runTest(myGOdata_2, algorithm="weight01", statistic="fisher") 
+
+allRes_2 <- GenTable(myGOdata_2, weight = resultFisher_2,orderBy = "weight", ranksOf = "classic", topNodes = 50)
+
+#clade 3
+
+genesOfInterest_3 <- topgo_sig_3
+genesOfInterest_3 <- as.character(genesOfInterest_3$protein_ID)
+
+geneList_3 <- factor(as.integer(geneUniverse %in% genesOfInterest_3))
+names(geneList_3) <- geneUniverse
+
+myGOdata_3 <- new("topGOdata", description="time_clade3", ontology="BP", allGenes=geneList_3,  annot = annFUN.gene2GO, gene2GO = geneID2GO_bkgd)
+
+resultFisher_3 <- runTest(myGOdata_3, algorithm="weight01", statistic="fisher") 
+
+allRes_3 <- GenTable(myGOdata_3, weight = resultFisher_3,orderBy = "weight", ranksOf = "classic", topNodes = 50)
+
+#clade 4
+
+genesOfInterest_4 <- topgo_sig_4
+genesOfInterest_4 <- as.character(genesOfInterest_4$protein_ID)
+
+geneList_4 <- factor(as.integer(geneUniverse %in% genesOfInterest_4))
+names(geneList_4) <- geneUniverse
+
+myGOdata_4 <- new("topGOdata", description="time_clade4", ontology="BP", allGenes=geneList_4,  annot = annFUN.gene2GO, gene2GO = geneID2GO_bkgd)
+
+resultFisher_4 <- runTest(myGOdata_4, algorithm="weight01", statistic="fisher") 
+
+allRes_4 <- GenTable(myGOdata_4, weight = resultFisher_4,orderBy = "weight", ranksOf = "classic", topNodes = 50)
+
+#clade 5
+
+genesOfInterest_5 <- topgo_sig_5
+genesOfInterest_5 <- as.character(genesOfInterest_5$protein_ID)
+
+geneList_5 <- factor(as.integer(geneUniverse %in% genesOfInterest_5))
+names(geneList_5) <- geneUniverse
+
+myGOdata_5 <- new("topGOdata", description="time_clade5", ontology="BP", allGenes=geneList_5,  annot = annFUN.gene2GO, gene2GO = geneID2GO_bkgd)
+
+resultFisher_5 <- runTest(myGOdata_5, algorithm="weight01", statistic="fisher") 
+
+
+allRes_5 <- GenTable(myGOdata_5, weight = resultFisher_5,orderBy = "weight", ranksOf = "classic", topNodes = 50)
+
+
+sub_allRes1 <- allRes_1[which(allRes_1$Annotated >=5 & allRes_1$weight <= 0.05),]
+sub_allRes2 <- allRes_2[which(allRes_2$Annotated >=5 & allRes_2$weight <= 0.05),]
+sub_allRes3 <- allRes_3[which(allRes_3$Annotated >=5 & allRes_3$weight <= 0.05),]
+sub_allRes4 <- allRes_4[which(allRes_4$Annotated >=5 & allRes_4$weight <= 0.05),]
+sub_allRes5 <- allRes_5[which(allRes_5$Annotated >=5 & allRes_5$weight <= 0.05),]
+
+
+#bind all result subsets into one data frame
+sub_allRes <- rbind(sub_allRes1,sub_allRes2,sub_allRes3,sub_allRes4,sub_allRes5)
+
+sub_allRes <- sub_allRes[,1:2]
+sub_allRes <- unique(sub_allRes)
+
+sub_allRes <- merge(sub_allRes, sub_allRes1[,c(1,6)], by = "GO.ID", all = TRUE)
+colnames(sub_allRes)[3] <- "clade1"
+
+sub_allRes <- merge(sub_allRes, sub_allRes2[,c(1,6)], by = "GO.ID", all = TRUE)
+colnames(sub_allRes)[4] <- "clade2"
+
+sub_allRes <- merge(sub_allRes, sub_allRes3[,c(1,6)], by = "GO.ID", all = TRUE)
+colnames(sub_allRes)[5] <- "clade3"
+
+sub_allRes <- merge(sub_allRes, sub_allRes4[,c(1,6)], by = "GO.ID", all = TRUE)
+colnames(sub_allRes)[6] <- "clade4"
+
+sub_allRes <- merge(sub_allRes, sub_allRes5[,c(1,6)], by = "GO.ID", all = TRUE)
+colnames(sub_allRes)[7] <- "clade5"
+```
+
+#get GO slims for clade terms
+```{r}
+#make list of unique GO terms without a protein ID column
+GO_clade1 <- sub_allRes[which(!is.na(sub_allRes$clade1)),"GO.ID"]
+GO_clade2 <- sub_allRes[which(!is.na(sub_allRes$clade2)),"GO.ID"]
+GO_clade3 <- sub_allRes[which(!is.na(sub_allRes$clade3)),"GO.ID"]
+GO_clade4 <- sub_allRes[which(!is.na(sub_allRes$clade4)),"GO.ID"]
+GO_clade5 <- sub_allRes[which(!is.na(sub_allRes$clade5)),"GO.ID"]
+
+
+
+#Use GSEA to generate list of GO Slim BP terms for each clade
+#DF will have "term", "GOid", "GOcategory"
+
+#goslims with GSEA
+collection_clade1 <- GOCollection(GO_clade1)
+collection_clade2 <- GOCollection(GO_clade2)
+collection_clade3 <- GOCollection(GO_clade3)
+collection_clade4 <- GOCollection(GO_clade4)
+collection_clade5 <- GOCollection(GO_clade5)
+
+#I downloaded goslim_generic.obo from http://geneontology.org/docs/go-subset-guide/
+#then i moved it to the R library for GSEABase in the extdata folder
+fl <- system.file("extdata", "goslim_generic.obo", package="GSEABase")
+slim <- getOBOCollection(fl)
+slims_clade1 <- data.frame(goSlim(collection_clade1, slim, "BP"))
+slims_clade2 <- data.frame(goSlim(collection_clade2, slim, "BP"))
+slims_clade3 <- data.frame(goSlim(collection_clade3, slim, "BP"))
+slims_clade4 <- data.frame(goSlim(collection_clade4, slim, "BP"))
+slims_clade5 <- data.frame(goSlim(collection_clade5, slim, "BP"))
+
+#bind all clade slim terms together
+slims <- rbind(slims_clade1, slims_clade2, slims_clade3, slims_clade4, slims_clade5)
+
+slims <- data.frame(unique(slims$Term))
+colnames(slims)[1] <- "Term"
+
+slims <- merge(slims, slims_clade1[,c("Term", "Count")], by = "Term", all = TRUE)
+colnames(slims)[2] <- "clade1"
+
+slims <- merge(slims, slims_clade2[,c("Term", "Count")], by = "Term", all = TRUE)
+colnames(slims)[3] <- "clade2"
+
+slims <- merge(slims, slims_clade3[,c("Term", "Count")], by = "Term", all = TRUE)
+colnames(slims)[4] <- "clade3"
+
+slims <- merge(slims, slims_clade4[,c("Term", "Count")], by = "Term", all = TRUE)
+colnames(slims)[5] <- "clade4"
+
+slims <- merge(slims, slims_clade5[,c("Term", "Count")], by = "Term", all = TRUE)
+colnames(slims)[6] <- "clade5"
+
+#remove rows without any counts, and biological_process row
+
+slims <- slims[which(apply(slims[,-1],1,sum)!= 0 & slims$Term != "biological_process"),]
+
+slims_m <- slims[,-1]
+rownames(slims_m) <- slims$Term
+slims_m <- data.matrix(slims_m)
+colnames(slims_m) <- gsub("clade","",colnames(slims_m))
+
+#replace truncated terms with full terms
+rownames(slims_m) <- gsub("nucleobase-containing compound cata...","nucleobase-containing compound catabolic process", rownames(slims_m))
+
+rownames(slims_m) <- gsub("generation of precursor metabolites...","generation of precursor metabolites and energy", rownames(slims_m))
+
+rownames(slims_m) <- gsub("cytoskeleton-dependent intracellula...","cytoskeleton-dependent intracellular transport", rownames(slims_m))
+
+rownames(slims_m) <- gsub("cellular protein modification proce...","cellular protein modification process", rownames(slims_m))
+
+rownames(slims_m) <- gsub("cellular nitrogen compound metaboli...","cellular nitrogen compound metabolic process", rownames(slims_m))
+
+rownames(slims_m) <- gsub("cellular nitrogen compound metaboli...","cellular nitrogen compound metabolic p", rownames(slims_m))
+
+rownames(slims_m) <- gsub("cellular amino acid metabolic proce...","cellular amino acid metabolic process", rownames(slims_m))
+
+rownames(slims_m) <- gsub("anatomical structure formation invo...","anatomical structure formation involved in morphogenesis", rownames(slims_m))
+
+breaks <- c(seq(-1,0, length = 2),1,seq(2,11, length = 5))
+pdf(file="../../Figures/MainText/Figure4.pdf", width=10, height=12)
+heatmap.2(slims_m,margins = c(5,27),cexRow = 1.2, Colv=NA,revC = TRUE,breaks= breaks,col = c("white",viridis(6)),density.info = "none", trace = "none", scale = "none",  hclustfun = function(x) hclust(x, method="average"), distfun = function(x) as.dist(1-cor(t(x), use = "pa")))
+dev.off()
+```
+
+Create table with GO temrs, slim terms, protein IDs, and gene IDs
+```{r}
+### make this table only for significantly enriched GO terms
+for(i in 1:nrow(topgo_sig)){
+  A = unlist(strsplit(topgo_sig$GO_IDs[i], ", "))
+  B = sub_allRes$GO.ID
+  if(length(intersect(A,B)) >= 1){
+    topgo_sig$sig_GO[i] <- toString(intersect(A,B))
+  }
+  else{
+    topgo_sig$sig_GO[i] <- NA
+  }
+}
+
+prot_slims <- data.frame()
+for (i in 1:length(topgo_sig$protein_ID)){
+  if(!is.na(topgo_sig$sig_GO[i])){
+    GO_IDs <- unlist(strsplit(topgo_sig$sig_GO[i], ", "))
+    collection_clade <- GOCollection(GO_IDs)
+    fl <- system.file("extdata", "goslim_generic.obo", package="GSEABase")
+    slim <- getOBOCollection(fl)
+    slims_clade <- data.frame(goSlim(collection_clade, slim, "BP"))
+    slims_clade$protein_ID <- topgo_sig$protein_ID[i]
+    prot_slims <- rbind(prot_slims, slims_clade)
+  }
+}
+
+prot_slims_summry <- prot_slims[which(prot_slims$Count !=0 & prot_slims$Term != "biological_process"),] %>% dplyr::group_by(protein_ID) %>% dplyr::summarise(GO_slim = toString(Term)) %>% ungroup()
+
+#replace truncated terms with full terms
+prot_slims_summry$GO_slim <- gsub("nucleobase-containing compound cata...","nucleobase-containing compound catabolic process", prot_slims_summry$GO_slim)
+
+prot_slims_summry$GO_slim <- gsub("generation of precursor metabolites...","generation of precursor metabolites and energy", prot_slims_summry$GO_slim)
+
+prot_slims_summry$GO_slim <- gsub("cytoskeleton-dependent intracellula...","cytoskeleton-dependent intracellular transport", prot_slims_summry$GO_slim)
+
+prot_slims_summry$GO_slim <- gsub("cellular protein modification proce...","cellular protein modification process", prot_slims_summry$GO_slim)
+
+prot_slims_summry$GO_slim <- gsub("cellular nitrogen compound metaboli...","cellular nitrogen compound metabolic process", prot_slims_summry$GO_slim)
+
+prot_slims_summry$GO_slim <- gsub("cellular nitrogen compound metaboli...","cellular nitrogen compound metabolic p", prot_slims_summry$GO_slim)
+
+prot_slims_summry$GO_slim <- gsub("cellular amino acid metabolic proce...","cellular amino acid metabolic process", prot_slims_summry$GO_slim)
+
+prot_slims_summry$GO_slim <- gsub("anatomical structure formation invo...","anatomical structure formation involved in morphogenesis", prot_slims_summry$GO_slim)
+
+#replace , with ;
+prot_slims_summry$GO_slim <- gsub(",",";", prot_slims_summry$GO_slim)
+
+
+prot_slims_summry <- merge(topgo_sig,prot_slims_summry, by = "protein_ID", all.x = TRUE)
+
+#merge with rest of uniprot data
+prot_slims_summry_uni <- merge(uniprot_filtered[,c("protein_ID", "Protein_names", "Protein_fams", "Gene_names")],prot_slims_summry, by = "protein_ID")
+
+#reorder columns
+prot_slims_summry_uni <- prot_slims_summry_uni[,c(1,5,6,2:4,7:9)]
+
+prot_slims_summry_uni <- prot_slims_summry_uni[order(prot_slims_summry_uni$ClusterID, prot_slims_summry_uni$GO_slim),]
+
+colnames(prot_slims_summry_uni)[8] <- "sig_bp_GO"
+colnames(prot_slims_summry_uni)[9] <- "sig_bp_GOslim"
+
+prot_slims_summry_uni <- sapply(prot_slims_summry_uni, gsub, pattern=",", replacement=";") 
+```
+
+Make supplementary table 5
+```{r}
+time_ASCA_PC1_2_loadings_GO <- merge(time_ASCA_PC1_2_loadings,prot_slims_summry_uni, by = c("protein_ID", "ClusterID", "ClusterColor"), all = TRUE)
+
+time_ASCA_PC1_2_loadings_GO <- time_ASCA_PC1_2_loadings_GO[,c(1,4:6,2,3,7:12)]
+
+time_ASCA_PC1_2_loadings_GO <- time_ASCA_PC1_2_loadings_GO[order(time_ASCA_PC1_2_loadings_GO$ASCA_PC_threshold_pass,time_ASCA_PC1_2_loadings_GO$ClusterID,time_ASCA_PC1_2_loadings_GO$sig_bp_GO, decreasing = TRUE),]
+
+write.csv(time_ASCA_PC1_2_loadings_GO, "../../Data/TableS5.csv", quote = FALSE, row.names = FALSE)
+
+```
+
+#######################################
+Analysis of Temperature-affected proteins
+######################################
+
+**Match GO terms to sig protein lists**
+
+```{r}
+#Get GO IDs for silo 3 and 9 sig. proteins
+sig_pro_GO <- merge(temp_ASCA_PC1_loadings[which(temp_ASCA_PC1_loadings$ASCA_PC_threshold_pass == "Yes"),c("protein_ID", "ClusterID", "ClusterColor")], uniprot_filtered[,c("protein_ID","GO_IDs")], by ="protein_ID")
+
+#count number of proteins with GO terms
+nrow(sig_pro_GO)
+
+split_terms <- strsplit(as.character(sig_pro_GO$GO_IDs), ";") #split into multiple GO ids
+STACKED_sig_pro_GO <- data.frame(protein_ID = rep.int(sig_pro_GO$protein_ID, sapply(split_terms, length)), GO = unlist(split_terms)) #list all genes with each of their GO terms in a single row 
+```
+
+### TopGO 
+```{r}
+
+###this chunk generates p-values for weight01 fisher test like Liew paper (https://advances.sciencemag.org/content/4/6/eaar8028/tab-figures-data#ref-43)
+topgo_sig <- sig_pro_GO
+topgo_sig$GO_IDs <- gsub(";",",",topgo_sig$GO_IDs)
+
+topgo_sig_1 <- topgo_sig[which(topgo_sig$ClusterID == 1),c("protein_ID", "GO_IDs")]
+
+topgo_sig_2 <- topgo_sig[which(topgo_sig$ClusterID == 2),c("protein_ID", "GO_IDs")]
+
+geneUniverse <- names(geneID2GO_bkgd) 
+
+genesOfInterest_1 <- topgo_sig_1
+genesOfInterest_1 <- as.character(genesOfInterest_1$protein_ID)
+
+geneList_1 <- factor(as.integer(geneUniverse %in% genesOfInterest_1))
+names(geneList_1) <- geneUniverse
+
+myGOdata_1 <- new("topGOdata", description="temp_clade1", ontology="BP", allGenes=geneList_1  ,annot = annFUN.gene2GO, gene2GO = geneID2GO_bkgd)
+
+resultFisher_1 <- runTest(myGOdata_1, algorithm="weight01", statistic="fisher") 
+
+allRes_1 <- GenTable(myGOdata_1, weight = resultFisher_1,orderBy = "weight", ranksOf = "classic", topNodes = 50)
+
+#clade 2
+
+genesOfInterest_2 <- topgo_sig_2
+genesOfInterest_2 <- as.character(genesOfInterest_2$protein_ID)
+
+geneList_2 <- factor(as.integer(geneUniverse %in% genesOfInterest_2))
+names(geneList_2) <- geneUniverse
+
+myGOdata_2 <- new("topGOdata", description="temp_clade2", ontology="BP", allGenes=geneList_2,  annot = annFUN.gene2GO, gene2GO = geneID2GO_bkgd)
+
+resultFisher_2 <- runTest(myGOdata_2, algorithm="weight01", statistic="fisher") 
+
+allRes_2 <- GenTable(myGOdata_2, weight = resultFisher_2,orderBy = "weight", ranksOf = "classic", topNodes = 50)
+
+
+sub_allRes1 <- allRes_1[which(allRes_1$Annotated >=5 & allRes_1$weight <= 0.05),]
+sub_allRes2 <- allRes_2[which(allRes_2$Annotated >=5 & allRes_2$weight <= 0.05),]
+
+#bind all result subsets into one data frame
+sub_allRes <- rbind(sub_allRes1,sub_allRes2)
+
+sub_allRes <- sub_allRes[,1:2]
+sub_allRes <- unique(sub_allRes)
+
+sub_allRes <- merge(sub_allRes, sub_allRes1[,c(1,6)], by = "GO.ID", all = TRUE)
+colnames(sub_allRes)[3] <- "clade1"
+
+sub_allRes <- merge(sub_allRes, sub_allRes2[,c(1,6)], by = "GO.ID", all = TRUE)
+colnames(sub_allRes)[4] <- "clade2"
+
+```
+
+#get GO slims for clade terms
+```{r}
+#make list of unique GO terms without a protein ID column
+GO_clade1 <- sub_allRes[which(!is.na(sub_allRes$clade1)),"GO.ID"]
+GO_clade2 <- sub_allRes[which(!is.na(sub_allRes$clade2)),"GO.ID"]
+
+#Use GSEA to generate list of GO Slim BP terms for each clade
+#DF will have "term", "GOid", "GOcategory"
+
+#goslims with GSEA
+collection_clade1 <- GOCollection(GO_clade1)
+collection_clade2 <- GOCollection(GO_clade2)
+
+#I downloaded goslim_generic.obo from http://geneontology.org/docs/go-subset-guide/
+#then i moved it to the R library for GSEABase in the extdata folder
+#make list of unique GO terms without a protein ID column
+#moved it to the R library for GSEABase in the extdata folder
+fl <- system.file("extdata", "goslim_generic.obo", package="GSEABase")
+slim <- getOBOCollection(fl)
+slims_clade1 <- data.frame(goSlim(collection_clade1, slim, "BP"))
+slims_clade2 <- data.frame(goSlim(collection_clade2, slim, "BP"))
+
+#bind all clade slim terms together
+slims <- rbind(slims_clade1, slims_clade2)
+
+slims <- data.frame(unique(slims$Term))
+colnames(slims)[1] <- "Term"
+
+slims <- merge(slims, slims_clade1[,c("Term", "Count")], by = "Term", all = TRUE)
+colnames(slims)[2] <- "clade1"
+
+slims <- merge(slims, slims_clade2[,c("Term", "Count")], by = "Term", all = TRUE)
+colnames(slims)[3] <- "clade2"
+
+#remove rows without any counts, and biological_process row
+
+slims <- slims[which(apply(slims[,-1],1,sum)!= 0 & slims$Term != "biological_process"),]
+
+slims_m <- slims[,-1]
+rownames(slims_m) <- slims$Term
+slims_m <- data.matrix(slims_m)
+colnames(slims_m) <- gsub("clade","",colnames(slims_m))
+
+#replace truncated terms with full terms
+rownames(slims_m) <- gsub("nucleobase-containing compound cata...","nucleobase-containing compound catabolic process", rownames(slims_m))
+
+rownames(slims_m) <- gsub("generation of precursor metabolites...","generation of precursor metabolites and energy", rownames(slims_m))
+
+rownames(slims_m) <- gsub("cytoskeleton-dependent intracellula...","cytoskeleton-dependent intracellular transport", rownames(slims_m))
+
+rownames(slims_m) <- gsub("cellular protein modification proce...","cellular protein modification process", rownames(slims_m))
+
+rownames(slims_m) <- gsub("cellular nitrogen compound metaboli...","cellular nitrogen compound metabolic process", rownames(slims_m))
+
+rownames(slims_m) <- gsub("cellular nitrogen compound metaboli...","cellular nitrogen compound metabolic p", rownames(slims_m))
+
+rownames(slims_m) <- gsub("cellular amino acid metabolic proce...","cellular amino acid metabolic process", rownames(slims_m))
+
+rownames(slims_m) <- gsub("anatomical structure formation invo...","anatomical structure formation involved in morphogenesis", rownames(slims_m))
+
+
+heatmap.2(slims_m,margins = c(5,27),cexRow = 1.2, Colv=NA,revC = TRUE,col = c("white",viridis(6)),density.info = "none", trace = "none", scale = "none")
+
+
+breaks <- c(0,0.5,1,2,3,4,5)
+pdf(file="../../Figures/MainText/Figure6.pdf", width=8, height=10)
+heatmap.2(slims_m,margins = c(5,25),cexRow = 1.2, Colv=NA,revC = TRUE,breaks= breaks,col = c("white",viridis(5)),density.info = "none", trace = "none", scale = "none")
+dev.off()
+
+```
+
+Create table with GO temrs, slim terms, protein IDs, and gene IDs
+```{r}
+### make this table only for significantly enriched GO terms
+for(i in 1:nrow(topgo_sig)){
+  A = unlist(strsplit(topgo_sig$GO_IDs[i], ", "))
+  B = sub_allRes$GO.ID
+  if(length(intersect(A,B)) >= 1){
+    topgo_sig$sig_GO[i] <- toString(intersect(A,B))
+  }
+  else{
+    topgo_sig$sig_GO[i] <- NA
+  }
+}
+
+prot_slims <- data.frame()
+for (i in 1:length(topgo_sig$protein_ID)){
+  if(!is.na(topgo_sig$sig_GO[i])){
+    GO_IDs <- unlist(strsplit(topgo_sig$sig_GO[i], ", "))
+    collection_clade <- GOCollection(GO_IDs)
+    fl <- system.file("extdata", "goslim_generic.obo", package="GSEABase")
+    slim <- getOBOCollection(fl)
+    slims_clade <- data.frame(goSlim(collection_clade, slim, "BP"))
+    slims_clade$protein_ID <- topgo_sig$protein_ID[i]
+    prot_slims <- rbind(prot_slims, slims_clade)
+  }
+}
+
+prot_slims_summry <- prot_slims[which(prot_slims$Count !=0 & prot_slims$Term != "biological_process"),] %>% dplyr::group_by(protein_ID) %>% dplyr::summarise(GO_slim = toString(Term)) %>% ungroup()
+
+#replace truncated terms with full terms
+prot_slims_summry$GO_slim <- gsub("nucleobase-containing compound cata...","nucleobase-containing compound catabolic process", prot_slims_summry$GO_slim)
+
+prot_slims_summry$GO_slim <- gsub("generation of precursor metabolites...","generation of precursor metabolites and energy", prot_slims_summry$GO_slim)
+
+prot_slims_summry$GO_slim <- gsub("cytoskeleton-dependent intracellula...","cytoskeleton-dependent intracellular transport", prot_slims_summry$GO_slim)
+
+prot_slims_summry$GO_slim <- gsub("cellular protein modification proce...","cellular protein modification process", prot_slims_summry$GO_slim)
+
+prot_slims_summry$GO_slim <- gsub("cellular nitrogen compound metaboli...","cellular nitrogen compound metabolic process", prot_slims_summry$GO_slim)
+
+prot_slims_summry$GO_slim <- gsub("cellular nitrogen compound metaboli...","cellular nitrogen compound metabolic p", prot_slims_summry$GO_slim)
+
+prot_slims_summry$GO_slim <- gsub("cellular amino acid metabolic proce...","cellular amino acid metabolic process", prot_slims_summry$GO_slim)
+
+prot_slims_summry$GO_slim <- gsub("anatomical structure formation invo...","anatomical structure formation involved in morphogenesis", prot_slims_summry$GO_slim)
+
+#replace , with ;
+prot_slims_summry$GO_slim <- gsub(",",";", prot_slims_summry$GO_slim)
+
+
+prot_slims_summry <- merge(topgo_sig,prot_slims_summry, by = "protein_ID", all.x = TRUE)
+
+#merge with rest of uniprot data
+prot_slims_summry_uni <- merge(uniprot_filtered[,c("protein_ID", "Protein_names", "Protein_fams", "Gene_names")],prot_slims_summry, by = "protein_ID")
+
+#reorder columns
+prot_slims_summry_uni <- prot_slims_summry_uni[,c(1,5,6,2:4,7:9)]
+
+prot_slims_summry_uni <- prot_slims_summry_uni[order(prot_slims_summry_uni$ClusterID, prot_slims_summry_uni$GO_slim),]
+
+colnames(prot_slims_summry_uni)[8] <- "sig_bp_GO"
+colnames(prot_slims_summry_uni)[9] <- "sig_bp_GOslim"
+
+prot_slims_summry_uni <- sapply(prot_slims_summry_uni, gsub, pattern=",", replacement=";") 
+
+```
+
+Make supplementary table 6
+```{r}
+temp_ASCA_PC1_loadings_GO <- merge(temp_ASCA_PC1_loadings,prot_slims_summry_uni, by = c("protein_ID", "ClusterID", "ClusterColor"), all = TRUE)
+
+temp_ASCA_PC1_loadings_GO <- temp_ASCA_PC1_loadings_GO[,c(1,4:6,2,3,7:ncol(temp_ASCA_PC1_loadings_GO))]
+
+temp_ASCA_PC1_loadings_GO <- temp_ASCA_PC1_loadings_GO[order(temp_ASCA_PC1_loadings_GO$ASCA_PC_threshold_pass,temp_ASCA_PC1_loadings_GO$ClusterID,temp_ASCA_PC1_loadings_GO$sig_bp_GO, decreasing = TRUE),]
+
+write.csv(temp_ASCA_PC1_loadings_GO, "../../Data/TableS6.csv", quote = FALSE, row.names = FALSE)
+
+```
+
+#######################################
+Analysis of Day21 and day27 affected proteins
+######################################
+
+**Match GO terms to proteins**
+
+```{r}
+#Get GO IDs for proteins
+sig_pro_GO <- merge(PC_loadings[which(PC_loadings$PC_threshold_pass == "Yes" & PC_loadings$ClusterColor != "red"),c("protein_ID", "ClusterID", "ClusterColor")], uniprot_filtered[,c("protein_ID","GO_IDs")], by ="protein_ID")
+
+#count number of proteins with GO terms
+nrow(sig_pro_GO)
+
+split_terms <- strsplit(as.character(sig_pro_GO$GO_IDs), ";") #split into multiple GO ids
+STACKED_sig_pro_GO <- data.frame(protein_ID = rep.int(sig_pro_GO$protein_ID, sapply(split_terms, length)), GO = unlist(split_terms)) #list all genes with each of their GO terms in a single row 
+
+```
+
+### TopGO 
+```{r}
+
+###this chunk generates p-values for weight01 fisher test like Liew paper (https://advances.sciencemag.org/content/4/6/eaar8028/tab-figures-data#ref-43)
+
+#to switch between time and temp run line 66 in time and temp functional analysis scripts
+topgo_sig <- sig_pro_GO
+topgo_sig$GO_IDs <- gsub(";",",",topgo_sig$GO_IDs)
+
+topgo_sig_1 <- topgo_sig[which(topgo_sig$ClusterID == 1),c("protein_ID", "GO_IDs")]
+
+topgo_sig_2 <- topgo_sig[which(topgo_sig$ClusterID == 2),c("protein_ID", "GO_IDs")]
+
+topgo_sig_3 <- topgo_sig[which(topgo_sig$ClusterID == 3),c("protein_ID", "GO_IDs")]
+
+geneUniverse <- names(geneID2GO_bkgd) 
+
+genesOfInterest_1 <- topgo_sig_1
+genesOfInterest_1 <- as.character(genesOfInterest_1$protein_ID)
+
+geneList_1 <- factor(as.integer(geneUniverse %in% genesOfInterest_1))
+names(geneList_1) <- geneUniverse
+
+myGOdata_1 <- new("topGOdata", description="glob_clade1", ontology="BP", allGenes=geneList_1  ,annot = annFUN.gene2GO, gene2GO = geneID2GO_bkgd)
+
+resultFisher_1 <- runTest(myGOdata_1, algorithm="weight01", statistic="fisher") 
+
+allRes_1 <- GenTable(myGOdata_1, weight = resultFisher_1,orderBy = "weight", ranksOf = "classic", topNodes = 50)
+
+#clade 2
+
+genesOfInterest_2 <- topgo_sig_2
+genesOfInterest_2 <- as.character(genesOfInterest_2$protein_ID)
+
+geneList_2 <- factor(as.integer(geneUniverse %in% genesOfInterest_2))
+names(geneList_2) <- geneUniverse
+
+myGOdata_2 <- new("topGOdata", description="glob_clade2", ontology="BP", allGenes=geneList_2,  annot = annFUN.gene2GO, gene2GO = geneID2GO_bkgd)
+
+resultFisher_2 <- runTest(myGOdata_2, algorithm="weight01", statistic="fisher") 
+
+allRes_2 <- GenTable(myGOdata_2, weight = resultFisher_2,orderBy = "weight", ranksOf = "classic", topNodes = 50)
+
+#clade 3
+
+genesOfInterest_3 <- topgo_sig_3
+genesOfInterest_3 <- as.character(genesOfInterest_3$protein_ID)
+
+geneList_3 <- factor(as.integer(geneUniverse %in% genesOfInterest_3))
+names(geneList_3) <- geneUniverse
+
+myGOdata_3 <- new("topGOdata", description="glob_clade3", ontology="BP", allGenes=geneList_3,  annot = annFUN.gene2GO, gene2GO = geneID2GO_bkgd)
+
+resultFisher_3 <- runTest(myGOdata_3, algorithm="weight01", statistic="fisher") 
+
+allRes_3 <- GenTable(myGOdata_3, weight = resultFisher_3,orderBy = "weight", ranksOf = "classic", topNodes = 50)
+
+
+sub_allRes1 <- allRes_1[which(allRes_1$Annotated >=5 & allRes_1$weight <= 0.05),]
+sub_allRes2 <- allRes_2[which(allRes_2$Annotated >=5 & allRes_2$weight <= 0.05),]
+sub_allRes3 <- allRes_3[which(allRes_3$Annotated >=5 & allRes_3$weight <= 0.05),]
+
+#bind all result subsets into one data frame
+sub_allRes <- rbind(sub_allRes1,sub_allRes2, sub_allRes3)
+
+sub_allRes <- sub_allRes[,1:2]
+sub_allRes <- unique(sub_allRes)
+
+sub_allRes <- merge(sub_allRes, sub_allRes1[,c(1,6)], by = "GO.ID", all = TRUE)
+colnames(sub_allRes)[3] <- "clade1"
+
+sub_allRes <- merge(sub_allRes, sub_allRes2[,c(1,6)], by = "GO.ID", all = TRUE)
+colnames(sub_allRes)[4] <- "clade2"
+
+sub_allRes <- merge(sub_allRes, sub_allRes3[,c(1,6)], by = "GO.ID", all = TRUE)
+colnames(sub_allRes)[5] <- "clade3"
+```
+
+#get GO slims for clade terms
+```{r}
+
+GO_clade1 <- sub_allRes[which(!is.na(sub_allRes$clade1)),"GO.ID"]
+GO_clade2 <- sub_allRes[which(!is.na(sub_allRes$clade2)),"GO.ID"]
+GO_clade3 <- sub_allRes[which(!is.na(sub_allRes$clade3)),"GO.ID"]
+
+#Use GSEA to generate list of GO Slim BP terms for each clade
+#DF will have "term", "GOid", "GOcategory"
+
+#goslims with GSEA
+collection_clade1 <- GOCollection(GO_clade1)
+collection_clade2 <- GOCollection(GO_clade2)
+collection_clade3 <- GOCollection(GO_clade3)
+
+#make list of unique GO terms without a protein ID column
+#moved it to the R library for GSEABase in the extdata folder
+fl <- system.file("extdata", "goslim_generic.obo", package="GSEABase")
+slim <- getOBOCollection(fl)
+slims_clade1 <- data.frame(goSlim(collection_clade1, slim, "BP"))
+slims_clade2 <- data.frame(goSlim(collection_clade2, slim, "BP"))
+slims_clade3 <- data.frame(goSlim(collection_clade3, slim, "BP"))
+
+#bind all clade slim terms together
+slims <- rbind(slims_clade1, slims_clade2, slims_clade3)
+
+slims <- data.frame(unique(slims$Term))
+colnames(slims)[1] <- "Term"
+
+slims <- merge(slims, slims_clade1[,c("Term", "Count")], by = "Term", all = TRUE)
+colnames(slims)[2] <- "clade1"
+
+slims <- merge(slims, slims_clade2[,c("Term", "Count")], by = "Term", all = TRUE)
+colnames(slims)[3] <- "clade2"
+
+slims <- merge(slims, slims_clade3[,c("Term", "Count")], by = "Term", all = TRUE)
+colnames(slims)[4] <- "clade3"
+
+#remove rows without any counts, and biological_process row
+
+slims <- slims[which(apply(slims[,-1],1,sum)!= 0 & slims$Term != "biological_process"),]
+
+
+slims_m <- slims[,-1]
+rownames(slims_m) <- slims$Term
+slims_m <- data.matrix(slims_m)
+colnames(slims_m) <- gsub("clade","",colnames(slims_m))
+
+#replace truncated terms with full terms
+rownames(slims_m) <- gsub("nucleobase-containing compound cata...","nucleobase-containing compound catabolic process", rownames(slims_m))
+
+rownames(slims_m) <- gsub("generation of precursor metabolites...","generation of precursor metabolites and energy", rownames(slims_m))
+
+rownames(slims_m) <- gsub("cytoskeleton-dependent intracellula...","cytoskeleton-dependent intracellular transport", rownames(slims_m))
+
+rownames(slims_m) <- gsub("cellular protein modification proce...","cellular protein modification process", rownames(slims_m))
+
+rownames(slims_m) <- gsub("cellular nitrogen compound metaboli...","cellular nitrogen compound metabolic process", rownames(slims_m))
+
+rownames(slims_m) <- gsub("cellular nitrogen compound metaboli...","cellular nitrogen compound metabolic p", rownames(slims_m))
+
+rownames(slims_m) <- gsub("cellular amino acid metabolic proce...","cellular amino acid metabolic process", rownames(slims_m))
+
+rownames(slims_m) <- gsub("anatomical structure formation invo...","anatomical structure formation involved in morphogenesis", rownames(slims_m))
+
+breaks <- c(seq(-1,0, length = 2),1,seq(2,8, length = 5))
+pdf(file="../../Figures/AdditionalFile1/FigureS2f.pdf", width=8, height=8)
+heatmap.2(slims_m,margins = c(5,27),cexRow = 1.2, Colv=NA,revC = TRUE,density.info = "none", trace = "none",col = c("white", viridis(8)), scale = "none")
+dev.off()
+```
+
+Create table with GO temrs, slim terms, protein IDs, and gene IDs
+```{r}
+### make this table only for significantly enriched GO terms
+for(i in 1:nrow(topgo_sig)){
+  A = unlist(strsplit(topgo_sig$GO_IDs[i], ", "))
+  B = sub_allRes$GO.ID
+  if(length(intersect(A,B)) >= 1){
+    topgo_sig$sig_GO[i] <- toString(intersect(A,B))
+  }
+  else{
+    topgo_sig$sig_GO[i] <- NA
+  }
+}
+
+prot_slims <- data.frame()
+for (i in 1:length(topgo_sig$protein_ID)){
+  if(!is.na(topgo_sig$sig_GO[i])){
+    GO_IDs <- unlist(strsplit(topgo_sig$sig_GO[i], ", "))
+    collection_clade <- GOCollection(GO_IDs)
+    fl <- system.file("extdata", "goslim_generic.obo", package="GSEABase")
+    slim <- getOBOCollection(fl)
+    slims_clade <- data.frame(goSlim(collection_clade, slim, "BP"))
+    slims_clade$protein_ID <- topgo_sig$protein_ID[i]
+    prot_slims <- rbind(prot_slims, slims_clade)
+  }
+}
+
+prot_slims_summry <- prot_slims[which(prot_slims$Count !=0 & prot_slims$Term != "biological_process"),] %>% dplyr::group_by(protein_ID) %>% dplyr::summarise(GO_slim = toString(Term)) %>% ungroup()
+
+#replace truncated terms with full terms
+prot_slims_summry$GO_slim <- gsub("nucleobase-containing compound cata...","nucleobase-containing compound catabolic process", prot_slims_summry$GO_slim)
+
+prot_slims_summry$GO_slim <- gsub("generation of precursor metabolites...","generation of precursor metabolites and energy", prot_slims_summry$GO_slim)
+
+prot_slims_summry$GO_slim <- gsub("cytoskeleton-dependent intracellula...","cytoskeleton-dependent intracellular transport", prot_slims_summry$GO_slim)
+
+prot_slims_summry$GO_slim <- gsub("cellular protein modification proce...","cellular protein modification process", prot_slims_summry$GO_slim)
+
+prot_slims_summry$GO_slim <- gsub("cellular nitrogen compound metaboli...","cellular nitrogen compound metabolic process", prot_slims_summry$GO_slim)
+
+prot_slims_summry$GO_slim <- gsub("cellular nitrogen compound metaboli...","cellular nitrogen compound metabolic p", prot_slims_summry$GO_slim)
+
+prot_slims_summry$GO_slim <- gsub("cellular amino acid metabolic proce...","cellular amino acid metabolic process", prot_slims_summry$GO_slim)
+
+prot_slims_summry$GO_slim <- gsub("anatomical structure formation invo...","anatomical structure formation involved in morphogenesis", prot_slims_summry$GO_slim)
+
+#replace , with ;
+prot_slims_summry$GO_slim <- gsub(",",";", prot_slims_summry$GO_slim)
+
+
+prot_slims_summry <- merge(topgo_sig,prot_slims_summry, by = "protein_ID", all.x = TRUE)
+
+#merge with rest of uniprot data
+prot_slims_summry_uni <- merge(uniprot_filtered[,c("protein_ID", "Protein_names", "Protein_fams", "Gene_names")],prot_slims_summry, by = "protein_ID")
+
+#reorder columns
+prot_slims_summry_uni <- prot_slims_summry_uni[,c(1,5,6,2:4,7:9)]
+
+prot_slims_summry_uni <- prot_slims_summry_uni[order(prot_slims_summry_uni$ClusterID, prot_slims_summry_uni$GO_slim),]
+
+colnames(prot_slims_summry_uni)[8] <- "sig_bp_GO"
+colnames(prot_slims_summry_uni)[9] <- "sig_bp_GOslim"
+
+prot_slims_summry_uni <- sapply(prot_slims_summry_uni, gsub, pattern=",", replacement=";") 
+```
+
+Make supplementary table 3
+```{r}
+PC_loadings_GO <- merge(PC_loadings,prot_slims_summry_uni, by = c("protein_ID", "ClusterID", "ClusterColor"), all = TRUE)
+
+PC_loadings_GO <- PC_loadings_GO[,c(1,4:6,2,3,7:ncol(PC_loadings_GO))]
+
+PC_loadings_GO <- PC_loadings_GO[order(PC_loadings_GO$PC_threshold_pass,PC_loadings_GO$ClusterColor,PC_loadings_GO$sig_bp_GO, decreasing = TRUE),]
+
+write.csv(PC_loadings_GO, "../../Data/TableS3.csv", quote = FALSE, row.names = FALSE)
+
+```
+
+
