@@ -53,7 +53,7 @@ colnames(pca_log_meta)[1:3] <- c("dpf","temp","SampleName")
 
 Plot PC1 x PC2 of PCA on averaged NSAF values with days ordered from earliest to latest
 ```{r}
-jpeg("../../Figures/MainText/Figure2b.jpg", height = 5, width = 7, units = "in", res = 300 )
+jpeg("../../Figures/Figure2b.jpg", height = 5, width = 7, units = "in", res = 300 )
 ggplot(pca_log_meta, aes(PC1, PC2,label = dpf, color = as.factor(temp), size = 2)) + geom_text(fontface = "bold") + scale_colour_manual(values = c("brown4","cyan3", "magenta3")) + theme_bw() + ylab(paste("PC2"," (",formatC(summary_pca_log$importance[5] * 100,digits=2,format="f"),"%)", sep = "")) + xlab(paste("PC1"," (",formatC(summary_pca_log$importance[2] * 100,digits=2,format="f"),"%)", sep = ""))
 dev.off()
 ```
@@ -65,7 +65,7 @@ PC1_great <- data.frame(pca_log$rotation)
 PC1_great <- PC1_great[which(PC1_great$PC1 > 0),1:2]
 
 #export plot
-jpeg("../../Figures/AdditionalFile1/FigureS2a.jpg", height = 5, width = 5, units = "in", res = 300 )
+jpeg("../../AdditionalFiles/FigureS2a.jpg", height = 5, width = 5, units = "in", res = 300 )
 plot(head(PC1_great[order(PC1_great, decreasing = TRUE),1],100), xlab = "protein", ylab = "PC1 Loadings")
 abline(h=0.0236, col = "red")
 dev.off()
@@ -76,7 +76,7 @@ PC1_great_prots <- rownames(PC1_great[which(PC1_great$PC1 > 0.0236),])
 PC1_less <- data.frame(pca_log$rotation)
 PC1_less <- PC1_less[which(PC1_less$PC1 < 0),1:2]
 
-jpeg("../../Figures/AdditionalFile1/FigureS2b.jpg", height = 5, width = 5, units = "in", res = 300 )
+jpeg("../../AdditionalFiles/FigureS2b.jpg", height = 5, width = 5, units = "in", res = 300 )
 plot(tail(PC1_less[order(PC1_less$PC1, decreasing = TRUE),1],100), xlab = "protein", ylab = "PC1 Loadings")
 abline(h=-0.02355, col = "red")
 dev.off()
@@ -87,7 +87,7 @@ PC1_less_prots <- rownames(PC1_less[which(PC1_less$PC1 < -0.02355),])
 PC2_great <- data.frame(pca_log$rotation)
 PC2_great <- PC2_great[which(PC2_great$PC2 > 0),1:2]
 
-jpeg("../../Figures/AdditionalFile1/FigureS2c.jpg", height = 5, width = 5, units = "in", res = 300 )
+jpeg("../../AdditionalFiles/FigureS2c.jpg", height = 5, width = 5, units = "in", res = 300 )
 plot(head(PC2_great[order(PC2_great$PC2, decreasing = TRUE),2],100), xlab = "protein", ylab = "PC2 Loadings")
 abline(h=0.0245, col = "red")
 dev.off()
@@ -97,7 +97,7 @@ PC2_great_prots <- rownames(PC2_great[which(PC2_great$PC2 > 0.0245),])
 PC2_less <- data.frame(pca_log$rotation)
 PC2_less <- PC2_less[which(PC2_less$PC2 < 0),1:2]
 
-jpeg("../../Figures/AdditionalFile1/FigureS2d.jpg", height = 5, width = 5, units = "in", res = 300 )
+jpeg("../../AdditionalFiles/FigureS2d.jpg", height = 5, width = 5, units = "in", res = 300 )
 plot(tail(PC2_less[order(PC2_less$PC2, decreasing = TRUE),2],100), xlab = "protein", ylab = "PC2 Loadings")
 abline(h=-0.0262, col = "red")
 dev.off()
@@ -197,7 +197,7 @@ heatmap3(as.matrix(t(global_cut_data)), Colv = NA, cexRow = 0.5,labCol = c(19,21
 #red clade does not show much difference between temperatures
 #exclude "red" cluster that does not show much change between temperatures 
 
-jpeg(file="../../Figures/AdditionalFile1/FigureS2e.jpg", width=7, height=5, units = "in", res = 300)
+jpeg(file="../../AdditionalFiles/FigureS2e.jpg", width=7, height=5, units = "in", res = 300)
 heatmap3(as.matrix(t(global_cut_data)[which(!(rownames(t(global_cut_data)) %in% clade.prot[which(clade.prot$ClusterColor =="red"),"protein_ID"])),]), Colv = NA, cexRow = 0.5,labCol = c(19,21,21,23,23,25,25,27,27,29,29,31,31), ColSideColors = ColSideColors,RowSideColors=myClusterSideBar[myClusterSideBar != "#FF0000"], ColAxisColors = 1,RowAxisColors=1,distfun = function(x) as.dist(1 - cor(t(x), use = "pa")), method = "complete")
 dev.off()
 
@@ -233,14 +233,14 @@ Here is a summary of the ASCA results (e.g. variance explained by different fact
 #print the ASCA summary
 ASCA.GetSummary(ASCA)
 #write results out to a file
-capture.output(ASCA.GetSummary(ASCA), file = "../../Data/ASCA_model_summary.txt")
+capture.output(ASCA.GetSummary(ASCA), file = "../../AdditionalFiles/ASCA_model_summary.txt")
 ```
 
 Perform a permutation test on ASCA results to see if experimental effects are significant beyond randomly permuted data
 ```{r}
 set.seed(101)
 perm.test <- ASCA.DoPermutationTest(ASCA,perm = 10000)
-capture.output(perm.test, file = "../../Data/ASCA_permTest_summary.txt")
+capture.output(perm.test, file = "../../Tables/ASCA_permTest_summary.txt")
 ```
 
 
@@ -256,7 +256,7 @@ time_PC12$dpf <- factor(time_PC12$dpf)
 time_PC12$PC1_j <- jitter(time_PC12$PC1)
 time_PC12$PC2_j <- jitter(time_PC12$PC2)
 
-jpeg(file="../../Figures/MainText/Figure3a.jpg", width=7, height=5, units = "in", res = 300)
+jpeg(file="../../Figures/Figure3a.jpg", width=7, height=5, units = "in", res = 300)
 ggplot(time_PC12, aes(PC1_j, PC2_j, label = dpf, color = temp)) + geom_text(size = 6, fontface = "bold") + scale_color_manual(values = c("cyan3", "magenta3"))+ theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),panel.background = element_blank(),axis.line = element_line(colour = "black"),panel.border = element_rect(colour = "black", fill=NA, size=1), text = element_text(size=15)) + xlab(paste("PC1"," (",formatC(ASCA$`1`$svd$var.explained[1] * 100,digits=2,format="f"),"%)", sep = "")) + ylab(paste("PC2"," (",formatC(ASCA$`1`$svd$var.explained[2] * 100,digits=2,format="f"),"%)", sep = ""))
 dev.off()
 ```
@@ -273,7 +273,7 @@ temp_PC12$dpf <- as.factor(temp_PC12$dpf)
 temp_PC12$PC1_j <- jitter(temp_PC12$PC1)
 temp_PC12$PC2_j <- jitter(temp_PC12$PC2)
 
-jpeg(file="../../Figures/MainText/Figure5a.jpg", width=7, height=5, units = "in", res = 300)
+jpeg(file="../../Figures/Figure5a.jpg", width=7, height=5, units = "in", res = 300)
 ggplot(temp_PC12, aes(PC1_j, PC2_j, label = dpf, color = temp)) + geom_text(size = 3, fontface = "bold") + scale_color_manual(values = c("cyan3", "magenta3")) + theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),panel.background = element_blank(),axis.line = element_line(colour = "black"),panel.border = element_rect(colour = "black", fill=NA, size=1), text = element_text(size=10)) + xlab(paste("PC1"," (",formatC(ASCA$`2`$svd$var.explained[1] * 100,digits=2,format="f"),"%)", sep = "")) + ylab(paste("PC2"," (",formatC(ASCA$`2`$svd$var.explained[2] * 100,digits=2,format="f"),"%)", sep = ""))
 dev.off()
 ```
@@ -298,12 +298,12 @@ d_less <- d[which(d$PC1loadings < 0),]
 
 
 #plot PC1 loadings
-jpeg(file="../../Figures/AdditionalFile1/FigureS2e.jpg", width=10, height=8, units = "in", res = 300)
+jpeg(file="../../AdditionalFiles/FigureS3e.jpg", width=10, height=8, units = "in", res = 300)
 plot(d_great[order(d_great$PC1loadings, decreasing = TRUE),2], xlab = "protein", ylab = "PC1 Loadings")
 abline(h=0.03, col = "red")
 dev.off()
 
-jpeg(file="../../Figures/AdditionalFile1/FigureS2f.jpg", width=10, height=8, units = "in", res = 300)
+jpeg(file="../../AdditionalFiles/FigureS3f.jpg", width=10, height=8, units = "in", res = 300)
 plot(d_less[order(d_less$PC1loadings, decreasing = TRUE),2],xlab = "protein", ylab = "PC1 Loadings")
 abline(h=-0.025, col = "red")
 dev.off()
@@ -375,7 +375,7 @@ ColSideColors<- cbind(temp = c("brown",rep("cyan3",6),rep("magenta2",6)))
 
 
 #plot heat map 
-jpeg(file="../../Figures/MainText/Figure5b.jpg", width=8, height=8, units = "in", res = 300)
+jpeg(file="../../Figures/Figure5b.jpg", width=8, height=8, units = "in", res = 300)
 heatmap3(as.matrix(cut_data_ord_t_m),cexRow = 0.5, cexCol = 0.5, RowSideColors=clusterCols[mycl],ColSideColors = ColSideColors,RowAxisColors=1,ColAxisColors=1,hclustfun=hclust, distfun = function(x) as.dist(1 - cor(t(x), use = "pa")), method = "complete", scale = "row", Colv=NA,labRow = NA, labCol = NA, RowSideLabs = NA, ColSideLabs = NA)
 dev.off()
 
@@ -429,12 +429,12 @@ STACKED_NSAF_mean <- STACKED_NSAF %>%
       CI_upper = mean - qt((1-0.95)/2, n - 1) * sem)
 
 
-jpeg("../../Figures/MainText/Figure5c.jpg", width=10, height=5, units = "in", res = 300)
+jpeg("../../Figures/Figure5c.jpg", width=10, height=5, units = "in", res = 300)
 ggplot(STACKED_NSAF_mean, aes(x=dpf, y=mean, color = temp)) + geom_line(aes(x=dpf, y=mean, color=temp)) + ylab("mean autoscaled NSAF") + geom_ribbon(aes(ymin=CI_lower,ymax=CI_upper,fill=temp),color="grey70",alpha=0.4)  + facet_wrap(~ClusterID) + scale_color_manual(values=c("cyan3", "magenta2")) + scale_fill_manual(values=c("cyan3", "magenta2")) + scale_x_continuous(breaks = c(21,23,25,27,29,31), labels = c(21,23,25,27,29,31)) + theme_bw() + theme(text = element_text(size=20))
 dev.off()
 
 #create simple line plots for showing main trends over time for temp clades
-jpeg(file="../../Figures/MainText/Figure6_colLabs.jpg", width=5, height=2, units = "in", res = 300)
+jpeg(file="../../Figures/Figure6_colLabs.jpg", width=5, height=2, units = "in", res = 300)
 ggplot(STACKED_NSAF_mean, aes(x=dpf, y=mean, color = temp)) + geom_line(aes(x=dpf, y=mean, color=temp, size = 1)) + facet_wrap(~ClusterID, ncol = 3) + scale_color_manual(values=c("cyan3", "magenta2")) + scale_x_continuous(breaks = c(21,23,25,27,29,31), labels = c(21,23,25,27,29,31)) + theme_bw() + theme(panel.grid.major = element_blank(),panel.grid.minor = element_blank(),axis.title.x=element_blank(),axis.text.x=element_blank(),axis.ticks.x=element_blank(),axis.title.y=element_blank(),axis.text.y=element_blank(),axis.ticks.y=element_blank(),strip.text = element_text(face = "bold",size = 32),strip.background = element_rect(fill="white"))
 dev.off()
 
@@ -474,12 +474,12 @@ colnames(d1) <- c("protein", "PC1loadings")
 d1_great <- d1[which(d1$PC1loadings > 0),]
 d1_less <- d1[which(d1$PC1loadings < 0),]
 
-jpeg(file="../../Figures/AdditionalFile1/FigureS2a.jpg", width=10, height=8, units = "in", res = 300)
+jpeg(file="../../AdditionalFiles/FigureS3a.jpg", width=10, height=8, units = "in", res = 300)
 plot(d1_great[order(d1_great$PC1loadings, decreasing = TRUE),2], ylab = "PC1 Loadings")
 abline(h=0.035, col = "red")
 dev.off()
 
-jpeg(file="../../Figures/AdditionalFile1/FigureS2b.jpg", width=10, height=8, units = "in", res = 300)
+jpeg(file="../../AdditionalFiles/FigureS3b.jpg", width=10, height=8, units = "in", res = 300)
 plot(d1_less[order(d1_less$PC1loadings, decreasing = TRUE),2],ylab = "PC1 Loadings")
 abline(h=-0.035, col = "red")
 dev.off()
@@ -492,12 +492,12 @@ colnames(d2) <- c("protein", "PC2loadings")
 d2_great <- d2[which(d2$PC2loadings > 0),]
 d2_less <- d2[which(d2$PC2loadings < 0),]
 
-jpeg(file="../../Figures/AdditionalFile1/FigureS2c.jpg", width=10, height=8, units = "in", res = 300)
+jpeg(file="../../AdditionalFiles/FigureS3c.jpg", width=10, height=8, units = "in", res = 300)
 plot(d2_great[order(d2_great$PC2loadings, decreasing = TRUE),2], ylab = "PC2 Loadings")
 abline(h=0.035, col = "red")
 dev.off()
 
-jpeg(file="../../Figures/AdditionalFile1/FigureS2d.jpg", width=10, height=8, units = "in", res = 300)
+jpeg(file="../../AdditionalFiles/FigureS3d.jpg", width=10, height=8, units = "in", res = 300)
 plot(d2_less[order(d2_less$PC2loadings, decreasing = TRUE),2], ylab = "PC2 Loadings")
 abline(h=-0.035, col = "red")
 dev.off()
@@ -544,7 +544,7 @@ myClusterSideBar <- clusterCols[mycl]
 
 
 #plot heat map 
-jpeg(file="../../Figures/MainText/Figure3b.jpg", width=8, height=8, units = "in", res = 300)
+jpeg(file="../../Figures/Figure3b.jpg", width=8, height=8, units = "in", res = 300)
 
 heatmap3(t.data.frame(cut12_data),cexRow = 0.5, cexCol = 0.5,RowSideColors=myClusterSideBar,ColSideColors = ColSideColors,RowAxisColors=1,ColAxisColors=1,hclustfun=hclust, distfun = function(x) as.dist(1 - cor(t(x), use = "pa")), method = "complete", scale = "row", Colv=NA,labRow = NA, labCol = NA, RowSideLabs = NA, ColSideLabs = NA)
 dev.off()
@@ -598,7 +598,7 @@ STACKED_NSAF_mean <- STACKED_NSAF %>%
       CI_lower = mean + qt((1-0.95)/2, n - 1) * sem,
       CI_upper = mean - qt((1-0.95)/2, n - 1) * sem)
 
-jpeg(file="../../Figures/MainText/Figure3c.jpg", width=25, height=5, units = "in", res = 300)
+jpeg(file="../../Figures/Figure3c.jpg", width=25, height=5, units = "in", res = 300)
 ggplot(STACKED_NSAF_mean, aes(x=dpf, y=mean, color = temp)) + geom_line(aes(x=dpf, y=mean, color=temp)) + xlab("dpf") + ylab(" autoscaled NSAF values") + geom_ribbon(aes(ymin=CI_lower,ymax=CI_upper,fill=temp),color="grey70",alpha=0.4)  + facet_wrap(~ClusterID, ncol = 5) + scale_color_manual(values=c("cyan3", "magenta2")) + scale_fill_manual(values=c("cyan3", "magenta2")) + scale_x_continuous(breaks = c(21,23,25,27,29,31), labels = c(21,23,25,27,29,31)) + theme_bw() + theme(text = element_text(size=30))
 dev.off()
 
@@ -610,7 +610,7 @@ STACKED_NSAF_mean_dpf <- STACKED_NSAF %>%
       CI_lower = mean + qt((1-0.95)/2, n - 1) * sem,
       CI_upper = mean - qt((1-0.95)/2, n - 1) * sem)
 
-jpeg("../../Figures/MainText/Figure4_colLabs.jpg", width = 5, height = 1, units = "in", res =300)
+jpeg("../../Figures/Figure4_colLabs.jpg", width = 5, height = 1, units = "in", res =300)
 ggplot(STACKED_NSAF_mean_dpf, aes(x=dpf, y=mean)) + geom_line(aes(x=dpf, y=mean), size = 1) +ylab("mean autoscaled NSAF") + facet_wrap(~ClusterID, ncol = 5)  + scale_x_continuous(breaks = c(21,23,25,27,29,31), labels = c(21,23,25,27,29,31)) + theme_bw()+ theme(panel.grid.major = element_blank(),panel.grid.minor = element_blank(),axis.title.x=element_blank(),axis.text.x=element_blank(),axis.ticks.x=element_blank(),axis.title.y=element_blank(),axis.text.y=element_blank(),axis.ticks.y=element_blank(),strip.text = element_text(face = "bold",size = 15),strip.background = element_rect(fill="white"))
 dev.off()
 ```
@@ -894,7 +894,7 @@ rownames(slims_m) <- gsub("cellular amino acid metabolic proce...","cellular ami
 rownames(slims_m) <- gsub("anatomical structure formation invo...","anatomical structure formation involved in morphogenesis", rownames(slims_m))
 
 breaks <- c(seq(-1,0, length = 2),1,seq(2,11, length = 5))
-pdf(file="../../Figures/MainText/Figure4.pdf", width=10, height=12)
+pdf(file="../../Figures/Figure4.pdf", width=10, height=12)
 heatmap.2(slims_m,margins = c(5,27),cexRow = 1.2, Colv=NA,revC = TRUE,breaks= breaks,col = c("white",viridis(6)),density.info = "none", trace = "none", scale = "none",  hclustfun = function(x) hclust(x, method="average"), distfun = function(x) as.dist(1-cor(t(x), use = "pa")))
 dev.off()
 ```
@@ -965,7 +965,7 @@ colnames(prot_slims_summry_uni)[9] <- "sig_bp_GOslim"
 prot_slims_summry_uni <- sapply(prot_slims_summry_uni, gsub, pattern=",", replacement=";") 
 ```
 
-Make supplementary table 5
+Make supplementary table 
 ```{r}
 time_ASCA_PC1_2_loadings_GO <- merge(time_ASCA_PC1_2_loadings,prot_slims_summry_uni, by = c("protein_ID", "ClusterID", "ClusterColor"), all = TRUE)
 
@@ -973,7 +973,7 @@ time_ASCA_PC1_2_loadings_GO <- time_ASCA_PC1_2_loadings_GO[,c(1,4:6,2,3,7:12)]
 
 time_ASCA_PC1_2_loadings_GO <- time_ASCA_PC1_2_loadings_GO[order(time_ASCA_PC1_2_loadings_GO$ASCA_PC_threshold_pass,time_ASCA_PC1_2_loadings_GO$ClusterID,time_ASCA_PC1_2_loadings_GO$sig_bp_GO, decreasing = TRUE),]
 
-write.csv(time_ASCA_PC1_2_loadings_GO, "../../Data/TableS5.csv", quote = FALSE, row.names = FALSE)
+write.csv(time_ASCA_PC1_2_loadings_GO, "../../AdditionalFiles/TableS2.csv", quote = FALSE, row.names = FALSE)
 
 ```
 
@@ -1111,12 +1111,8 @@ rownames(slims_m) <- gsub("cellular amino acid metabolic proce...","cellular ami
 
 rownames(slims_m) <- gsub("anatomical structure formation invo...","anatomical structure formation involved in morphogenesis", rownames(slims_m))
 
-
-heatmap.2(slims_m,margins = c(5,27),cexRow = 1.2, Colv=NA,revC = TRUE,col = c("white",viridis(6)),density.info = "none", trace = "none", scale = "none")
-
-
 breaks <- c(0,0.5,1,2,3,4,5)
-pdf(file="../../Figures/MainText/Figure6.pdf", width=8, height=10)
+pdf(file="../../Figures/Figure6.pdf", width=8, height=10)
 heatmap.2(slims_m,margins = c(5,25),cexRow = 1.2, Colv=NA,revC = TRUE,breaks= breaks,col = c("white",viridis(5)),density.info = "none", trace = "none", scale = "none")
 dev.off()
 
@@ -1197,7 +1193,7 @@ temp_ASCA_PC1_loadings_GO <- temp_ASCA_PC1_loadings_GO[,c(1,4:6,2,3,7:ncol(temp_
 
 temp_ASCA_PC1_loadings_GO <- temp_ASCA_PC1_loadings_GO[order(temp_ASCA_PC1_loadings_GO$ASCA_PC_threshold_pass,temp_ASCA_PC1_loadings_GO$ClusterID,temp_ASCA_PC1_loadings_GO$sig_bp_GO, decreasing = TRUE),]
 
-write.csv(temp_ASCA_PC1_loadings_GO, "../../Data/TableS6.csv", quote = FALSE, row.names = FALSE)
+write.csv(temp_ASCA_PC1_loadings_GO, "../../AdditionalFile/TableS3.csv", quote = FALSE, row.names = FALSE)
 
 ```
 
@@ -1363,7 +1359,7 @@ rownames(slims_m) <- gsub("cellular amino acid metabolic proce...","cellular ami
 rownames(slims_m) <- gsub("anatomical structure formation invo...","anatomical structure formation involved in morphogenesis", rownames(slims_m))
 
 breaks <- c(seq(-1,0, length = 2),1,seq(2,8, length = 5))
-pdf(file="../../Figures/AdditionalFile1/FigureS2f.pdf", width=8, height=8)
+pdf(file="../../AdditionalFiles/FigureS2f.pdf", width=8, height=8)
 heatmap.2(slims_m,margins = c(5,27),cexRow = 1.2, Colv=NA,revC = TRUE,density.info = "none", trace = "none",col = c("white", viridis(8)), scale = "none")
 dev.off()
 ```
@@ -1442,7 +1438,7 @@ PC_loadings_GO <- PC_loadings_GO[,c(1,4:6,2,3,7:ncol(PC_loadings_GO))]
 
 PC_loadings_GO <- PC_loadings_GO[order(PC_loadings_GO$PC_threshold_pass,PC_loadings_GO$ClusterColor,PC_loadings_GO$sig_bp_GO, decreasing = TRUE),]
 
-write.csv(PC_loadings_GO, "../../Data/TableS3.csv", quote = FALSE, row.names = FALSE)
+write.csv(PC_loadings_GO, "../../AdditionalFiles/TableS1.csv", quote = FALSE, row.names = FALSE)
 
 ```
 
