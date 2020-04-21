@@ -697,8 +697,6 @@ write.table(topgo_bkgd, "TopGO_bkgd.txt", sep = "\t",quote = FALSE, row.names = 
 
 geneID2GO_bkgd <- readMappings(file = "TopGO_bkgd.txt")
 
-geneID2GO_bkgd <- readMappings(file = "TopGO_bkgd.txt")
-
 
 #to switch between time and temp run line 66 in time and temp functional analysis scripts
 topgo_sig <- sig_pro_GO
