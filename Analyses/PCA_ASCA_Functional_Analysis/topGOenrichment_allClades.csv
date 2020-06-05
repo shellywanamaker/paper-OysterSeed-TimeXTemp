@@ -1,0 +1,501 @@
+clade,GO.ID,Term,Annotated,Significant,Expected,weight
+light blue,GO:2000098,negative regulation of smooth muscle cel...,4,2,0.02,0.00012
+light blue,GO:2000405,negative regulation of T cell migration,4,2,0.02,0.00012
+light blue,GO:0060588,negative regulation of lipoprotein lipid...,4,2,0.02,0.00012
+light blue,GO:0014012,peripheral nervous system axon regenerat...,5,2,0.02,0.00020
+light blue,GO:0071638,negative regulation of monocyte chemotac...,5,2,0.02,0.00020
+light blue,GO:0042308,negative regulation of protein import in...,6,2,0.03,0.00030
+light blue,GO:1900016,negative regulation of cytokine producti...,6,2,0.03,0.00030
+light blue,GO:0051895,negative regulation of focal adhesion as...,8,2,0.04,0.00057
+light blue,GO:0010642,negative regulation of platelet-derived ...,9,2,0.04,0.00072
+light blue,GO:0048662,negative regulation of smooth muscle cel...,13,2,0.06,0.00155
+light blue,GO:0006006,glucose metabolic process,74,3,0.34,0.00455
+light blue,GO:2000632,negative regulation of pre-miRNA process...,1,1,0,0.00463
+light blue,GO:0033298,contractile vacuole organization,1,1,0,0.00463
+light blue,GO:0098724,symmetric stem cell division,1,1,0,0.00463
+light blue,GO:0010724,regulation of definitive erythrocyte dif...,1,1,0,0.00463
+light blue,GO:0070177,contractile vacuole discharge,1,1,0,0.00463
+light blue,GO:0042246,tissue regeneration,25,2,0.12,0.00577
+light blue,GO:0030198,extracellular matrix organization,92,3,0.43,0.00835
+light blue,GO:0045578,negative regulation of B cell differenti...,2,1,0.01,0.00924
+light blue,GO:0010917,negative regulation of mitochondrial mem...,3,1,0.01,0.01382
+light blue,GO:0021942,radial glia guided migration of Purkinje...,3,1,0.01,0.01382
+light blue,GO:0032474,otolith morphogenesis,4,1,0.02,0.01839
+light blue,GO:0010940,positive regulation of necrotic cell dea...,4,1,0.02,0.01839
+light blue,GO:0000050,urea cycle,4,1,0.02,0.01839
+light blue,GO:0031288,sorocarp morphogenesis,4,1,0.02,0.01839
+light blue,GO:0070268,cornification,4,1,0.02,0.01839
+light blue,GO:0000302,response to reactive oxygen species,50,2,0.23,0.02197
+light blue,GO:0061052,negative regulation of cell growth invol...,5,1,0.02,0.02293
+light blue,GO:2001205,negative regulation of osteoclast develo...,5,1,0.02,0.02293
+light blue,GO:0035582,sequestering of BMP in extracellular mat...,5,1,0.02,0.02293
+light blue,GO:0006971,hypotonic response,5,1,0.02,0.02293
+light blue,GO:0034199,activation of protein kinase A activity,5,1,0.02,0.02293
+light blue,GO:0031038,myosin II filament organization,6,1,0.03,0.02746
+light blue,GO:0090197,positive regulation of chemokine secreti...,6,1,0.03,0.02746
+light blue,GO:0048050,post-embryonic eye morphogenesis,6,1,0.03,0.02746
+light blue,GO:0002532,production of molecular mediator involve...,17,3,0.08,0.02939
+light blue,GO:0006228,UTP biosynthetic process,7,1,0.03,0.03197
+light blue,GO:0031156,regulation of sorocarp development,7,1,0.03,0.03197
+light blue,GO:0006183,GTP biosynthetic process,8,1,0.04,0.03645
+light blue,GO:2000648,positive regulation of stem cell prolife...,8,1,0.04,0.03645
+light blue,GO:0006525,arginine metabolic process,8,1,0.04,0.03645
+light blue,GO:0018149,peptide cross-linking,8,1,0.04,0.03645
+light blue,GO:0035583,sequestering of TGFbeta in extracellular...,8,1,0.04,0.03645
+light blue,GO:0006972,hyperosmotic response,8,1,0.04,0.03645
+light blue,GO:1990314,cellular response to insulin-like growth...,8,1,0.04,0.03645
+light blue,GO:0046628,positive regulation of insulin receptor ...,8,1,0.04,0.03645
+light blue,GO:0035794,positive regulation of mitochondrial mem...,9,1,0.04,0.04092
+light blue,GO:0006241,CTP biosynthetic process,10,1,0.05,0.04537
+light blue,GO:0045638,negative regulation of myeloid cell diff...,22,2,0.1,0.04786
+light blue,GO:0006032,chitin catabolic process,11,1,0.05,0.04979
+purple,GO:1902017,regulation of cilium assembly,26,2,0.06,0.0013
+purple,GO:0099641,anterograde axonal protein transport,1,1,0,0.0021
+purple,GO:0071049,nuclear retention of pre-mRNA with aberr...,2,1,0,0.0042
+purple,GO:0045039,protein import into mitochondrial inner ...,2,1,0,0.0042
+purple,GO:0045006,DNA deamination,2,1,0,0.0042
+purple,GO:0045830,positive regulation of isotype switching,2,1,0,0.0042
+purple,GO:0071034,CUT catabolic process,4,1,0.01,0.0085
+purple,GO:0035458,cellular response to interferon-beta,4,1,0.01,0.0085
+purple,GO:0071038,nuclear polyadenylation-dependent tRNA c...,5,1,0.01,0.0106
+purple,GO:0071051,polyadenylation-dependent snoRNA 3'-end ...,5,1,0.01,0.0106
+purple,GO:0071035,nuclear polyadenylation-dependent rRNA c...,6,1,0.01,0.0127
+purple,GO:0031581,hemidesmosome assembly,6,1,0.01,0.0127
+purple,GO:0000467,exonucleolytic trimming to generate matu...,6,1,0.01,0.0127
+purple,GO:0022617,extracellular matrix disassembly,7,1,0.01,0.0148
+purple,GO:0034475,U4 snRNA 3'-end processing,7,1,0.01,0.0148
+purple,GO:0035721,intraciliary retrograde transport,9,1,0.02,0.0189
+purple,GO:0034427,nuclear-transcribed mRNA catabolic proce...,10,1,0.02,0.0210
+purple,GO:0035735,intraciliary transport involved in ciliu...,12,1,0.03,0.0252
+purple,GO:0043928,exonucleolytic nuclear-transcribed mRNA ...,12,1,0.03,0.0252
+purple,GO:0001658,branching involved in ureteric bud morph...,12,1,0.03,0.0252
+purple,GO:0043966,histone H3 acetylation,13,1,0.03,0.0273
+purple,GO:0071300,cellular response to retinoic acid,14,1,0.03,0.0293
+purple,GO:0032981,mitochondrial respiratory chain complex ...,17,1,0.04,0.0355
+purple,GO:0003073,regulation of systemic arterial blood pr...,20,1,0.04,0.0417
+purple,GO:0043280,positive regulation of cysteine-type end...,20,1,0.04,0.0417
+purple,GO:2001243,negative regulation of intrinsic apoptot...,21,1,0.04,0.0437
+purple,GO:0007492,endoderm development,24,1,0.05,0.0498
+purple,GO:0042246,tissue regeneration,25,1,0.05,0.0518
+purple,GO:0030308,negative regulation of cell growth,26,1,0.06,0.0538
+purple,GO:0002062,chondrocyte differentiation,26,1,0.06,0.0538
+purple,GO:0034446,substrate adhesion-dependent cell spread...,27,1,0.06,0.0559
+purple,GO:0050679,positive regulation of epithelial cell p...,29,1,0.06,0.0599
+purple,GO:0061077,chaperone-mediated protein folding,30,1,0.06,0.0619
+purple,GO:0043687,post-translational protein modification,36,1,0.08,0.0738
+purple,GO:0043488,regulation of mRNA stability,41,1,0.09,0.0837
+purple,GO:0097191,extrinsic apoptotic signaling pathway,46,1,0.1,0.0934
+purple,GO:0000082,G1/S transition of mitotic cell cycle,47,1,0.1,0.0954
+purple,GO:0045732,positive regulation of protein catabolic...,51,1,0.11,0.1031
+purple,GO:0008033,tRNA processing,53,1,0.11,0.1069
+purple,GO:0007368,determination of left/right symmetry,53,1,0.11,0.1069
+purple,GO:0007219,Notch signaling pathway,75,1,0.16,0.1482
+purple,GO:0072593,reactive oxygen species metabolic proces...,77,1,0.16,0.1519
+purple,GO:0030198,extracellular matrix organization,92,2,0.2,0.1526
+purple,GO:0006915,apoptotic process,433,2,0.92,0.2079
+purple,GO:0050793,regulation of developmental process,609,2,1.29,0.2116
+purple,GO:0001525,angiogenesis,115,1,0.24,0.2188
+purple,GO:0008283,cell proliferation,415,2,0.88,0.2390
+purple,GO:0007275,multicellular organism development,1449,5,3.07,0.2769
+purple,GO:0048232,male gamete generation,152,1,0.32,0.2793
+purple,GO:0007049,cell cycle,588,2,1.25,0.2988
+green,GO:0071499,cellular response to laminar fluid shear...,1,1,0.01,0.005
+green,GO:0006850,mitochondrial pyruvate transmembrane tra...,1,1,0.01,0.005
+green,GO:0006384,transcription initiation from RNA polyme...,1,1,0.01,0.005
+green,GO:2000342,negative regulation of chemokine (C-X-C ...,1,1,0.01,0.005
+green,GO:1904879,positive regulation of calcium ion trans...,2,1,0.01,0.010
+green,GO:0051770,positive regulation of nitric-oxide synt...,2,1,0.01,0.010
+green,GO:2000672,negative regulation of motor neuron apop...,2,1,0.01,0.010
+green,GO:0072709,cellular response to sorbitol,2,1,0.01,0.010
+green,GO:1902617,response to fluoride,2,1,0.01,0.010
+green,GO:0034393,positive regulation of smooth muscle cel...,2,1,0.01,0.010
+green,GO:0070375,ERK5 cascade,2,1,0.01,0.010
+green,GO:0019372,lipoxygenase pathway,2,1,0.01,0.010
+green,GO:0045415,negative regulation of interleukin-8 bio...,2,1,0.01,0.010
+green,GO:0010734,negative regulation of protein glutathio...,2,1,0.01,0.010
+green,GO:2001240,negative regulation of extrinsic apoptot...,3,1,0.02,0.015
+green,GO:0010041,response to iron(III) ion,3,1,0.02,0.015
+green,GO:0033148,positive regulation of intracellular est...,3,1,0.02,0.015
+green,GO:0060244,negative regulation of cell proliferatio...,3,1,0.02,0.015
+green,GO:0034115,negative regulation of heterotypic cell-...,4,1,0.02,0.020
+green,GO:0043249,erythrocyte maturation,4,1,0.02,0.020
+green,GO:0009051,pentose-phosphate shunt; oxidative branc...,4,1,0.02,0.020
+green,GO:0019322,pentose biosynthetic process,4,1,0.02,0.020
+green,GO:0061049,cell growth involved in cardiac muscle c...,14,2,0.07,0.024
+green,GO:0061052,negative regulation of cell growth invol...,5,1,0.03,0.025
+green,GO:0048012,hepatocyte growth factor receptor signal...,5,1,0.03,0.025
+green,GO:0090051,negative regulation of cell migration in...,5,1,0.03,0.025
+green,GO:0006740,NADPH regeneration,6,1,0.03,0.030
+green,GO:0043507,positive regulation of JUN kinase activi...,14,2,0.07,0.033
+green,GO:0072734,cellular response to staurosporine,7,1,0.04,0.035
+green,GO:0007257,activation of JUN kinase activity,7,1,0.04,0.035
+green,GO:0030574,collagen catabolic process,7,1,0.04,0.035
+green,GO:0010875,positive regulation of cholesterol efflu...,8,1,0.04,0.039
+green,GO:0032094,response to food,8,1,0.04,0.039
+green,GO:0000187,activation of MAPK activity,16,2,0.08,0.043
+green,GO:0046470,phosphatidylcholine metabolic process,9,1,0.05,0.044
+green,GO:0042795,snRNA transcription by RNA polymerase II,9,1,0.05,0.044
+green,GO:0043523,regulation of neuron apoptotic process,48,2,0.24,0.048
+green,GO:0031116,positive regulation of microtubule polym...,10,1,0.05,0.049
+green,GO:0070208,protein heterotrimerization,11,1,0.06,0.054
+green,GO:0007016,cytoskeletal anchoring at plasma membran...,12,1,0.06,0.059
+green,GO:0006695,cholesterol biosynthetic process,12,1,0.06,0.059
+green,GO:0045740,positive regulation of DNA replication,12,1,0.06,0.059
+green,GO:0031098,stress-activated protein kinase signalin...,67,3,0.34,0.059
+green,GO:0033138,positive regulation of peptidyl-serine p...,14,1,0.07,0.068
+green,GO:0051496,positive regulation of stress fiber asse...,15,1,0.08,0.073
+green,GO:0043525,positive regulation of neuron apoptotic ...,16,1,0.08,0.077
+green,GO:0043154,negative regulation of cysteine-type end...,16,1,0.08,0.077
+green,GO:0030488,tRNA methylation,16,1,0.08,0.077
+green,GO:2000378,negative regulation of reactive oxygen s...,18,1,0.09,0.087
+green,GO:0071260,cellular response to mechanical stimulus,18,1,0.09,0.087
+gray,GO:0035202,tracheal pit formation in open tracheal ...,1,1,0,0.0025
+gray,GO:0007374,posterior midgut invagination,1,1,0,0.0025
+gray,GO:1902824,positive regulation of late endosome to ...,1,1,0,0.0025
+gray,GO:0071896,protein localization to adherens junctio...,1,1,0,0.0025
+gray,GO:0030589,pseudocleavage involved in syncytial bla...,1,1,0,0.0025
+gray,GO:1903475,mitotic actomyosin contractile ring asse...,1,1,0,0.0025
+gray,GO:0035298,regulation of Malpighian tubule size,1,1,0,0.0025
+gray,GO:0030950,establishment or maintenance of actin cy...,2,1,0.01,0.0050
+gray,GO:0007042,lysosomal lumen acidification,2,1,0.01,0.0050
+gray,GO:0007370,ventral furrow formation,2,1,0.01,0.0050
+gray,GO:0007377,germ-band extension,2,1,0.01,0.0050
+gray,GO:0002949,tRNA threonylcarbamoyladenosine modifica...,2,1,0.01,0.0050
+gray,GO:0035149,lumen formation; open tracheal system,2,1,0.01,0.0050
+gray,GO:0006437,tyrosyl-tRNA aminoacylation,2,1,0.01,0.0050
+gray,GO:0090254,cell elongation involved in imaginal dis...,2,1,0.01,0.0050
+gray,GO:1904059,regulation of locomotor rhythm,3,1,0.01,0.0075
+gray,GO:0035099,hemocyte migration,3,1,0.01,0.0075
+gray,GO:0016476,regulation of embryonic cell shape,3,1,0.01,0.0075
+gray,GO:0035458,cellular response to interferon-beta,4,1,0.01,0.0100
+gray,GO:0016188,synaptic vesicle maturation,4,1,0.01,0.0100
+gray,GO:0007480,imaginal disc-derived leg morphogenesis,4,1,0.01,0.0100
+gray,GO:0046663,dorsal closure; leading edge cell differ...,4,1,0.01,0.0100
+gray,GO:0090251,protein localization involved in establi...,4,1,0.01,0.0100
+gray,GO:0006995,cellular response to nitrogen starvation,4,1,0.01,0.0100
+gray,GO:0007395,dorsal closure; spreading of leading edg...,5,1,0.01,0.0125
+gray,GO:0070593,dendrite self-avoidance,5,1,0.01,0.0125
+gray,GO:0007349,cellularization,5,1,0.01,0.0125
+gray,GO:1901739,regulation of myoblast fusion,5,1,0.01,0.0125
+gray,GO:0034334,adherens junction maintenance,5,1,0.01,0.0125
+gray,GO:0003334,keratinocyte development,5,1,0.01,0.0125
+gray,GO:0042249,establishment of planar polarity of embr...,5,1,0.01,0.0125
+gray,GO:0072553,terminal button organization,5,1,0.01,0.0125
+gray,GO:0035277,spiracle morphogenesis; open tracheal sy...,5,1,0.01,0.0125
+gray,GO:0035159,regulation of tube length; open tracheal...,6,1,0.02,0.0150
+gray,GO:0031629,synaptic vesicle fusion to presynaptic a...,6,1,0.02,0.0150
+gray,GO:0008090,retrograde axonal transport,6,1,0.02,0.0150
+gray,GO:0045199,maintenance of epithelial cell apical/ba...,7,1,0.02,0.0174
+gray,GO:0090303,positive regulation of wound healing,7,1,0.02,0.0174
+gray,GO:0032438,melanosome organization,7,1,0.02,0.0174
+gray,GO:0097352,autophagosome maturation,9,1,0.02,0.0224
+gray,GO:0035006,melanization defense response,9,1,0.02,0.0224
+gray,GO:0048490,anterograde synaptic vesicle transport,11,1,0.03,0.0273
+gray,GO:0034629,cellular protein-containing complex loca...,11,1,0.03,0.0273
+gray,GO:0051085,chaperone cofactor-dependent protein ref...,12,1,0.03,0.0297
+gray,GO:0008625,extrinsic apoptotic signaling pathway vi...,12,1,0.03,0.0297
+gray,GO:0035317,imaginal disc-derived wing hair organiza...,12,1,0.03,0.0297
+gray,GO:0007298,border follicle cell migration,14,1,0.04,0.0346
+gray,GO:2000300,regulation of synaptic vesicle exocytosi...,14,1,0.04,0.0346
+gray,GO:0032418,lysosome localization,15,1,0.04,0.0370
+gray,GO:0007435,salivary gland morphogenesis,16,1,0.04,0.0394
+black,GO:0046274,lignin catabolic process,1,1,0,0.0029
+black,GO:0043103,hypoxanthine salvage,2,1,0.01,0.0058
+black,GO:0046103,inosine biosynthetic process,2,1,0.01,0.0058
+black,GO:2000172,regulation of branching morphogenesis of...,2,1,0.01,0.0058
+black,GO:1905580,positive regulation of ERBB3 signaling p...,2,1,0.01,0.0058
+black,GO:0033601,positive regulation of mammary gland epi...,2,1,0.01,0.0058
+black,GO:0006096,glycolytic process,42,2,0.12,0.0063
+black,GO:1905552,positive regulation of protein localizat...,3,1,0.01,0.0087
+black,GO:0006154,adenosine catabolic process,4,1,0.01,0.0115
+black,GO:0071787,endoplasmic reticulum tubular network fo...,4,1,0.01,0.0115
+black,GO:1990809,endoplasmic reticulum tubular network me...,4,1,0.01,0.0115
+black,GO:0071205,protein localization to juxtaparanode re...,5,1,0.01,0.0144
+black,GO:0002175,protein localization to paranode region ...,5,1,0.01,0.0144
+black,GO:0021801,cerebral cortex radial glia guided migra...,5,1,0.01,0.0144
+black,GO:0060134,prepulse inhibition,5,1,0.01,0.0144
+black,GO:0030517,negative regulation of axon extension,6,1,0.02,0.0172
+black,GO:0043217,myelin maintenance,6,1,0.02,0.0172
+black,GO:0051292,nuclear pore complex assembly,7,1,0.02,0.0201
+black,GO:0060317,cardiac epithelial to mesenchymal transi...,7,1,0.02,0.0201
+black,GO:0006689,ganglioside catabolic process,7,1,0.02,0.0201
+black,GO:0030913,paranodal junction assembly,8,1,0.02,0.0229
+black,GO:0006013,mannose metabolic process,9,1,0.03,0.0258
+black,GO:0006000,fructose metabolic process,10,1,0.03,0.0286
+black,GO:0070208,protein heterotrimerization,11,1,0.03,0.0314
+black,GO:0009313,oligosaccharide catabolic process,11,1,0.03,0.0314
+black,GO:0021846,cell proliferation in forebrain,11,1,0.03,0.0314
+black,GO:0022008,neurogenesis,460,3,1.33,0.0325
+black,GO:0007016,cytoskeletal anchoring at plasma membran...,12,1,0.03,0.0342
+black,GO:0007413,axonal fasciculation,12,1,0.03,0.0342
+black,GO:0009117,nucleotide metabolic process,282,3,0.82,0.0364
+black,GO:0001825,blastocyst formation,13,1,0.04,0.0370
+black,GO:0003429,growth plate cartilage chondrocyte morph...,14,1,0.04,0.0398
+black,GO:0009168,purine ribonucleoside monophosphate bios...,76,3,0.22,0.0423
+black,GO:0050885,neuromuscular process controlling balanc...,15,1,0.04,0.0426
+black,GO:0051897,positive regulation of protein kinase B ...,16,1,0.05,0.0454
+black,GO:0019915,lipid storage,22,1,0.06,0.0619
+black,GO:0030866,cortical actin cytoskeleton organization,23,1,0.07,0.0646
+black,GO:0010634,positive regulation of epithelial cell m...,29,1,0.08,0.0808
+black,GO:0001678,cellular glucose homeostasis,34,1,0.1,0.0941
+black,GO:0001558,regulation of cell growth,85,2,0.25,0.0963
+black,GO:0071466,cellular response to xenobiotic stimulus,37,1,0.11,0.1020
+black,GO:0008360,regulation of cell shape,45,1,0.13,0.1227
+black,GO:0048812,neuron projection morphogenesis,209,2,0.6,0.1308
+black,GO:0002181,cytoplasmic translation,54,1,0.16,0.1455
+black,GO:0007611,learning or memory,60,1,0.17,0.1604
+black,GO:0050821,protein stabilization,69,1,0.2,0.1822
+black,GO:0006006,glucose metabolic process,74,1,0.21,0.1942
+black,GO:0030198,extracellular matrix organization,92,1,0.27,0.2357
+black,GO:0072659,protein localization to plasma membrane,97,1,0.28,0.2469
+black,GO:0051345,positive regulation of hydrolase activit...,100,1,0.29,0.2536
+dark teal,GO:0051597,response to methylmercury,8,3,0.16,0.0004
+dark teal,GO:0010940,positive regulation of necrotic cell dea...,4,3,0.08,0.0011
+dark teal,GO:0010917,negative regulation of mitochondrial mem...,3,2,0.06,0.0012
+dark teal,GO:0009820,alkaloid metabolic process,3,2,0.06,0.0012
+dark teal,GO:0043928,exonucleolytic nuclear-transcribed mRNA ...,12,3,0.24,0.0015
+dark teal,GO:0007017,microtubule-based process,371,11,7.37,0.0028
+dark teal,GO:0071051,polyadenylation-dependent snoRNA 3'-end ...,5,2,0.1,0.0038
+dark teal,GO:0061580,colon epithelial cell migration,5,2,0.1,0.0038
+dark teal,GO:0000290,deadenylation-dependent decapping of nuc...,6,2,0.12,0.0056
+dark teal,GO:0010881,regulation of cardiac muscle contraction...,6,2,0.12,0.0056
+dark teal,GO:0000212,meiotic spindle organization,8,2,0.16,0.0101
+dark teal,GO:0080009,mRNA methylation,8,2,0.16,0.0101
+dark teal,GO:0051289,protein homotetramerization,45,4,0.89,0.0117
+dark teal,GO:0006744,ubiquinone biosynthetic process,9,2,0.18,0.0128
+dark teal,GO:0035794,positive regulation of mitochondrial mem...,9,2,0.18,0.0128
+dark teal,GO:0010360,negative regulation of anion channel act...,1,1,0.02,0.0199
+dark teal,GO:0052704,ergothioneine biosynthesis from histidin...,1,1,0.02,0.0199
+dark teal,GO:0052707,N-alpha;N-alpha;N-alpha-trimethyl-L-hist...,1,1,0.02,0.0199
+dark teal,GO:0110008,ncRNA deadenylation,1,1,0.02,0.0199
+dark teal,GO:0097527,necroptotic signaling pathway,1,1,0.02,0.0199
+dark teal,GO:0070177,contractile vacuole discharge,1,1,0.02,0.0199
+dark teal,GO:0036343,psychomotor behavior,1,1,0.02,0.0199
+dark teal,GO:0033298,contractile vacuole organization,1,1,0.02,0.0199
+dark teal,GO:0043461,proton-transporting ATP synthase complex...,1,1,0.02,0.0199
+dark teal,GO:0070926,regulation of ATP:ADP antiporter activit...,1,1,0.02,0.0199
+dark teal,GO:0010994,free ubiquitin chain polymerization,1,1,0.02,0.0199
+dark teal,GO:0035235,ionotropic glutamate receptor signaling ...,1,1,0.02,0.0199
+dark teal,GO:0042779,tRNA 3'-trailer cleavage,1,1,0.02,0.0199
+dark teal,GO:0043137,DNA replication; removal of RNA primer,1,1,0.02,0.0199
+dark teal,GO:0060545,positive regulation of necroptotic proce...,1,1,0.02,0.0199
+dark teal,GO:0046603,negative regulation of mitotic centrosom...,1,1,0.02,0.0199
+dark teal,GO:0006386,termination of RNA polymerase III transc...,1,1,0.02,0.0199
+dark teal,GO:0019858,cytosine metabolic process,1,1,0.02,0.0199
+dark teal,GO:0043004,cytoplasmic sequestering of CFTR protein,1,1,0.02,0.0199
+dark teal,GO:0007563,regulation of eclosion,1,1,0.02,0.0199
+dark teal,GO:0021540,corpus callosum morphogenesis,1,1,0.02,0.0199
+dark teal,GO:0061026,cardiac muscle tissue regeneration,1,1,0.02,0.0199
+dark teal,GO:0009268,response to pH,12,2,0.24,0.0226
+dark teal,GO:0032757,positive regulation of interleukin-8 pro...,14,2,0.28,0.0304
+dark teal,GO:0043124,negative regulation of I-kappaB kinase/N...,14,2,0.28,0.0304
+dark teal,GO:0006919,activation of cysteine-type endopeptidas...,15,2,0.3,0.0347
+dark teal,GO:0043312,neutrophil degranulation,64,4,1.27,0.0376
+dark teal,GO:0052548,regulation of endopeptidase activity,51,3,1.01,0.0389
+dark teal,GO:0014819,regulation of skeletal muscle contractio...,5,2,0.1,0.0390
+dark teal,GO:0045830,positive regulation of isotype switching,2,1,0.04,0.0393
+dark teal,GO:0021678,third ventricle development,2,1,0.04,0.0393
+dark teal,GO:0000495,box H/ACA snoRNA 3'-end processing,2,1,0.04,0.0393
+dark teal,GO:0030723,ovarian fusome organization,2,1,0.04,0.0393
+dark teal,GO:0030724,testicular fusome organization,2,1,0.04,0.0393
+dark teal,GO:0071049,nuclear retention of pre-mRNA with aberr...,2,1,0.04,0.0393
+orange,GO:0071316,cellular response to nicotine,1,1,0.01,0.0066
+orange,GO:0071306,cellular response to vitamin E,1,1,0.01,0.0066
+orange,GO:0046951,ketone body biosynthetic process,1,1,0.01,0.0066
+orange,GO:0099641,anterograde axonal protein transport,1,1,0.01,0.0066
+orange,GO:0030723,ovarian fusome organization,2,1,0.01,0.0131
+orange,GO:0030724,testicular fusome organization,2,1,0.01,0.0131
+orange,GO:0070940,dephosphorylation of RNA polymerase II C...,2,1,0.01,0.0131
+orange,GO:0007527,adult somatic muscle development,2,1,0.01,0.0131
+orange,GO:0048096,chromatin-mediated maintenance of transc...,2,1,0.01,0.0131
+orange,GO:0007282,cystoblast division,2,1,0.01,0.0131
+orange,GO:0007624,ultradian rhythm,2,1,0.01,0.0131
+orange,GO:0017186,peptidyl-pyroglutamic acid biosynthetic ...,2,1,0.01,0.0131
+orange,GO:0045578,negative regulation of B cell differenti...,2,1,0.01,0.0131
+orange,GO:0090135,actin filament branching,2,1,0.01,0.0131
+orange,GO:1902463,protein localization to cell leading edg...,2,1,0.01,0.0131
+orange,GO:2000394,positive regulation of lamellipodium mor...,2,1,0.01,0.0131
+orange,GO:0090286,cytoskeletal anchoring at nuclear membra...,3,1,0.02,0.0195
+orange,GO:2000325,regulation of nuclear receptor transcrip...,3,1,0.02,0.0195
+orange,GO:0006565,L-serine catabolic process,3,1,0.02,0.0195
+orange,GO:0071374,cellular response to parathyroid hormone...,3,1,0.02,0.0195
+orange,GO:0072321,chaperone-mediated protein transport,3,1,0.02,0.0195
+orange,GO:0098907,regulation of SA node cell action potent...,3,1,0.02,0.0195
+orange,GO:0036371,protein localization to T-tubule,3,1,0.02,0.0195
+orange,GO:0036309,protein localization to M-band,3,1,0.02,0.0195
+orange,GO:0090292,nuclear matrix anchoring at nuclear memb...,3,1,0.02,0.0195
+orange,GO:2000393,negative regulation of lamellipodium mor...,3,1,0.02,0.0195
+orange,GO:0086046,membrane depolarization during SA node c...,3,1,0.02,0.0195
+orange,GO:0007015,actin filament organization,171,4,1.12,0.0214
+orange,GO:0071672,negative regulation of smooth muscle cel...,4,1,0.03,0.0260
+orange,GO:0045721,negative regulation of gluconeogenesis,4,1,0.03,0.0260
+orange,GO:0008302,female germline ring canal formation; ac...,4,1,0.03,0.0260
+orange,GO:0034316,negative regulation of Arp2/3 complex-me...,4,1,0.03,0.0260
+orange,GO:0061052,negative regulation of cell growth invol...,5,1,0.03,0.0324
+orange,GO:0003283,atrial septum development,5,1,0.03,0.0324
+orange,GO:0033292,T-tubule organization,5,1,0.03,0.0324
+orange,GO:0030903,notochord development,5,1,0.03,0.0324
+orange,GO:0035767,endothelial cell chemotaxis,5,1,0.03,0.0324
+orange,GO:0048135,female germ-line cyst formation,5,1,0.03,0.0324
+orange,GO:0030245,cellulose catabolic process,5,1,0.03,0.0324
+orange,GO:0086091,regulation of heart rate by cardiac cond...,5,1,0.03,0.0324
+orange,GO:0006465,signal peptide processing,5,1,0.03,0.0324
+orange,GO:0018243,protein O-linked glycosylation via threo...,5,1,0.03,0.0324
+orange,GO:1901018,positive regulation of potassium ion tra...,5,1,0.03,0.0324
+orange,GO:0086005,ventricular cardiac muscle cell action p...,6,1,0.04,0.0387
+orange,GO:0070528,protein kinase C signaling,6,1,0.04,0.0387
+orange,GO:0010881,regulation of cardiac muscle contraction...,6,1,0.04,0.0387
+orange,GO:0098910,regulation of atrial cardiac muscle cell...,6,1,0.04,0.0387
+orange,GO:0006567,threonine catabolic process,7,1,0.05,0.0450
+orange,GO:0006552,leucine catabolic process,7,1,0.05,0.0450
+orange,GO:0060307,regulation of ventricular cardiac muscle...,7,1,0.05,0.0450
+pale yellow,GO:0060271,cilium assembly,203,4,0.31,0.00077
+pale yellow,GO:0032474,otolith morphogenesis,4,1,0.01,0.00616
+pale yellow,GO:0060287,epithelial cilium movement involved in d...,5,1,0.01,0.00769
+pale yellow,GO:0018401,peptidyl-proline hydroxylation to 4-hydr...,6,1,0.01,0.00922
+pale yellow,GO:0007283,spermatogenesis,145,3,0.22,0.00931
+pale yellow,GO:0007288,sperm axoneme assembly,8,1,0.01,0.01228
+pale yellow,GO:0030030,cell projection organization,577,5,0.89,0.01292
+pale yellow,GO:0060294,cilium movement involved in cell motilit...,19,1,0.03,0.02896
+pale yellow,GO:0030199,collagen fibril organization,19,1,0.03,0.02896
+pale yellow,GO:0061371,determination of heart left/right asymme...,28,1,0.04,0.04241
+pale yellow,GO:0007596,blood coagulation,38,1,0.06,0.05718
+pale yellow,GO:0030154,cell differentiation,1074,3,1.66,0.13460
+pale yellow,GO:0007275,multicellular organism development,1449,3,2.24,0.20061
+pale yellow,GO:0001578,microtubule bundle formation,66,1,0.1,1.00000
+pale yellow,GO:0097722,sperm motility,29,1,0.04,1.00000
+pale yellow,GO:1901564,organonitrogen compound metabolic proces...,2127,1,3.28,1.00000
+pale yellow,GO:0044281,small molecule metabolic process,824,1,1.27,1.00000
+pale yellow,GO:0043412,macromolecule modification,1077,1,1.66,1.00000
+pale yellow,GO:0048840,otolith development,5,1,0.01,1.00000
+pale yellow,GO:0019511,peptidyl-proline hydroxylation,6,1,0.01,1.00000
+pale yellow,GO:0006928,movement of cell or subcellular componen...,612,3,0.94,1.00000
+pale yellow,GO:0007010,cytoskeleton organization,551,1,0.85,1.00000
+pale yellow,GO:0003341,cilium movement,56,2,0.09,1.00000
+pale yellow,GO:0048609,multicellular organismal reproductive pr...,262,3,0.4,1.00000
+pale yellow,GO:0050896,response to stimulus,2140,1,3.3,1.00000
+pale yellow,GO:0009611,response to wounding,139,1,0.21,1.00000
+pale yellow,GO:0050878,regulation of body fluid levels,62,1,0.1,1.00000
+pale yellow,GO:0043933,protein-containing complex subunit organ...,728,1,1.12,1.00000
+pale yellow,GO:0019752,carboxylic acid metabolic process,439,1,0.68,1.00000
+pale yellow,GO:0007017,microtubule-based process,371,3,0.57,1.00000
+pale yellow,GO:0007018,microtubule-based movement,163,2,0.25,1.00000
+pale yellow,GO:0048869,cellular developmental process,1124,3,1.73,1.00000
+pale yellow,GO:0032501,multicellular organismal process,1804,6,2.78,1.00000
+pale yellow,GO:0032502,developmental process,1684,5,2.6,1.00000
+pale yellow,GO:0071840,cellular component organization or bioge...,2123,6,3.27,1.00000
+pale yellow,GO:0009855,determination of bilateral symmetry,54,2,0.08,1.00000
+pale yellow,GO:0032504,multicellular organism reproduction,264,3,0.41,1.00000
+pale yellow,GO:0090596,sensory organ morphogenesis,105,1,0.16,1.00000
+pale yellow,GO:0003351,epithelial cilium movement,12,1,0.02,1.00000
+pale yellow,GO:0044085,cellular component biogenesis,1217,4,1.88,1.00000
+pale yellow,GO:0007368,determination of left/right symmetry,53,2,0.08,1.00000
+pale yellow,GO:0071704,organic substance metabolic process,3340,1,5.15,1.00000
+pale yellow,GO:0022607,cellular component assembly,1085,4,1.67,1.00000
+pale yellow,GO:0060285,cilium-dependent cell motility,33,1,0.05,1.00000
+pale yellow,GO:0065007,biological regulation,2860,1,4.41,1.00000
+pale yellow,GO:0065008,regulation of biological quality,1009,1,1.56,1.00000
+pale yellow,GO:0048598,embryonic morphogenesis,168,1,0.26,1.00000
+pale yellow,GO:0048856,anatomical structure development,1589,4,2.45,1.00000
+pale yellow,GO:0030031,cell projection assembly,269,4,0.41,1.00000
+pale yellow,GO:0048839,inner ear development,43,1,0.07,1.00000
+salmon,GO:0032981,mitochondrial respiratory chain complex ...,17,2,0.07,0.0020
+salmon,GO:0000388,spliceosome conformational change to rel...,1,1,0,0.0040
+salmon,GO:0001579,medium-chain fatty acid transport,1,1,0,0.0040
+salmon,GO:0045716,positive regulation of low-density lipop...,1,1,0,0.0040
+salmon,GO:0072752,cellular response to rapamycin,1,1,0,0.0040
+salmon,GO:1901301,regulation of cargo loading into COPII-c...,2,1,0.01,0.0081
+salmon,GO:0000354,cis assembly of pre-catalytic spliceosom...,2,1,0.01,0.0081
+salmon,GO:1903206,negative regulation of hydrogen peroxide...,2,1,0.01,0.0081
+salmon,GO:0032264,IMP salvage,2,1,0.01,0.0081
+salmon,GO:0021747,cochlear nucleus development,2,1,0.01,0.0081
+salmon,GO:0002474,antigen processing and presentation of p...,3,1,0.01,0.0121
+salmon,GO:0060463,lung lobe morphogenesis,3,1,0.01,0.0121
+salmon,GO:0010988,regulation of low-density lipoprotein pa...,4,1,0.02,0.0161
+salmon,GO:0055129,L-proline biosynthetic process,4,1,0.02,0.0161
+salmon,GO:0090178,regulation of establishment of planar po...,4,1,0.02,0.0161
+salmon,GO:0030242,autophagy of peroxisome,4,1,0.02,0.0161
+salmon,GO:0097009,energy homeostasis,4,1,0.02,0.0161
+salmon,GO:0043552,positive regulation of phosphatidylinosi...,4,1,0.02,0.0161
+salmon,GO:0034162,toll-like receptor 9 signaling pathway,4,1,0.02,0.0161
+salmon,GO:0052652,cyclic purine nucleotide metabolic proce...,4,1,0.02,0.0161
+salmon,GO:0035904,aorta development,13,2,0.05,0.0192
+salmon,GO:0060088,auditory receptor cell stereocilium orga...,6,1,0.02,0.0241
+salmon,GO:0051791,medium-chain fatty acid metabolic proces...,6,1,0.02,0.0241
+salmon,GO:0098884,postsynaptic neurotransmitter receptor i...,6,1,0.02,0.0241
+salmon,GO:0048268,clathrin coat assembly,7,1,0.03,0.0280
+salmon,GO:0061156,pulmonary artery morphogenesis,7,1,0.03,0.0280
+salmon,GO:0060122,inner ear receptor cell stereocilium org...,14,2,0.06,0.0305
+salmon,GO:0060976,coronary vasculature development,19,2,0.08,0.0305
+salmon,GO:0045089,positive regulation of innate immune res...,71,2,0.29,0.0308
+salmon,GO:0035909,aorta morphogenesis,8,1,0.03,0.0320
+salmon,GO:0060982,coronary artery morphogenesis,9,1,0.04,0.0359
+salmon,GO:0032801,receptor catabolic process,9,1,0.04,0.0359
+salmon,GO:0003281,ventricular septum development,9,1,0.04,0.0359
+salmon,GO:0045324,late endosome to vacuole transport,10,1,0.04,0.0398
+salmon,GO:0048251,elastic fiber assembly,10,1,0.04,0.0398
+salmon,GO:0048255,mRNA stabilization,11,1,0.04,0.0437
+salmon,GO:0019886,antigen processing and presentation of e...,11,1,0.04,0.0437
+salmon,GO:0006120,mitochondrial electron transport; NADH t...,11,1,0.04,0.0437
+salmon,GO:0038202,TORC1 signaling,11,1,0.04,0.0437
+salmon,GO:0042149,cellular response to glucose starvation,12,1,0.05,0.0476
+salmon,GO:1990928,response to amino acid starvation,13,1,0.05,0.0514
+salmon,GO:0007076,mitotic chromosome condensation,14,1,0.06,0.0553
+salmon,GO:0016239,positive regulation of macroautophagy,14,1,0.06,0.0553
+salmon,GO:0006383,transcription by RNA polymerase III,14,1,0.06,0.0553
+salmon,GO:0015909,long-chain fatty acid transport,15,1,0.06,0.0591
+salmon,GO:0051881,regulation of mitochondrial membrane pot...,16,1,0.06,0.0629
+salmon,GO:0003151,outflow tract morphogenesis,16,1,0.06,0.0629
+salmon,GO:0001676,long-chain fatty acid metabolic process,16,1,0.06,0.0629
+salmon,GO:0048208,COPII vesicle coating,16,1,0.06,0.0629
+salmon,GO:0032728,positive regulation of interferon-beta p...,16,1,0.06,0.0629
+pale purple,GO:0070936,protein K48-linked ubiquitination,18,2,0.04,0.00061
+pale purple,GO:1900182,positive regulation of protein localizat...,23,2,0.05,0.00101
+pale purple,GO:0043303,mast cell degranulation,9,2,0.02,0.00193
+pale purple,GO:0035426,extracellular matrix-cell signaling,1,1,0,0.00212
+pale purple,GO:2000347,positive regulation of hepatocyte prolif...,1,1,0,0.00212
+pale purple,GO:2000349,negative regulation of CD40 signaling pa...,1,1,0,0.00212
+pale purple,GO:0072672,neutrophil extravasation,1,1,0,0.00212
+pale purple,GO:0060374,mast cell differentiation,1,1,0,0.00212
+pale purple,GO:0033031,positive regulation of neutrophil apopto...,1,1,0,0.00212
+pale purple,GO:0001922,B-1 B cell homeostasis,1,1,0,0.00212
+pale purple,GO:2000433,positive regulation of cytokinesis; acto...,1,1,0,0.00212
+pale purple,GO:0050904,diapedesis,1,1,0,0.00212
+pale purple,GO:0038109,Kit signaling pathway,1,1,0,0.00212
+pale purple,GO:0034148,negative regulation of toll-like recepto...,1,1,0,0.00212
+pale purple,GO:0002632,negative regulation of granuloma formati...,1,1,0,0.00212
+pale purple,GO:0035754,B cell chemotaxis,1,1,0,0.00212
+pale purple,GO:0070870,heterochromatin maintenance involved in ...,1,1,0,0.00212
+pale purple,GO:0035747,natural killer cell chemotaxis,1,1,0,0.00212
+pale purple,GO:0070429,negative regulation of nucleotide-bindin...,1,1,0,0.00212
+pale purple,GO:0070433,negative regulation of nucleotide-bindin...,1,1,0,0.00212
+pale purple,GO:0072573,tolerance induction to lipopolysaccharid...,1,1,0,0.00212
+pale purple,GO:0007084,mitotic nuclear envelope reassembly,1,1,0,0.00212
+pale purple,GO:0036092,phosphatidylinositol-3-phosphate biosynt...,1,1,0,0.00212
+pale purple,GO:0030838,positive regulation of actin filament po...,36,2,0.08,0.00248
+pale purple,GO:0051289,protein homotetramerization,45,2,0.1,0.00385
+pale purple,GO:0032703,negative regulation of interleukin-2 pro...,2,1,0,0.00424
+pale purple,GO:0031081,nuclear pore distribution,2,1,0,0.00424
+pale purple,GO:0038028,insulin receptor signaling pathway via p...,2,1,0,0.00424
+pale purple,GO:0070102,interleukin-6-mediated signaling pathway,2,1,0,0.00424
+pale purple,GO:0007112,male meiosis cytokinesis,2,1,0,0.00424
+pale purple,GO:0033007,negative regulation of mast cell activat...,2,1,0,0.00424
+pale purple,GO:0035523,protein K29-linked deubiquitination,2,1,0,0.00424
+pale purple,GO:0035262,gonad morphogenesis,2,1,0,0.00424
+pale purple,GO:0034140,negative regulation of toll-like recepto...,2,1,0,0.00424
+pale purple,GO:0002634,regulation of germinal center formation,2,1,0,0.00424
+pale purple,GO:1990168,protein K33-linked deubiquitination,2,1,0,0.00424
+pale purple,GO:0048137,spermatocyte division,2,1,0,0.00424
+pale purple,GO:0071947,protein deubiquitination involved in ubi...,2,1,0,0.00424
+pale purple,GO:0006042,glucosamine biosynthetic process,2,1,0,0.00424
+pale purple,GO:0035871,protein K11-linked deubiquitination,3,1,0.01,0.00635
+pale purple,GO:0032053,ciliary basal body organization,3,1,0.01,0.00635
+pale purple,GO:0036006,cellular response to macrophage colony-s...,3,1,0.01,0.00635
+pale purple,GO:0045719,negative regulation of glycogen biosynth...,3,1,0.01,0.00635
+pale purple,GO:0045736,negative regulation of cyclin-dependent ...,3,1,0.01,0.00635
+pale purple,GO:0007110,meiosis I cytokinesis,3,1,0.01,0.00635
+pale purple,GO:0090382,phagosome maturation,3,1,0.01,0.00635
+pale purple,GO:0071763,nuclear membrane organization,3,1,0.01,0.00635
+pale purple,GO:1901666,positive regulation of NAD+ ADP-ribosylt...,3,1,0.01,0.00635
+pale purple,GO:0002679,respiratory burst involved in defense re...,3,1,0.01,0.00635
+pale purple,GO:0006729,tetrahydrobiopterin biosynthetic process,3,1,0.01,0.00635

@@ -1,8 +1,10 @@
 ---
-title: "Untitled"
+title: "Literature Comparison"
 author: "Shelly Trigg"
 date: "3/23/2020"
-output: html_document
+output: github_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 load libraries
@@ -14,45 +16,32 @@ read in data
 ```{r}
 ## Literature data
 
-#response to dsRNA (mock viral infection)
-#Masood, Raftos, and Nair, journal of proteome research, 2016
-#2yo Pacific oyster gill tissue
-#iTRAQ SCX HPLC DDA TOF-MS
-#399 showed sig. increased abundance to control
-  # 168 showed commoon increase in sydney rock oyster
-#321 showed sig. decreased abundance to control
-  # 135 showed common decrease in SRO
-#Supp table 4 shows proteins and fold change but is in PDF format
-#Supp table 7 shows proteins that mapped to uniprot but doesn't show their FC
-dsRNA_prots <- read_xlsx("pr5b00615_si_002.xlsx", sheet = 2, skip = 2)
-
-dsRNA_convert_IDs <- read.csv("uniprot-dsRNAtable7_conversions.tab", sep = "\t", header = TRUE, stringsAsFactors = FALSE)
-
-#this FC file does not contain all the proteins that they described as increased or decreased, only contains 150/256 that show increase and 244/243 that show decrease
-dsRNA_FC <- read_xlsx("pr5b00615_si_001(table4).xlsx")
-
 
 #Dineshram GBC 2016 table 6
-temp_prots <- read_xlsx("gcb13249-sup-0003-tables4.xlsx", skip = 2)
+temp_prots <- read_xlsx("downloaded_published_data/gcb13249-sup-0003-tables4.xlsx", skip = 2)
 
 
 #pediveliger specific proteins
-inSil_prots <- read.csv("2019_Foulon_etal_inSilTRX_Cgigas - Sheet1.csv", header = TRUE, stringsAsFactors = FALSE)
+inSil_prots <- read.csv("downloaded_published_data/2019_Foulon_etal_inSilTRX_Cgigas.csv", header = TRUE, stringsAsFactors = FALSE)
 
 
 ## Read in all proteins detected in proteomics and BLAST'd to Uniprot DB **for C.gigas**. Need the Uniprot IDs from this table for matching the temperature- and time-affected proteins to.
 
 # I did this blast on roadrunner here: /home/srlab/Documents/Shelly/Cgigas/Cgiga-uniprot-blastP-out.tab 
+### ran the following commands:
+##### makeblastdb -in UP000005408_29159.fasta -out UNIPROT_Cgigas_db -dbtype prot
+##### blastp -query Cg_Giga_cont_AA.fa -db UNIPROT_Cgigas_db -out Cgiga-uniprot-blastP-out.tab -num_threads 8 -max_hsps 1 -max_target_seqs 1 -outfmt 6
+### all input and output can be found here: https://gannet.fish.washington.edu/metacarcinus/Cgigas/BLAST2gigas_uniprot/
 
 tempxtime_prots <- read.csv("Cgiga-uniprot-blastP-out.tab", sep = "\t", header = FALSE, stringsAsFactors = FALSE)
 
 
 ## Read in ASCA-identified temperature- and time-affected proteins
-ASCA_Temp_clade <- read.csv("../ASCA/ASCA_TempProts_avgNSAF.csv", stringsAsFactors = FALSE)
+ASCA_Temp_clade <- read.csv("../../SupplementalFiles/Supplemental_Table_5.csv", stringsAsFactors = FALSE)
 
-ASCA_Time_clade <- read.csv("../ASCA/ASCA_TimeProts_avgNSAF.csv", stringsAsFactors = FALSE)
+ASCA_Time_clade <- read.csv("../../SupplementalFiles/Supplemental_Table_4.csv", stringsAsFactors = FALSE)
 
-PCA_d21d27_clade <- read.csv("../ASCA/PCA_d21d27.csv", stringsAsFactors = FALSE)
+PCA_d21d27_clade <- read.csv("../../SupplementalFiles/Supplemental_Table_3.csv", stringsAsFactors = FALSE)
 ```
 
 format data
@@ -77,12 +66,10 @@ tempxtime_prots$Entry_name <- gsub(".*\\|","", tempxtime_prots$V2)
 #filter for proteins with low evalue
 tempxtime_prots <- tempxtime_prots[which(tempxtime_prots$V11 <= 1 * 10^(-10)),]
 
-#format dsRNA data
-colnames(dsRNA_convert_IDs)[1]<- "UniprotID"
-colnames(dsRNA_prots)[5] <- "EMBL_ACC"
 
-#make accession column to merge with dsRNA fold change data
-dsRNA_prots$Accession <- gsub("\\|gb.*","",dsRNA_prots$`Sequence name`) 
+
+
+
 
 ```
 
@@ -91,16 +78,12 @@ dsRNA_prots$Accession <- gsub("\\|gb.*","",dsRNA_prots$`Sequence name`)
 merge Uniprot data with proteome data
 ```{r}
 
-# merge dsRNA fold change data with dsRNA protein info
-dsRNA_prots <- merge(dsRNA_prots, dsRNA_convert_IDs, by = "EMBL_ACC", all.x = TRUE)
-dsRNA_prots <- merge(dsRNA_prots,dsRNA_FC, by = "Accession", all.x = TRUE)
-
 #merge ASCA data with Uniprot data
-ASCA_Temp_clade <- merge(ASCA_Temp_clade, tempxtime_prots[,c("protein_ID", "UniprotID", "Entry_name")], by = "protein_ID")
+ASCA_Temp_clade <- merge(ASCA_Temp_clade[which(ASCA_Temp_clade$ASCA_PC_threshold_pass=="Yes"),], tempxtime_prots[,c("protein_ID", "UniprotID", "Entry_name")], by = "protein_ID")
 
-ASCA_Time_clade <- merge(ASCA_Time_clade, tempxtime_prots[,c("protein_ID", "UniprotID", "Entry_name")], by = "protein_ID")
+ASCA_Time_clade <- merge(ASCA_Time_clade[which(ASCA_Time_clade$ASCA_PC_threshold_pass=="Yes"),], tempxtime_prots[,c("protein_ID", "UniprotID", "Entry_name")], by = "protein_ID")
 
-PCA_d21d27_clade <- merge(PCA_d21d27_clade, tempxtime_prots[,c("protein_ID", "UniprotID", "Entry_name")], by = "protein_ID")
+PCA_d21d27_clade <- merge(PCA_d21d27_clade[which(PCA_d21d27_clade$PC_threshold_pass=="Yes"),], tempxtime_prots[,c("protein_ID", "UniprotID", "Entry_name")], by = "protein_ID")
 
 
 
@@ -109,23 +92,41 @@ PCA_d21d27_clade <- merge(PCA_d21d27_clade, tempxtime_prots[,c("protein_ID", "Un
 
 check overlap in ASCA temperature-affected proteins
 ```{r}
-# compare ASCA temp affected proteins with dsRNA
-ASCA_temp_dsRNA_common <- merge(ASCA_Temp_clade, dsRNA_prots, by = "UniprotID")
+
 
 # compare Dineshram temp affected proteins with ASCA temp affected proteins
-ASCA_temp_Dineshram_temp_common <- merge(ASCA_Temp_clade, temp_prots[,c(1,3:4,grep("Average:T", colnames(temp_prots)))], by = "UniprotID")
+ASCA_temp_Dineshram_temp_common <- merge(ASCA_Temp_clade[which(ASCA_Temp_clade$ASCA_PC_threshold_pass=="Yes"),], temp_prots[,c(1,3:4,grep("Average:T", colnames(temp_prots)))], by = "UniprotID")
 
-ASCA_temp_Dineshram_temp_common[,21:24] <- apply(ASCA_temp_Dineshram_temp_common[,21:24],2, as.numeric)
+nrow(ASCA_temp_Dineshram_temp_common)
+
+#threshold for proteins that were more highly expressed at high temperature
+ASCA_temp_Dineshram_temp_common_1.2x <- ASCA_temp_Dineshram_temp_common[ASCA_temp_Dineshram_temp_common[,16]>=1.2|ASCA_temp_Dineshram_temp_common[,17]>=1.2|ASCA_temp_Dineshram_temp_common[,18]>=1.2|ASCA_temp_Dineshram_temp_common[,19]>=1.2,]
+
+
+#print the number of overlapping proteins that show increased abundance at 29C in our experiment
+nrow(ASCA_temp_Dineshram_temp_common_1.2x[which(ASCA_temp_Dineshram_temp_common_1.2x$ClusterColor == "darkorange3"),])
+
+ASCA_temp_Dineshram_temp_common_1.2x[which(ASCA_temp_Dineshram_temp_common_1.2x$ClusterColor == "darkorange3"),c("protein_ID", "UniprotID", "Accession no.", "Protein_names")]
 ```
 
 
 check overlap in ASCA time-affected proteins
 ```{r}
-ASCA_time_inSil <- merge(ASCA_Time_clade, inSil_prots, by = "UniprotID")
+ASCA_time_inSil <- merge(ASCA_Time_clade[which(ASCA_Time_clade$ASCA_PC_threshold_pass=="Yes"),], inSil_prots, by = "UniprotID")
+nrow(ASCA_time_inSil)
+ASCA_time_inSil
+
+
+
+ASCA_temp_inSil <- merge(ASCA_Temp_clade[which(ASCA_Temp_clade$ASCA_PC_threshold_pass=="Yes"),], inSil_prots, by = "UniprotID")
+nrow(ASCA_temp_inSil)
+
+PCA_inSil <- merge(PCA_d21d27_clade[which(PCA_d21d27_clade$ASCA_PC_threshold_pass=="Yes"),], inSil_prots, by = "UniprotID")
+
+nrow(PCA_inSil)
 ```
 
 
-check for abundance changes in the same direction
 
 
 
