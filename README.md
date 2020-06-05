@@ -1,4 +1,4 @@
-# **_Developmental proteomes of a metamorphosing mollusc at different temperatures_**
+# **_Temporal proteomic profiling reveals insight into critical developmental processes and temperature-influenced physiological response differences in a bivalve mollusc_**
 
 
 
@@ -81,4 +81,4 @@ Protein expression patterns underlie physiological processes and phenotypic diff
 
 
 ## Citation
-Trigg, S. A., Mitchell, K. M., Elliot Thompson, R., Eudeline, B., Vadopalas, B., Timmins-Schiffman, E. B., and Roberts, S. B. (2020) An integrated analysis reveals temperature-influenced proteomic variation throughout early development in the Pacific oyster. 
+Trigg, S. A., Mitchell, K. M., Elliot Thompson, R., Eudeline, B., Vadopalas, B., Timmins-Schiffman, E. B., and Roberts, S. B. (2020) Temporal proteomic profiling reveals insight into critical developmental processes and temperature-influenced physiological response differences in a bivalve mollusc. 
