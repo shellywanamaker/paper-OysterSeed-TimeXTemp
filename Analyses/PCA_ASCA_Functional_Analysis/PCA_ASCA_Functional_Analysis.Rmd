@@ -996,13 +996,30 @@ colnames(prot_slims_summry_uni)[8] <- "sig_bp_GOslim"
 prot_slims_summry_uni <- sapply(prot_slims_summry_uni, gsub, pattern=",", replacement=";") 
 ```
 
-Make supplementary table 
+Make supplementary table 4
 ```{r}
 time_ASCA_PC1_2_loadings_GO <- merge(time_ASCA_PC1_2_loadings,prot_slims_summry_uni, by = c("protein_ID", "ClusterColor"), all = TRUE)
 
 time_ASCA_PC1_2_loadings_GO <- time_ASCA_PC1_2_loadings_GO[,c(1,3:5,2,6:12)]
 
-time_ASCA_PC1_2_loadings_GO <- time_ASCA_PC1_2_loadings_GO[order(time_ASCA_PC1_2_loadings_GO$ASCA_PC_threshold_pass,time_ASCA_PC1_2_loadings_GO$ClusterColor,time_ASCA_PC1_2_loadings_GO$sig_bp_GO,time_ASCA_PC1_2_loadings_GO$GO_IDs,time_ASCA_PC1_2_loadings_GO$Protein_names, decreasing = TRUE),]
+#add full go terms and uniprot ID columns
+time_ASCA_PC1_2_loadings_GO <- merge(time_ASCA_PC1_2_loadings_GO,uniprot_filtered[,c("protein_ID","Entry","GO")], by = "protein_ID", all.x = T)
+
+#rename columns
+colnames(time_ASCA_PC1_2_loadings_GO)[13:14] <- c("UniprotID", "GO_terms")
+
+#reorder columns
+time_ASCA_PC1_2_loadings_GO <- time_ASCA_PC1_2_loadings_GO[,c(1:6,13,7:9,14,10:12)]
+
+#rename GO_ID column
+colnames(time_ASCA_PC1_2_loadings_GO)[12] <- "GO_bp_IDs"
+
+
+#reorder table by sig bp terms
+time_ASCA_PC1_2_loadings_GO <- time_ASCA_PC1_2_loadings_GO[order(time_ASCA_PC1_2_loadings_GO$ASCA_PC_threshold_pass,time_ASCA_PC1_2_loadings_GO$ClusterColor,time_ASCA_PC1_2_loadings_GO$sig_bp_GO,time_ASCA_PC1_2_loadings_GO$GO_bp_IDs,time_ASCA_PC1_2_loadings_GO$Protein_names, decreasing = TRUE),]
+
+#make sure there are no commas
+time_ASCA_PC1_2_loadings_GO <- sapply(time_ASCA_PC1_2_loadings_GO, gsub, pattern=",", replacement=";")
 
 write.csv(time_ASCA_PC1_2_loadings_GO, "../../SupplementalFiles/Supplemental_Table_4.csv", quote = FALSE, row.names = FALSE)
 
@@ -1234,13 +1251,31 @@ prot_slims_summry_uni <- sapply(prot_slims_summry_uni, gsub, pattern=",", replac
 
 ```
 
-Make supplementary table 6
+Make supplemental table 5
 ```{r}
 temp_ASCA_PC1_loadings_GO <- merge(temp_ASCA_PC1_loadings,prot_slims_summry_uni, by = c("protein_ID", "ClusterColor"), all = TRUE)
 
 temp_ASCA_PC1_loadings_GO <- temp_ASCA_PC1_loadings_GO[,c(1,3:4,2,5:ncol(temp_ASCA_PC1_loadings_GO))]
 
-temp_ASCA_PC1_loadings_GO <- temp_ASCA_PC1_loadings_GO[order(temp_ASCA_PC1_loadings_GO$ASCA_PC_threshold_pass,temp_ASCA_PC1_loadings_GO$ClusterColor,temp_ASCA_PC1_loadings_GO$sig_bp_GO,temp_ASCA_PC1_loadings_GO$GO_IDs,temp_ASCA_PC1_loadings_GO$Protein_names, decreasing = TRUE),]
+#add full go terms and uniprot ID columns
+temp_ASCA_PC1_loadings_GO <- merge(temp_ASCA_PC1_loadings_GO,uniprot_filtered[,c("protein_ID","Entry","GO")], by = "protein_ID", all.x = T)
+
+#rename columns
+colnames(temp_ASCA_PC1_loadings_GO)[12:13] <- c("UniprotID", "GO_terms")
+
+#reorder columns
+temp_ASCA_PC1_loadings_GO <- temp_ASCA_PC1_loadings_GO[,c(1:5,12,6:8,13,9:11)]
+
+#rename GO_ID column
+colnames(temp_ASCA_PC1_loadings_GO)[11] <- "GO_bp_IDs"
+
+
+#reorder table by sig bp terms
+temp_ASCA_PC1_loadings_GO <- temp_ASCA_PC1_loadings_GO[order(temp_ASCA_PC1_loadings_GO$ASCA_PC_threshold_pass,temp_ASCA_PC1_loadings_GO$ClusterColor,temp_ASCA_PC1_loadings_GO$sig_bp_GO,temp_ASCA_PC1_loadings_GO$GO_bp_IDs,temp_ASCA_PC1_loadings_GO$Protein_names, decreasing = TRUE),]
+
+#make sure there are no commas
+temp_ASCA_PC1_loadings_GO <- sapply(temp_ASCA_PC1_loadings_GO, gsub, pattern=",", replacement=";")
+
 
 write.csv(temp_ASCA_PC1_loadings_GO, "../../SupplementalFiles/Supplemental_Table_5.csv", quote = FALSE, row.names = FALSE)
 
@@ -1516,7 +1551,23 @@ PC_loadings_GO <- merge(PC_loadings,prot_slims_summry_uni, by = c("protein_ID", 
 
 PC_loadings_GO <- PC_loadings_GO[,c(1,3:5,2,6:ncol(PC_loadings_GO))]
 
-PC_loadings_GO <- PC_loadings_GO[order(PC_loadings_GO$PC_threshold_pass,PC_loadings_GO$ClusterColor,PC_loadings_GO$sig_bp_GO,PC_loadings_GO$GO_IDs,PC_loadings_GO$Protein_names, decreasing = TRUE),]
+#add full go terms and uniprot ID columns
+PC_loadings_GO <- merge(PC_loadings_GO,uniprot_filtered[,c("protein_ID","Entry","GO")], by = "protein_ID", all.x = T)
+
+#rename columns
+colnames(PC_loadings_GO)[13:14] <- c("UniprotID", "GO_terms")
+
+#reorder columns
+PC_loadings_GO <- PC_loadings_GO[,c(1:6,13,7:9,14,10:12)]
+
+#rename GO_ID column
+colnames(PC_loadings_GO)[12] <- "GO_bp_IDs"
+
+PC_loadings_GO <- PC_loadings_GO[order(PC_loadings_GO$PC_threshold_pass,PC_loadings_GO$ClusterColor,PC_loadings_GO$sig_bp_GO,PC_loadings_GO$GO_bp_IDs,PC_loadings_GO$Protein_names, decreasing = TRUE),]
+
+#make sure there are no commas
+PC_loadings_GO <- sapply(PC_loadings_GO, gsub, pattern=",", replacement=";")
+
 
 write.csv(PC_loadings_GO, "../../SupplementalFiles/Supplemental_Table_3.csv", quote = FALSE, row.names = FALSE)
 
