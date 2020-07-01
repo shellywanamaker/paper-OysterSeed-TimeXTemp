@@ -918,7 +918,7 @@ rownames(slims_m) <- gsub("anatomical structure formation invo...","anatomical s
 
 breaks <- c(seq(-0.5,12,by = 1))
 
-jpeg(file="../../Figures/Figure4.jpg", width=8, height=9, units = "in", res = 300)
+jpeg(file="../../Figures/Figure4_heatmap.jpg", width=8, height=9, units = "in", res = 300)
 heatmap.2(slims_m,margins = c(5,27),cexRow = 1.2, Colv=NA,revC = TRUE,breaks = breaks,labCol = NA, ColSideColors = c("darkslategray1", "purple", "green", "gray50", "black"),density.info = "none", trace = "none",col = c("white", viridis(length(breaks)-2)), scale = "none",rowsep = 1:nrow(slims_m),colsep=1:ncol(slims_m),sepwidth=c(0.01,0.01),sepcolor="white", hclustfun = function(x) hclust(x, method="average"), distfun = function(x) as.dist(1-cor(t(x), use = "pa")))
 dev.off()
 ```
@@ -1169,7 +1169,7 @@ rownames(slims_m) <- gsub("anatomical structure formation invo...","anatomical s
 
 breaks <- c(seq(-0.5,6,by = 1))
 
-jpeg(file="../../Figures/Figure6.jpg", width=7, height=8, units = "in", res = 300)
+jpeg(file="../../Figures/Figure6_heatmap.jpg", width=7, height=8, units = "in", res = 300)
 heatmap.2(slims_m,margins = c(5,27),cexRow = 1.2, Colv=NA,revC = TRUE,breaks = breaks,labCol = NA, ColSideColors = c("cyan4", "darkorange3"),density.info = "none", trace = "none",col = c("white", viridis(length(breaks)-2)), scale = "none",rowsep = 1:nrow(slims_m),colsep=1:ncol(slims_m),sepwidth=c(0.01,0.01),sepcolor="white")
 dev.off()
 

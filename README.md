@@ -68,16 +68,17 @@ Protein expression patterns underlie physiological processes and phenotypic diff
 
 	All other files in this directory are plots incorporated as figure panels and were directly output from [PCA\_ASCA\_Functional\_Analysis.Rmd](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Analyses/PCA_ASCA_Functional_Analysis/PCA_ASCA_Functional_Analysis.Rmd). 
 	
-- ### [Supplemental Files:](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/tree/master/SupplementalFiles)
-	1. [Supplemental\_Figure\_1.jpg](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/SupplementalFiles/Supplemental_Figure_1.jpg): PCA of all technical replicate samples
-	2. [Supplemental\_Figure\_2.jpg](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/SupplementalFiles/Supplemental_Figure_2.jpg): Analysis of proteins influenced by temperature at 21 and 27 dpf qualitatively identified through PCA
-	3. [Supplemental\_Figure\_3.jpg](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/SupplementalFiles/Supplemental_Figure_3.jpg): ANOVA-simultaneous component analysis plots of PC loadings for all proteins
-	4. 	[Supplemental\_Table\_1.xlsx](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/SupplementalFiles/Supplemental_Table_1.xlsx):  Biovolume of oyster seed (mL) settled after 6 days of exposure to high temperatures.
-	5. [Supplemental\_Table\_2.xlsx](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/SupplementalFiles/Supplemental_Table_1.xlsx): Data and plot showing overlap between different temperature proteomes at each timepoint underlying Figure 2a
-	6. [Supplemental\_Table\_3.csv](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/SupplementalFiles/Supplemental_Table_3.csv): PCA, hierarchical clustering, and functional analysis results for all detected proteins. 
-	7. [Supplemental\_Table\_4.csv](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/SupplementalFiles/Supplemental_Table_4.csv): ASCA time effect analysis, hierarchical clustering, and functional analysis results for all detected proteins. 
-	8. [Supplemental\_Table\_5.csv](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/SupplementalFiles/Supplemental_Table_5.csv): ASCA temperature effect analysis, hierarchical clustering, and functional analysis results for all detected proteins.
+- ### [Additional Files:](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/tree/master/SupplementalFiles)
+	1. 	[Additional File 1: Supplemental\_Table\_1.xlsx](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/SupplementalFiles/Supplemental_Table_1.xlsx):  Biovolume of oyster seed (mL) settled after 6 days of exposure to high temperatures. Data and plot of oyster counts and size measurements for Figure 1b.
+	2. [Additional File 2: Supplemental\_Figure\_1.jpg](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/SupplementalFiles/Supplemental_Figure_1.jpg): PCA of all technical replicate samples.
+	3. [Additional File 3: Supplemental\_Table\_2.xlsx](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/SupplementalFiles/Supplemental_Table_1.xlsx): Preliminary proteome characterization. Data and plot showing overlap between different temperature proteomes at each timepoint underlying Figure 1c.
+	4. [Additional File 4: Supplemental\_Table\_3.csv](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/SupplementalFiles/Supplemental_Table_3.csv): PCA, hierarchical clustering, and functional analysis results for all detected proteins. 
+	5. [Additional File 5: Supplemental\_Table\_4.csv](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/SupplementalFiles/Supplemental_Table_4.csv): ASCA time effect analysis, hierarchical clustering, and functional analysis results for all detected proteins. 
+	6. [Additional File 6: Supplemental\_Table\_5.csv](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/SupplementalFiles/Supplemental_Table_5.csv): ASCA temperature effect analysis, hierarchical clustering, and functional analysis results for all detected proteins.
+	7. [Additional File 7: Supplemental\_Figure\_2.jpg](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/SupplementalFiles/Supplemental_Figure_2.jpg): Preliminary principal component analysis plots of PC loadings for the top 100 ranked proteins.
+	8. [Additional File 8: Supplemental\_Figure\_3.jpg](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/SupplementalFiles/Supplemental_Figure_3.jpg): ANOVA-simultaneous component analysis plots of PC loadings for all proteins.
 
+	
 
 
 ## Citation
