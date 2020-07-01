@@ -71,7 +71,7 @@
 
 	All other files in this directory are plots incorporated as figure panels and were directly output from [PCA\_ASCA\_Functional\_Analysis.Rmd](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/Analyses/PCA_ASCA_Functional_Analysis/PCA_ASCA_Functional_Analysis.Rmd). 
 	
-- ### [Additional Files:](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/tree/master/Additional Files)
+- ### [Additional_Files:](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/tree/master/Additional_Files)
 	1. 	[Additional File 1: Supplemental\_Table\_1.xlsx](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/SupplementalFiles/Supplemental_Table_1.xlsx):  Biovolume of oyster seed (mL) settled after 6 days of exposure to high temperatures. Data and plot of oyster counts and size measurements for Figure 1b.
 	2. [Additional File 2: Supplemental\_Figures.pdf](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/SupplementalFiles/Supplemental_Figures.pdf): PDF of [Supplemental Figure 1](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/SupplementalFiles/Supplemental_Figure_1.jpg), [Supplemental Figure 2](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/SupplementalFiles/Supplemental_Figure_2.jpg), and [Supplemental Figure 3](https://github.com/shellytrigg/paper-OysterSeed-TimeXTemp/blob/master/SupplementalFiles/Supplemental_Figure_3.jpg) including figure titles and captions. 
 
