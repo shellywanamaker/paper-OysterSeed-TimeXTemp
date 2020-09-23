@@ -1,0 +1,76 @@
+---
+title: "Untitled"
+author: "Shelly Trigg"
+date: "9/23/2020"
+output: html_document
+---
+
+
+load libraries
+```{r}
+library(data.table)
+library(dplyr)
+
+
+
+```
+
+read in data
+```{r}
+#import load spectra data from Comet log file.
+#this file was created by opening the log file in Excel and splitting text to columns using the ":", then keeping only the lines with "Load spectra" and the file names
+
+cmt_log <- read.csv("../../Data/Comet_log_load_spectra.csv", stringsAsFactors = F, header = F)
+
+
+#import Abacus output file
+ABA <- read.csv("../../Data/Abacus_output.tsv", sep = "\t", stringsAsFactors = F)
+
+```
+
+
+format data
+```{r}
+#add colnames to cmt log
+colnames(cmt_log) <- c("Sample", "TOTSPEC")
+#only keep sample number in Sample column
+cmt_log$Sample <- gsub("20161205_","", cmt_log$Sample)
+cmt_log$Sample <- gsub(".mzXML","", cmt_log$Sample)
+cmt_log$Sample <- gsub("sample", "SAMPLE", cmt_log$Sample,ignore.case = T)
+cmt_log$Sample <- gsub(" ","", cmt_log$Sample)
+
+
+#only keep protein ID and num pep uniq columns
+ABA <- ABA[,grep("PROTID|NUMPEPSUNIQ", colnames(ABA))]
+colnames(ABA) <- gsub("X20161205_","", colnames(ABA))
+colnames(ABA) <- gsub("_NUMPEPSUNIQ","", colnames(ABA))
+
+```
+
+calculate colsums of "CHOYP" proteins for samples
+```{r}
+#only sum CHOYP proteins for all sample columns
+ABA_sum <- data.frame(colSums(ABA[grep("CHOYP",ABA$PROTID),-c(1:2)]))
+
+#rename column with number of aligned Peps
+colnames(ABA_sum) <- "TOTPEPUNIQ"
+#make the rownames a column
+ABA_sum$Sample <- rownames(ABA_sum)
+#remove rownmaes
+rownames(ABA_sum) <- NULL
+
+```
+
+merge Abacus and cmt_log data
+```{r}
+ABA_cmt <- merge(ABA_sum, cmt_log, by = "Sample")
+```
+
+Calculate fraction of peptides mapped per sample
+```{r}
+ABA_cmt$FRAC_PEP <- (ABA_cmt$TOTPEPUNIQ/ABA_cmt$TOTSPEC)
+
+#calculate the mean and sd
+mean(ABA_cmt$FRAC_PEP)
+sd(ABA_cmt$FRAC_PEP)
+```
