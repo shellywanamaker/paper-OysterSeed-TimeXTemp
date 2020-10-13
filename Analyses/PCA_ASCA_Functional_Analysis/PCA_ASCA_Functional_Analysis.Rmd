@@ -55,8 +55,8 @@ colnames(pca_log_meta)[1:3] <- c("dpf","temp","SampleName")
 
 Plot PC1 x PC2 of PCA on averaged NSAF values with days ordered from earliest to latest
 ```{r}
-jpeg("../../Figures/Figure2a.jpg", height = 5, width = 7, units = "in", res = 300 )
-ggplot(pca_log_meta, aes(PC1, PC2,label = dpf, color = as.factor(temp))) + geom_text(size = 5, fontface = "bold") + scale_colour_manual(values = c("brown4","cyan3", "magenta3")) + theme_bw() + ylab(paste("PC2"," (",formatC(summary_pca_log$importance[5] * 100,digits=2,format="f"),"%)", sep = "")) + xlab(paste("PC1"," (",formatC(summary_pca_log$importance[2] * 100,digits=2,format="f"),"%)", sep = ""))
+jpeg("../../Figures/Figure2a.jpg", height = 4, width = 6, units = "in", res = 300 )
+ggplot(pca_log_meta, aes(PC1, PC2,label = dpf, color = as.factor(temp))) + geom_text(size = 5, fontface = "bold") + scale_colour_manual(values = c("brown4","cyan3", "magenta3")) + theme_bw() + labs(y = paste("PC2"," (",formatC(summary_pca_log$importance[5] * 100,digits=2,format="f"),"%)", sep = ""), x = paste("PC1"," (",formatC(summary_pca_log$importance[2] * 100,digits=2,format="f"),"%)", sep = ""), color = expression(paste("Temp",degree,"C"))) + theme(axis.title = element_text(size = 16), axis.text = element_text(size = 14), legend.text = element_text(size = 14), legend.title = element_text(size = 16))
 dev.off()
 
 ```
@@ -262,8 +262,8 @@ time_PC12$dpf <- factor(time_PC12$dpf)
 time_PC12$PC1_j <- jitter(time_PC12$PC1)
 time_PC12$PC2_j <- jitter(time_PC12$PC2)
 
-jpeg(file="../../Figures/Figure3a.jpg", width=7, height=5, units = "in", res = 300)
-ggplot(time_PC12, aes(PC1_j, PC2_j, label = dpf, color = temp)) + geom_text(size = 6, fontface = "bold") + scale_color_manual(values = c("cyan3", "magenta3"))+ theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),panel.background = element_blank(),axis.line = element_line(colour = "black"),panel.border = element_rect(colour = "black", fill=NA, size=1), text = element_text(size=15)) + xlab(paste("PC1"," (",formatC(ASCA$`1`$svd$var.explained[1] * 100,digits=2,format="f"),"%)", sep = "")) + ylab(paste("PC2"," (",formatC(ASCA$`1`$svd$var.explained[2] * 100,digits=2,format="f"),"%)", sep = ""))
+jpeg(file="../../Figures/Figure3a.jpg", width=6, height=4, units = "in", res = 300)
+ggplot(time_PC12, aes(PC1_j, PC2_j, label = dpf, color = temp)) + geom_text(size = 6, fontface = "bold") + scale_color_manual(values = c("cyan3", "magenta3"))+ theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),panel.background = element_blank(),axis.line = element_line(colour = "black"),panel.border = element_rect(colour = "black", fill=NA, size=1), text = element_text(size=15)) + labs(y = paste("PC2"," (",formatC(ASCA$`1`$svd$var.explained[2] * 100,digits=2,format="f"),"%)", sep = ""), x = paste("PC1"," (",formatC(ASCA$`1`$svd$var.explained[1] * 100,digits=2,format="f"),"%)", sep = ""), color = expression(paste("Temp",degree,"C"))) + theme(axis.title = element_text(size = 16), axis.text = element_text(size = 14), legend.text = element_text(size = 14), legend.title = element_text(size = 16))
 dev.off()
 ```
 
@@ -279,8 +279,8 @@ temp_PC12$dpf <- as.factor(temp_PC12$dpf)
 temp_PC12$PC1_j <- jitter(temp_PC12$PC1)
 temp_PC12$PC2_j <- jitter(temp_PC12$PC2)
 
-jpeg(file="../../Figures/Figure5a.jpg", width=7, height=5, units = "in", res = 300)
-ggplot(temp_PC12, aes(PC1_j, PC2_j, label = dpf, color = temp)) + geom_text(size = 3, fontface = "bold") + scale_color_manual(values = c("cyan3", "magenta3")) + theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),panel.background = element_blank(),axis.line = element_line(colour = "black"),panel.border = element_rect(colour = "black", fill=NA, size=1), text = element_text(size=10)) + xlab(paste("PC1"," (",formatC(ASCA$`2`$svd$var.explained[1] * 100,digits=2,format="f"),"%)", sep = "")) + ylab(paste("PC2"," (",formatC(ASCA$`2`$svd$var.explained[2] * 100,digits=2,format="f"),"%)", sep = ""))
+jpeg(file="../../Figures/Figure5a.jpg", width=6, height=4, units = "in", res = 300)
+ggplot(temp_PC12, aes(PC1_j, PC2_j, label = dpf, color = temp)) + geom_text(size = 4, fontface = "bold") + scale_color_manual(values = c("cyan3", "magenta3")) + theme(panel.grid.major =element_blank(), panel.grid.minor = element_blank(),panel.background = element_blank(),axis.line = element_line(colour = "black"),panel.border = element_rect(colour = "black", fill=NA, size=1),axis.title = element_text(size = 16), axis.text = element_text(size = 14), legend.text = element_text(size = 14), legend.title = element_text(size = 16)) + labs(y = paste("PC2"," (",formatC(ASCA$`1`$svd$var.explained[2] * 100,digits=2,format="f"),"%)", sep = ""), x = paste("PC1"," (",formatC(ASCA$`1`$svd$var.explained[1] * 100,digits=2,format="f"),"%)", sep = ""), color = expression(paste("Temp",degree,"C"))) + theme() + scale_y_continuous(labels = function(x) format(x, scientific = TRUE,digits = 3))
 dev.off()
 ```
 
@@ -625,8 +625,8 @@ STACKED_NSAF_mean_dpf <- STACKED_NSAF %>%
       CI_lower = mean + qt((1-0.95)/2, n - 1) * sem,
       CI_upper = mean - qt((1-0.95)/2, n - 1) * sem)
 
-jpeg("../../Figures/Figure4_colLabs.jpg", width = 5, height = 1, units = "in", res =300)
-ggplot(STACKED_NSAF_mean_dpf, aes(x=dpf, y=mean)) + geom_line(aes(x=dpf, y=mean), size = 1) +ylab("mean autoscaled NSAF") + facet_wrap(~factor(SimpleClusterColor, levels = c("light blue","purple","green","gray","black")), ncol = 5)  + scale_x_continuous(breaks = c(21,23,25,27,29,31), labels = c(21,23,25,27,29,31)) + theme_bw()+ theme(panel.grid.major = element_blank(),panel.grid.minor = element_blank(),axis.title.x=element_blank(),axis.text.x=element_blank(),axis.ticks.x=element_blank(),axis.title.y=element_blank(),axis.text.y=element_blank(),axis.ticks.y=element_blank(),strip.text = element_text(face = "bold",size = 15),strip.background = element_rect(fill="white")) 
+jpeg("../../Figures/Figure4_colLabs.jpg", width = 7, height = 2, units = "in", res =300)
+ggplot(STACKED_NSAF_mean_dpf, aes(x=dpf, y=mean)) + geom_line(aes(x=dpf, y=mean), size = 1) +ylab("mean autoscaled NSAF") + facet_wrap(~factor(SimpleClusterColor, levels = c("light blue","purple","green","gray","black")), ncol = 5,labeller = label_wrap_gen(width = 2, multi_line = TRUE))  + scale_x_continuous(breaks = c(21,23,25,27,29,31), labels = c(21,23,25,27,29,31)) + theme_bw()+ theme(panel.grid.major = element_blank(),panel.grid.minor = element_blank(),axis.title.x=element_blank(),axis.text.x=element_blank(),axis.ticks.x=element_blank(),axis.title.y=element_blank(),axis.text.y=element_blank(),axis.ticks.y=element_blank(),strip.text = element_text(face = "bold",size = 30),strip.background = element_rect(fill="white")) 
 dev.off()
 ```
 

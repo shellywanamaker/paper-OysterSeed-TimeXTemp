@@ -18,7 +18,7 @@ library(dplyr)
 read in data
 ```{r}
 #import load spectra data from Comet log file.
-#this file was created by opening the log file in Excel and splitting text to columns using the ":", then keeping only the lines with "Load spectra" and the file names
+#this file was created by opening the Comet log file (http://owl.fish.washington.edu/halfshell/working-directory/17-02-14b/output.error.comet.log) in Excel and splitting text to columns using the ":", then keeping only the lines with "Load spectra" and the file names
 
 cmt_log <- read.csv("../../Data/Comet_log_load_spectra.csv", stringsAsFactors = F, header = F)
 
@@ -41,36 +41,62 @@ cmt_log$Sample <- gsub(" ","", cmt_log$Sample)
 
 
 #only keep protein ID and num pep uniq columns
-ABA <- ABA[,grep("PROTID|NUMPEPSUNIQ", colnames(ABA))]
-colnames(ABA) <- gsub("X20161205_","", colnames(ABA))
-colnames(ABA) <- gsub("_NUMPEPSUNIQ","", colnames(ABA))
+ABA_PEP <- ABA[,grep("PROTID|NUMPEPSUNIQ", colnames(ABA))]
+colnames(ABA_PEP) <- gsub("X20161205_","", colnames(ABA_PEP))
+colnames(ABA_PEP) <- gsub("_NUMPEPSUNIQ","", colnames(ABA_PEP))
+
+ABA_SPEC <- ABA[,grep("PROTID|NUMSPECSUNIQ", colnames(ABA))]
+colnames(ABA_SPEC) <- gsub("X20161205_","", colnames(ABA_SPEC))
+colnames(ABA_SPEC) <- gsub("_NUMSPECSUNIQ","", colnames(ABA_SPEC))
+
 
 ```
 
 calculate colsums of "CHOYP" proteins for samples
 ```{r}
 #only sum CHOYP proteins for all sample columns
-ABA_sum <- data.frame(colSums(ABA[grep("CHOYP",ABA$PROTID),-c(1:2)]))
-
+ABA_PEP_sum <- data.frame(colSums(ABA_PEP[grep("CHOYP",ABA_PEP$PROTID),-c(1:2)]))
 #rename column with number of aligned Peps
-colnames(ABA_sum) <- "TOTPEPUNIQ"
+colnames(ABA_PEP_sum) <- "TOTPEPUNIQ"
 #make the rownames a column
-ABA_sum$Sample <- rownames(ABA_sum)
+ABA_PEP_sum$Sample <- rownames(ABA_PEP_sum)
 #remove rownmaes
-rownames(ABA_sum) <- NULL
+rownames(ABA_PEP_sum) <- NULL
+
+
+#only sum CHOYP proteins for all sample columns
+ABA_SPEC_sum <- data.frame(TOT_MAPPED_SPECUNIQ =colSums(ABA_SPEC[grep("CHOYP",ABA_SPEC$PROTID),-c(1:2)]))
+#rename column with number of aligned SPECs
+colnames(ABA_SPEC_sum) <- "TOT_MAPPED_SPECUNIQ"
+#make the rownames a column
+ABA_SPEC_sum$Sample <- rownames(ABA_SPEC_sum)
+#remove rownmaes
+rownames(ABA_SPEC_sum) <- NULL
+
 
 ```
 
 merge Abacus and cmt_log data
 ```{r}
-ABA_cmt <- merge(ABA_sum, cmt_log, by = "Sample")
+ABA_cmt <- merge(ABA_SPEC_sum, cmt_log, by = "Sample")
 ```
 
 Calculate fraction of peptides mapped per sample
 ```{r}
-ABA_cmt$FRAC_PEP <- (ABA_cmt$TOTPEPUNIQ/ABA_cmt$TOTSPEC)
+ABA_cmt$FRAC_SPEC <- (ABA_cmt$TOT_MAPPED_SPECUNIQ/ABA_cmt$TOTSPEC)
 
-#calculate the mean and sd
-mean(ABA_cmt$FRAC_PEP)
-sd(ABA_cmt$FRAC_PEP)
+#calculate the mean and sd of total spectra
+mean(ABA_cmt$TOTSPEC)
+sd(ABA_cmt$TOTSPEC)
+
+#calculate the mean and sd fraction of spectra
+mean(ABA_cmt$FRAC_SPEC)
+sd(ABA_cmt$FRAC_SPEC)
+
+#calculate the mean and sd for unique peptides
+mean(ABA_PEP_sum$TOTPEPUNIQ)
+sd(ABA_PEP_sum$TOTPEPUNIQ)
+
+
 ```
+

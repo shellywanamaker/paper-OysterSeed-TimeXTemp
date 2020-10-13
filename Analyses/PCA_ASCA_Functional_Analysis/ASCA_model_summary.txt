@@ -18,16 +18,21 @@ Interaction 12	38.43%
 Residuals      	0.00%
 
 $summary.pca
-           PC1       PC2       PC3        PC4        PC5
-data 0.2053726 0.1287934 0.1116874 0.09300595 0.08338321
-1    0.3537799 0.2097479 0.1938296 0.12272799 0.11991461
-2    1.0000000        NA        NA         NA         NA
-12   0.2578223 0.2236524 0.1923920 0.17382502 0.15230824
-            PC6        PC7        PC8        PC9
-data 0.07383927 0.06888147 0.06477092 0.05936911
-1            NA         NA         NA         NA
-2            NA         NA         NA         NA
-12           NA         NA         NA         NA
+           PC1       PC2       PC3
+data 0.2053726 0.1287934 0.1116874
+1    0.3537799 0.2097479 0.1938296
+2    1.0000000        NA        NA
+12   0.2578223 0.2236524 0.1923920
+            PC4        PC5        PC6
+data 0.09300595 0.08338321 0.07383927
+1    0.12272799 0.11991461         NA
+2            NA         NA         NA
+12   0.17382502 0.15230824         NA
+            PC7        PC8        PC9
+data 0.06888147 0.06477092 0.05936911
+1            NA         NA         NA
+2            NA         NA         NA
+12           NA         NA         NA
            PC10
 data 0.05605989
 1            NA
@@ -35,8 +40,12 @@ data 0.05605989
 12           NA
 
 $summary.ssq
-                    Overall means         1          2
-Contribution to ssq      0.809398 0.1009143 0.01643842
-                            12    Residuals
-Contribution to ssq 0.07324921 8.023492e-34
+                    Overall means
+Contribution to ssq      0.809398
+                            1          2
+Contribution to ssq 0.1009143 0.01643842
+                            12
+Contribution to ssq 0.07324921
+                       Residuals
+Contribution to ssq 8.023492e-34
 
