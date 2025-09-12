@@ -1,0 +1,79 @@
+# ABACUS parameter file for host-microbiome proteomics analysis
+# Modified from original Abacus_parameters.txt for multi-organism analysis
+
+# Input files and database
+PROTXML_DIR = ./protxml_files/
+OUTPUT_DIR = ./abacus_output/
+FASTA_FILE = Combined_Host_Microbiome_DB.fa
+
+# Protein identification thresholds
+# Stricter thresholds for microbial proteins to reduce false positives
+PROT_PROB_THRESHOLD = 0.95           # Overall protein probability threshold
+PROT_PROB_THRESHOLD_HOST = 0.95      # Host protein threshold (existing standard)
+PROT_PROB_THRESHOLD_MICROBE = 0.99   # Microbial protein threshold (more stringent)
+
+# Peptide parameters
+PEPTIDE_PROB_THRESHOLD = 0.50        # Minimum peptide probability
+MIN_PEPTIDES_PER_PROTEIN = 1         # Minimum peptides per protein (general)
+MIN_PEPTIDES_PER_MICROBE_PROTEIN = 2 # Minimum peptides per microbial protein (more stringent)
+
+# Protein inference parameters
+COMBINED_FILE_TYPE = protXML
+USE_SHARED_PEPTIDES = Y              # Include shared peptides in quantification
+RAZOR_PEPTIDES = Y                   # Use razor peptide approach for shared peptides
+
+# Organism-specific processing
+ORGANISM_SEPARATION = Y              # Separate analysis by organism type
+HOST_PREFIX = HOST_                  # Prefix for host proteins
+BACTERIA_PREFIX = BACTERIA_          # Prefix for bacterial proteins
+ARCHAEA_PREFIX = ARCHAEA_           # Prefix for archaeal proteins
+FUNGI_PREFIX = FUNGI_               # Prefix for fungal proteins
+
+# Quantification parameters
+QUANT_METHOD = NSAF                 # Use NSAF for quantification
+NORMALIZE_NSAF = Y                  # Normalize NSAF values
+ADJUST_ZERO_VALUES = Y              # Adjust zero values to minimum detection
+MIN_NSAF_VALUE = 0.1               # Minimum NSAF value (1/8 of lowest detected)
+
+# Quality control parameters
+MAX_PROTEIN_LENGTH = 50000          # Maximum allowed protein length
+MIN_PROTEIN_LENGTH = 50             # Minimum allowed protein length
+REMOVE_CONTAMINANTS = Y             # Remove known contaminant proteins
+CONTAMINANT_PREFIX = CONTAM_        # Prefix for contaminant proteins
+
+# Output options
+OUTPUT_COMBINED_RESULTS = Y         # Output combined host-microbe results
+OUTPUT_SEPARATE_RESULTS = Y         # Output separate organism results
+OUTPUT_STATISTICS = Y               # Output analysis statistics
+OUTPUT_NSAF_MATRIX = Y             # Output NSAF matrix for downstream analysis
+
+# Advanced parameters for microbiome analysis
+PEPTIDE_SHARING_THRESHOLD = 0.8     # Threshold for peptide sharing between organisms
+CROSS_ORGANISM_FILTERING = Y        # Filter peptides shared across organism types
+TAXONOMIC_VALIDATION = Y            # Validate taxonomic assignments
+
+# Protein grouping parameters
+GROUP_PROTEINS = Y                  # Group similar proteins
+PROTEIN_SIMILARITY_THRESHOLD = 0.95 # Threshold for protein grouping
+GROUP_ACROSS_ORGANISMS = N          # Don't group proteins across organism types
+
+# Statistical parameters
+CALCULATE_CONFIDENCE_INTERVALS = Y   # Calculate confidence intervals for NSAF
+BOOTSTRAP_ITERATIONS = 1000         # Number of bootstrap iterations
+SIGNIFICANCE_THRESHOLD = 0.05       # Statistical significance threshold
+
+# File handling
+TEMP_DIR = ./temp/                  # Temporary file directory
+LOG_LEVEL = INFO                    # Logging level (DEBUG, INFO, WARN, ERROR)
+PARALLEL_PROCESSING = Y             # Enable parallel processing
+MAX_THREADS = 4                     # Maximum number of threads
+
+# Validation parameters
+VALIDATE_AGAINST_HOST_ONLY = Y      # Compare with host-only analysis
+HOST_ONLY_RESULTS_FILE = ../PCA_ASCA_Functional_Analysis/Abacus_output.tsv
+CORRELATION_THRESHOLD = 0.9         # Expected correlation with host-only results for host proteins
+
+# Output file naming
+OUTPUT_PREFIX = microbiome_         # Prefix for output files
+TIMESTAMP_FILES = Y                 # Add timestamp to output files
+COMPRESS_OUTPUT = Y                 # Compress large output files
