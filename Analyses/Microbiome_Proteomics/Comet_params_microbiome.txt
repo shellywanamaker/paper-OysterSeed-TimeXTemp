@@ -1,0 +1,115 @@
+# COMET parameter file for host-microbiome proteomics analysis
+# Based on original Pcomet.params.high-low.txt with modifications for microbial proteins
+# Modified for: Combined Host-Microbiome Database Search
+
+# Database and search parameters
+database_name = Combined_Host_Microbiome_DB.fa
+decoy_search = 1
+peff_format = 0
+peff_obo = 
+
+# Precursor mass parameters - increased tolerance for diverse organisms
+peptide_mass_tolerance = 20.00
+peptide_mass_units = 0                # 0=amu, 1=mmu, 2=ppm
+mass_type_parent = 1                  # 0=average masses, 1=monoisotopic masses
+mass_type_fragment = 1                # 0=average masses, 1=monoisotopic masses
+precursor_tolerance_type = 0          # 0=MH+ (default), 1=precursor m/z
+isotope_error = 3                     # Allow for isotope errors
+
+# Fragment ion parameters
+fragment_bin_tol = 1.0005             # binning to use on fragment ions
+fragment_bin_offset = 0.4             # offset position to start the binning
+theoretical_fragment_ions = 1         # 0=use flanking peaks, 1=M peak only
+use_A_ions = 0
+use_B_ions = 1
+use_C_ions = 0
+use_X_ions = 0
+use_Y_ions = 1
+use_Z_ions = 0
+use_NL_ions = 0                       # 0=no, 1=yes to consider NH3/H2O neutral loss peaks
+
+# Enzyme parameters - relaxed for microbial diversity
+search_enzyme_number = 1              # 1=trypsin, 0=non-specific
+num_enzyme_termini = 2                # 0,1,2 (semi-digested or fully digested peptides)
+allowed_missed_cleavage = 3           # Increased for microbes
+clip_nterm_methionine = 1
+
+# Mass range parameters
+digest_mass_range = 600.0 4500.0     # MH+ peptide mass range to analyze
+max_fragment_charge = 3               # set maximum fragment charge state to analyze
+max_precursor_charge = 6              # set maximum precursor charge state to analyze
+nucleotide_reading_frame = 0          # 0=proteinDB, 1-6, 7=forward three, 8=reverse three, 9=all six
+
+# Variable modifications - expanded for microbial proteins
+variable_mod01 = 15.9949 M 0 3 -1 0 0     # oxidation of methionine
+variable_mod02 = 42.0106 K 0 1 -1 0 0     # acetylation of lysine (common in microbes)
+variable_mod03 = 42.0106 * 0 1 -1 0 0     # acetylation of protein N-term
+variable_mod04 = 0.984016 N 0 1 -1 0 0    # deamidation of asparagine
+variable_mod05 = 0.984016 Q 0 1 -1 0 0    # deamidation of glutamine
+variable_mod06 = 0.0 * 0 0 -1 0 0         # placeholder
+variable_mod07 = 0.0 * 0 0 -1 0 0         # placeholder
+variable_mod08 = 0.0 * 0 0 -1 0 0         # placeholder
+variable_mod09 = 0.0 * 0 0 -1 0 0         # placeholder
+
+# Static modifications
+add_Cys_peptide = 57.021464           # added to C - carbamidomethyl cysteine
+add_Nterm_peptide = 0.0               # added to peptide N-terminus
+add_Nterm_protein = 0.0               # added to protein N-terminus
+add_Cterm_peptide = 0.0               # added to peptide C-terminus
+add_Cterm_protein = 0.0               # added to protein C-terminus
+
+# Spectral processing
+minimum_peaks = 10                    # minimum number of peaks in spectrum to search
+minimum_intensity = 0                 # minimum intensity value to read in
+remove_precursor_peak = 0             # 0=no, 1=yes, 2=all charge reduced precursor peaks
+remove_precursor_tolerance = 1.5      # +- Da tolerance for precursor removal
+clear_mz_range = 0.0 0.0             # for iTRAQ/TMT type data; will clear out all peaks in the specified m/z range
+
+# Scoring parameters
+peptide_mass_tolerance = 20.00        # Mass tolerance for peptide matches
+fragment_bin_tol = 1.0005             # Fragment ion bin tolerance
+xcorr_processing_offset = 0           # Offset value for XCorr processing
+
+# Output parameters
+output_sqtstream = 0                  # 0=no, 1=yes  write sqt to standard output
+output_sqtfile = 0                    # 0=no, 1=yes  write sqt file
+output_txtfile = 0                    # 0=no, 1=yes  write tab-delimited txt file
+output_pepxmlfile = 1                 # 0=no, 1=yes  write pep.xml file
+output_mzidentmlfile = 0              # 0=no, 1=yes  write mzIdentML file
+output_outdir = 
+output_suffix = 
+
+# Spectrum processing
+spectrum_batch_size = 0               # max. # of spectra to search at a time
+decoy_prefix = DECOY_                 # decoy entries are denoted by this string
+equal_I_and_L = 1                     # 0=treat I and L as different; 1=treat I and L as same
+max_duplicate_proteins = 20           # maximum number of duplicate protein sequences
+diff_search_options = 0.0 0.0 0.0 0.0 0.0 0.0
+
+# Fragment ion series
+use_sparse_matrix = 0
+
+# Additional parameters for microbiome analysis
+activation_method = ALL               # CID, ETD, HCD, or ALL
+ms_level = 2                          # MS level to analyze
+scan_range = 0 0                      # start and end scan range to analyze; 0 as 1st entry ignores parameter
+precursor_charge = 0 0                # precursor charge range to analyze; 0 as 1st entry ignores parameter
+override_charge = 0                   # 0=no, 1=yes to override existing charge state in ms2 file with precursor_charge parameter
+correct_mass = 0                      # 0=no, 1=yes use precursor neutral mass calculated from MS1 data
+
+# Database indexing for large combined databases
+batch_size = 5000                     # Number of spectra to process in each batch
+max_index_runtime = 0                 # Maximum time in minutes to spend on indexing; 0 = no limit
+
+[COMET_ENZYME_INFO]
+0.  No_enzyme              0      -           -
+1.  Trypsin                1      KR          P
+2.  Trypsin/P              1      KR          -
+3.  Lys_C                  1      K           P
+4.  Lys_N                  0      K           -
+5.  Arg_C                  1      R           P
+6.  Asp_N                  0      D           -
+7.  CNBr                   1      M           -
+8.  Glu_C                  1      DE          P
+9.  PepsinA                1      FL          P
+10. Chymotrypsin           1      FWYL        P
